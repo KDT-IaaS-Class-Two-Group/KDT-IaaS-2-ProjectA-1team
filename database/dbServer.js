@@ -1,50 +1,41 @@
-const http = require('http');
-const sqlite3 = require('sqlite3').verbose();
-const { parse } = require('querystring');
+// SQLite3 모듈을 불러옵니다.
+const sqlite3 = require("sqlite3").verbose();
 
-const PORT = 8000;
-const db = new sqlite3.Database('./test.db');
+// login.db 데이터베이스 파일을 엽니다. 파일이 없으면 새로 만듭니다.
+const db = new sqlite3.Database("./database/login.db");
 
-// 데이터베이스 초기화 및 테이블 생성
+// 데이터베이스 초기화
 db.serialize(() => {
-  db.run('CREATE TABLE IF NOT EXISTS user (name TEXT)');
+  // users 테이블을 만듭니다. 이미 존재하면 아무 작업도 하지 않습니다.
+  db.run(
+    "CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, password TEXT)"
+  );
+  // 예제 사용자 데이터를 삽입합니다. 중복된 id 값이 있으면 무시됩니다.
+  db.run(
+    "INSERT OR IGNORE INTO users (id, password) VALUES ('user1', 'password123')"
+  );
+  db.run(
+    "INSERT OR IGNORE INTO users (id, password) VALUES ('user2', 'password456')"
+  );
 });
 
-// 서버 생성
-const server = http.createServer((req, res) => {
-  if (req.method === 'POST' && req.url === '/save') {
-    let body = '';
-    req.on('data', (chunk) => {
-      body += chunk.toString();
-    });
-    req.on('end', () => {
-      const postData = JSON.parse(body);
-      const userName = postData.data;
+// 사용자의 아이디와 비밀번호를 확인하는 함수
+function checkUserCredentials(id, password, callback) {
+  // 데이터베이스에서 id와 password가 일치하는 사용자를 찾습니다.
+  db.get(
+    "SELECT * FROM users WHERE id = ? AND password = ?",
+    [id, password],
+    (err, row) => {
+      if (err) {
+        // 에러가 발생하면 콜백 함수에 에러를 전달합니다.
+        callback(err, null);
+        return;
+      }
+      // row가 있으면 true, 없으면 false를 반환합니다.
+      callback(null, !!row);
+    }
+  );
+}
 
-      // 데이터 삽입
-      db.serialize(() => {
-        const stmt = db.prepare('INSERT INTO user (name) VALUES (?)');
-        stmt.run(userName, (err) => {
-          if (err) {
-            console.error('Error inserting data:', err);
-            res.writeHead(500, { 'Content-Type': 'text/plain' });
-            res.end('Internal Server Error');
-            return;
-          }
-          console.log('Data inserted successfully');
-          res.writeHead(200, { 'Content-Type': 'text/plain' });
-          res.end('Data saved to database');
-        });
-        stmt.finalize();
-      });
-    });
-  } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not Found');
-  }
-});
-
-// 서버 실행
-server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
-});
+// checkUserCredentials 함수를 모듈로 내보냅니다.
+module.exports = { checkUserCredentials };
