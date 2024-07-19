@@ -1,41 +1,50 @@
-// SQLite3 모듈을 불러옵니다.
-const sqlite3 = require("sqlite3").verbose();
+// HTTP 모듈을 불러옵니다.
+const http = require("http");
+// dbServer 모듈을 불러옵니다.
+const dbServer = require("./testmodule");
 
-// login.db 데이터베이스 파일을 엽니다. 파일이 없으면 새로 만듭니다.
-const db = new sqlite3.Database("./database/login.db");
+// 서버를 생성합니다.
+const server = http.createServer((req, res) => {
+  // 요청이 POST 메서드이고, URL이 /login인 경우 처리합니다.
+  if (req.method === "POST" && req.url === "/login") {
+    let body = "";
 
-// 데이터베이스 초기화
-db.serialize(() => {
-  // users 테이블을 만듭니다. 이미 존재하면 아무 작업도 하지 않습니다.
-  db.run(
-    "CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, password TEXT)"
-  );
-  // 예제 사용자 데이터를 삽입합니다. 중복된 id 값이 있으면 무시됩니다.
-  db.run(
-    "INSERT OR IGNORE INTO users (id, password) VALUES ('user1', 'password123')"
-  );
-  db.run(
-    "INSERT OR IGNORE INTO users (id, password) VALUES ('user2', 'password456')"
-  );
+    // 요청 본문을 수신합니다.
+    req.on("data", (chunk) => {
+      body += chunk.toString();
+    });
+
+    // 요청 본문 수신이 완료되면 처리합니다.
+    req.on("end", () => {
+      // 요청 본문을 JSON으로 파싱합니다.
+      const { id, password } = JSON.parse(body);
+
+      // 아이디와 비밀번호를 확인합니다.
+      dbServer.checkUserCredentials(id, password, (err, isValid) => {
+        if (err) {
+          // 에러가 발생하면 500 상태 코드와 에러 메시지를 응답합니다.
+          res.writeHead(500, { "Content-Type": "application/json" });
+          res.end(
+            JSON.stringify({ success: false, message: "Internal Server Error" })
+          );
+          return;
+        }
+
+        // 200 상태 코드와 함께 인증 결과를 응답합니다.
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ success: isValid }));
+      });
+    });
+  } else {
+    // 다른 요청에 대해서는 404 상태 코드와 'Not Found' 메시지를 응답합니다.
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("Not Found");
+  }
 });
 
-// 사용자의 아이디와 비밀번호를 확인하는 함수
-function checkUserCredentials(id, password, callback) {
-  // 데이터베이스에서 id와 password가 일치하는 사용자를 찾습니다.
-  db.get(
-    "SELECT * FROM users WHERE id = ? AND password = ?",
-    [id, password],
-    (err, row) => {
-      if (err) {
-        // 에러가 발생하면 콜백 함수에 에러를 전달합니다.
-        callback(err, null);
-        return;
-      }
-      // row가 있으면 true, 없으면 false를 반환합니다.
-      callback(null, !!row);
-    }
-  );
-}
-
-// checkUserCredentials 함수를 모듈로 내보냅니다.
-module.exports = { checkUserCredentials };
+// 서버를 8080 포트에서 실행합니다.
+const PORT = 8080;
+server.listen(PORT, () => {
+  // 서버가 실행되면 콘솔에 메시지를 출력합니다.
+  console.log(`Server is running on port ${PORT}`);
+});
