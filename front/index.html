@@ -19,7 +19,7 @@
             if (responseText === 'show') {
               document.getElementById('message').style.visibility = 'visible';
             } else if (responseText === 'alert') {
-              alert('로그인에 성공하였습니다.');
+              alert('아이디 혹은 비밀번호가 틀렸습니다.');
             }
           })
           .catch((error) => {
