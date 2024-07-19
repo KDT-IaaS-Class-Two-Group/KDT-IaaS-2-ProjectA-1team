@@ -1,8 +1,28 @@
-나는 CJS방식을 사용할꺼야 즉, Node.js를 사용할꺼야.
+// http 모듈을 불러옵니다.
+const http = require('http');
 
-포트의 값은 3300번이야.
+// 서버 포트를 설정합니다.
+const PORT = 3300;
 
-http를 호출해서 서버를 할당할꺼야.
+// 서버를 생성합니다.
+const server = http.createServer((req, res) => {
+    // 요청 메소드가 GET이고, 요청 URL이 '/'인 경우
+    if (req.method === 'GET' && req.url === '/') {
+        console.log('serverConnect');
+        
+        // 300번 상태 코드를 설정합니다.
+        res.writeHead(300, { 'Content-Type': 'text/plain' });
+        
+        // 응답 본문을 설정합니다.
+        res.end();
+    } else {
+        // 다른 요청에 대해서는 404 상태 코드를 반환합니다.
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Not Found\n');
+    }
+});
 
-기본 Get요청인 '/'에 대한 응답으로는 serverConnect라는 콘솔만 찍어주면되.
-
+// 서버를 지정된 포트에서 시작합니다.
+server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
