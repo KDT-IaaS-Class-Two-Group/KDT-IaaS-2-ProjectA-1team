@@ -12,4 +12,8 @@ root?.appendChild(delBut);
 
 addBut.addEventListener('click', () => {
   root.style.color = 'blue'
-})
+});
+
+delBut.addEventListener('click', () => {
+  root.style.color = 'red'
+});
