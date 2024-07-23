@@ -25,7 +25,12 @@ const server = http.createServer((req, res) => {
         if (err) {
           // 에러가 발생하면 500 상태 코드와 에러 메시지를 응답합니다.
           res.writeHead(500, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ success: false, message: 'Internal Server Error' }));
+          res.end(
+            JSON.stringify({
+              success: false,
+              message: 'Internal Server Error',
+            }),
+          );
           return;
         }
 
