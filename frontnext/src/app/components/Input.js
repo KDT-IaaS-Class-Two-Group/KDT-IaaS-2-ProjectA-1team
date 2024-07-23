@@ -1,8 +1,8 @@
 const root = document.getElementById('root');
 
-const LoginInput = (type, id, name) => {
+const Input = (type, id, name) => {
   let content = `<input type="${type}" id="${id}" name="${name}">`;
   root.innerHTML = content;
 };
 
-export default LoginInput;
+export default Input;
