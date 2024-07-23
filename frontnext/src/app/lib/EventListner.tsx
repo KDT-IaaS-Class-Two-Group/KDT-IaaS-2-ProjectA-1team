@@ -10,6 +10,11 @@ delBut.textContent = "삭제"
 root?.appendChild(addBut);
 root?.appendChild(delBut);
 
+const tagMaker = (tagName) => {
+  return document.createElement(tagName);
+};
+console.log(tagMaker('div'));
+
 addBut.addEventListener('click', () => {
   root.style.color = 'blue'
 });
