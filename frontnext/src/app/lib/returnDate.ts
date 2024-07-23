@@ -1,20 +1,49 @@
-이 파일은 모듈입니다.
-이 파일의 기능은 날짜를 생성하는 것입니다.
-날짜는 UTC+9:00 서울기준시여야합니다.
-리턴으로 new Date로 생성한 값을 줄것입니다.
-숫자는 대략 xxxx-xx-xx의 형태를 띕니다. 
-년월일을 리턴하는 것과, 년월일시분초를 리턴하는 두개의 함수를 생성해야 합니다.
-그리고 그 두개의 함수 모두 모듈로서 내보낼 것입니다.
-타입스크립트이기 때문에 타입을 엄격히 지켜야합니다.
+// dateUtils.ts
 
-기능 리턴년월일() : 문자열 {
-  변수 날짜 = 새로운 날짜()
-  변수 리턴값 = "년도와 월과 일을 가지고 있는 문자열"
-  리턴 리턴값
+type DateComponents = {
+  year: number;
+  month: number;
+  day: number;
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
+};
+
+function getLocalDateComponents(): DateComponents {
+  const now = new Date();
+  const offset = 9 * 60; // UTC+9 시간대는 9시간 오프셋을 가지므로 분으로 변환
+  const localDate = new Date(now.getTime() + offset * 60 * 1000);
+
+  return {
+    year: localDate.getFullYear(),
+    month: localDate.getMonth() + 1, // 월은 0부터 시작하므로 1을 더함
+    day: localDate.getDate(),
+    hours: localDate.getHours(),
+    minutes: localDate.getMinutes(),
+    seconds: localDate.getSeconds(),
+  };
 }
 
-기능 리턴년월일시분초() : 문자열 {
-  변수 날짜 = 새로운 날짜()
-  변수 리턴값 = "년도,월,일,시,분,초를 가지고 있는 문자열"
-  리턴 리턴값
+export function getYearMonthDay(): string {
+  const { year, month, day } = getLocalDateComponents();
+
+  // 년, 월, 일 추출
+  const paddedMonth = month.toString().padStart(2, '0');
+  const paddedDay = day.toString().padStart(2, '0');
+
+  return `${year}-${paddedMonth}-${paddedDay}`;
+}
+
+export function getYearMonthDayTime(): string {
+  const { year, month, day, hours, minutes, seconds } =
+    getLocalDateComponents();
+
+  // 년, 월, 일, 시, 분, 초 추출
+  const paddedMonth = month.toString().padStart(2, '0');
+  const paddedDay = day.toString().padStart(2, '0');
+  const paddedHours = (hours ?? 0).toString().padStart(2, '0');
+  const paddedMinutes = (minutes ?? 0).toString().padStart(2, '0');
+  const paddedSeconds = (seconds ?? 0).toString().padStart(2, '0');
+
+  return `${year}-${paddedMonth}-${paddedDay} ${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
 }
