@@ -1,3 +1,9 @@
 import extractNumbers from './replaceInt';
 
-console.log(extractNumbers('125r125125sacfbf4e'));
+import { getYearMonthDay, getYearMonthDayTime } from './returnDate';
+
+const ymd = getYearMonthDay();
+const ymdt = getYearMonthDayTime();
+
+console.log(ymd);
+console.log(ymdt);
