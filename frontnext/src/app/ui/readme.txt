@@ -1,0 +1,1 @@
+component넣는 폴더
