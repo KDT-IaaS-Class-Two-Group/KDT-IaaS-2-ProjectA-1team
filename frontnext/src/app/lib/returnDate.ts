@@ -11,8 +11,7 @@ type DateComponents = {
 
 function getLocalDateComponents(): DateComponents {
   const now = new Date();
-  const offset = 9 * 60; // UTC+9 시간대는 9시간 오프셋을 가지므로 분으로 변환
-  const localDate = new Date(now.getTime() + offset * 60 * 1000);
+  const localDate = new Date(now.getTime());
 
   return {
     year: localDate.getFullYear(),
