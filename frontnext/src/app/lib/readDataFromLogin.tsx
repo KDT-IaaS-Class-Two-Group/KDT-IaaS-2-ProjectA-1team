@@ -20,12 +20,3 @@ export function readDataFromLogin(
     db.close(); // db.close() should be called inside the callback to ensure it is closed after the query completes.
   });
 }
-
-// Example usage of readDataFromLogin function
-readDataFromLogin(['id', 'password'], 'adminData', (err, row) => {
-  if (err) {
-    console.error('Error reading data from adminData table:', err);
-  } else {
-    console.log('Admin Data:', row);
-  }
-});
