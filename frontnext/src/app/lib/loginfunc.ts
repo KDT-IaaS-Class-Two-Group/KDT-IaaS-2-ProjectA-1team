@@ -16,3 +16,19 @@ export function checkCredentials(
     return false;
   }
 }
+
+// 사용 예시
+
+// export default function Home() {
+//   const inputId = 'id';
+//   const inputPassword = 'password';
+//   const dbId = 'adminData';
+//   let rufrhk = '';
+
+//   const isLoginSuccessful = checkCredentials([inputId, inputPassword], dbId);
+
+//   if (isLoginSuccessful) {
+//     rufrhk = '로그인 성공';
+//   } else {
+//     rufrhk = '로그인 실패';
+//   }

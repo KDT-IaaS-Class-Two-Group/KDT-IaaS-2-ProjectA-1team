@@ -1,19 +1,14 @@
 import Image from 'next/image';
 import { checkCredentials } from './lib/loginfunc';
+import { readDataFromLogin } from './lib/SelectDataFromLogin';
 
 export default function Home() {
-  const inputId = 'admin';
-  const inputPassword = '1234';
-  const dbId = 'admin';
-  const dbPassword = '1234';
+  const inputId = 'id';
+  const inputPassword = 'password';
+  const dbId = 'adminData';
   let rufrhk = '';
 
-  const isLoginSuccessful = checkCredentials(
-    inputId,
-    inputPassword,
-    dbId,
-    dbPassword,
-  );
+  const isLoginSuccessful = checkCredentials([inputId, inputPassword], dbId);
 
   if (isLoginSuccessful) {
     rufrhk = '로그인 성공';
