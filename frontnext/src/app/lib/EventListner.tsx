@@ -1,3 +1,7 @@
+import { attribute } from './attribute';
+import React from 'react'; //html + js -> reqct hook
+import ReactDOM from 'react';
+
 const root = document.getElementById('root') as HTMLElement;
 const addBut = document.createElement('button');
 
