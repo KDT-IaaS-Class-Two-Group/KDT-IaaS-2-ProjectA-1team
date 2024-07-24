@@ -4,7 +4,7 @@ const root = document.getElementById('root');
  */
 
 const createDiv = (textNode) => {
-  let Divs = `<div>${textNode}</div>`;
+  let Divs = `<div>"${textNode}"</div>`;
   root.innerHTML = Divs;
 };
 
