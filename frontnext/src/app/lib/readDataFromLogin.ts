@@ -1,10 +1,6 @@
 import { Database } from 'sqlite3';
 
-export function readDataFromLogin(
-  fields: string[],
-  tableName: string,
-  callback: (err: Error | null, row?: any) => void,
-) {
+export function readDataFromLogin(fields: string[], tableName: string) {
   const db = new Database('../../../../database/login.db');
 
   const fieldsString = fields.join(', ');
@@ -13,9 +9,9 @@ export function readDataFromLogin(
 
   db.get(query, (err, row) => {
     if (err) {
-      callback(err);
+      console.log(err);
     } else {
-      callback(null, row);
+      return row;
     }
     db.close(); // db.close() should be called inside the callback to ensure it is closed after the query completes.
   });
