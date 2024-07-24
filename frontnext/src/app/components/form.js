@@ -4,9 +4,9 @@ const root = document.getElementById('root');
  * @param {*} method 메서드 종류
  */
 
-const form = (action, method) => {
+const createForm = (action, method) => {
   let forms = `<form action="${action}" method="${method}"`;
   root.innerHTML = forms;
 };
 
-export default form;
+export default createForm;
