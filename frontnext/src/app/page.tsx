@@ -10,7 +10,7 @@ WhereID(inputId, (err, data) => {
   if (err) {
     console.error(err);
   } else {
-    rufrhk = data.result;
+    rufrhk = data;
     console.log(rufrhk);
   }
 });
