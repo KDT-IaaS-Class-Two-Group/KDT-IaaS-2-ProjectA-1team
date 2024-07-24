@@ -1,10 +1,44 @@
-나는 내보낼 기능을 하나 만들거야. 이 파일은 타입스크립트 파일이고, 애니형식을 사용하지 말고, 타입을 엄격하게 지정해야해.
+// 에러 객체의 타입 정의
+interface ErrorResponse {
+  errorCode: number;
+  errorMessage: string;
+}
 
-내보내기 기능 데이터요청() {
-  AJAX방식으로 데이터를 요청할거야.
-  GET방식을 사용할꺼고, localhost:8000/searchDate로 요청할꺼야.
-  비동기적으로 작동하면 좋겠어. fetch를 사용하도록해. 그리고 async과 await을 상세하게 적용해줘.
-  데이터를 받았다면, 그 데이터를 확인할 수 있도록 콘솔에 기록해줘.
-  정상적으로 데이터를 받았다면, 그 데이터를 반환해줘,
-  만약 에러가 발생했다면, 상황에 맞는 에러코드를 작성하고, 에러 메세지를 반환해줘.
+// 데이터 요청 함수
+export async function 데이터요청(): Promise<string | ErrorResponse> {
+  const url: string = 'http://localhost:8000/searchDate';
+
+  try {
+    // fetch를 사용하여 GET 요청 보내기
+    const response: Response = await fetch(url, {
+      method: 'GET',
+    });
+
+    // 응답 상태 확인
+    if (!response.ok) {
+      // 응답이 정상적이지 않은 경우 에러 생성
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // JSON 형식의 응답 데이터 가져오기 (문자열로)
+    const data: string = await response.text();
+
+    // 콘솔에 데이터 기록
+    console.log('Received data:', data);
+
+    // 데이터 반환 (JSON 문자열로)
+    return data;
+  } catch (error: any) {
+    // 에러 발생 시 에러 메시지와 코드 반환
+    const errorResponse: ErrorResponse = {
+      errorCode: error instanceof Error ? 500 : 400,
+      errorMessage: error instanceof Error ? error.message : 'Unknown error',
+    };
+
+    // 콘솔에 에러 기록
+    console.error('Error fetching data:', errorResponse);
+
+    // 에러 응답 반환
+    return errorResponse;
+  }
 }
