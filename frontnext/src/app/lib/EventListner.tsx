@@ -20,14 +20,19 @@ addBut.addEventListener('click', () => {
   const delBut = tagMaker('button');
   delBut.textContent = '삭제';
 
-  div.className = 'item' 
-
+  const elementCount = root.childElementCount;
+  
+  for (let i = 0; i < elementCount; i++) {
+    div.className = `item-${i+1}`
+  }
+  // console.log(elementCount);
+  
   div.appendChild(inputAdd);
   div.appendChild(delBut);
   root.appendChild(div);
   
-  delBut.addEventListener('click', () => {
-    const lastInput = root.lastElementChild as HTMLElement;
-    root.removeChild(lastInput);
-  });  
+  // delBut.addEventListener('click', () => {
+  //   const lastInput = root.lastElementChild as HTMLElement;
+  //   root.removeChild(lastInput);
+  // });
 });
