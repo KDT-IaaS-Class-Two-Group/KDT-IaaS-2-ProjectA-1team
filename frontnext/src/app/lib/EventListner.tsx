@@ -25,9 +25,9 @@ addBut.addEventListener('click', () => {
   div.appendChild(inputAdd);
   div.appendChild(delBut);
   root.appendChild(div);
+  
+  delBut.addEventListener('click', () => {
+    const lastInput = root.lastElementChild as HTMLElement;
+    root.removeChild(lastInput);
+  });  
 });
-
-// delBut.addEventListener('click', () => {
-//   const lastInput = root.lastElementChild as HTMLElement;
-//   root.removeChild(lastInput);
-// });
