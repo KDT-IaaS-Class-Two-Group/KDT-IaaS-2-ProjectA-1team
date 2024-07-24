@@ -1,9 +1,5 @@
 const root = document.getElementById('root') as HTMLElement;
-root.innerHTML = 'hello world';
-
 const addBut = document.createElement('button');
-// const delBut = document.createElement('button');
-// console.log(root);
 
 addBut.textContent = '추가';
 
@@ -15,29 +11,25 @@ const tagMaker = (tagName: string): Element => {
 
 addBut.addEventListener('click', () => {
   const div = tagMaker('div');
+  const label = tagMaker('label');
   const inputAdd = tagMaker('input');
-  const delBut = tagMaker('button');
-  delBut.textContent = '삭제';
+  const inputDel = tagMaker('button');
+  inputDel.textContent = '삭제';
 
   const divCount = root.childElementCount;
 
-  for (let i = 0; i < divCount; i++) {
-    div.id = `item-${i + 1}`;
-    delBut.id = `item-${i + 1}`;
-  }
+  div.id = `item-${divCount + 1}`;
+  inputDel.id = `item-${divCount + 1}`;
+  label.innerHTML = `항목 ${divCount + 1}`;
 
-  if (delBut.id === div.id) {
-    delBut.addEventListener('click', () => {
+  if (inputDel.id === div.id) {
+    inputDel.addEventListener('click', () => {
       div.remove();
     });
   }
 
+  div.appendChild(label);
   div.appendChild(inputAdd);
-  div.appendChild(delBut);
+  div.appendChild(inputDel);
   root.appendChild(div);
-
-  // delBut.addEventListener('click', () => {
-  //   const lastInput = root.lastElementChild as HTMLElement;
-  //   root.removeChild(lastInput);
-  // });
 });
