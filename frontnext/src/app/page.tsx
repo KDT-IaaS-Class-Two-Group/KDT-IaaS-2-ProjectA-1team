@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { checkCredentials } from './lib/loginfunc';
-import { readDataFromLogin } from './lib/SelectDataFromLogin';
+import { readDataFromLogin } from './lib/SelectData';
 
 export default function Home() {
   const inputId = 'id';
