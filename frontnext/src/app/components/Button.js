@@ -5,9 +5,9 @@ const Butt = document.createElement('button');
  * @param {*} buttonText 버튼 이름
  * @returns
  */
-const button = (buttonText) => {
+const createButton = (buttonText) => {
   Butt.innerText = `${buttonText}`;
   return Butt;
 };
 
-export default button;
+export default createButton;
