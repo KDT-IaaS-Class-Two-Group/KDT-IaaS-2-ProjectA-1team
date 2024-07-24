@@ -18,9 +18,9 @@ addBut.addEventListener('click', () => {
 
   const divCount = root.childElementCount;
 
-  div.id = `item-${divCount + 1}`;
-  inputDel.id = `item-${divCount + 1}`;
-  label.innerHTML = `항목 ${divCount + 1}`;
+  div.id = `item-${divCount}`;
+  inputDel.id = `item-${divCount}`;
+  label.innerHTML = `항목 ${divCount}`;
 
   if (inputDel.id === div.id) {
     inputDel.addEventListener('click', () => {
