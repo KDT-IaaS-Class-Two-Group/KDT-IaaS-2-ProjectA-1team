@@ -1,7 +1,6 @@
 import React from 'react';
 
 /**
- * 지정된 입력 요소를 생성하고 부모 요소 안에 삽입하는 함수
  *
  * @param parent 부모 요소의 ID
  * @param type 입력 요소의 타입
