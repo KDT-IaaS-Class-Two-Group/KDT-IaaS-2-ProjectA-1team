@@ -1,6 +1,6 @@
 /**
  *
- * @param {*} tagNames
+ * @param {*} tagNames TagName 입력
  * @returns
  */
 
