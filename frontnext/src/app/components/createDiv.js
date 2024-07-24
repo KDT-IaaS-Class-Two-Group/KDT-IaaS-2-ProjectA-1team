@@ -1,7 +1,6 @@
 const root = document.getElementById('root');
 /**
- * @param {*} action form action
- * @param {*} method 메서드 종류
+ * @param {*} textNode div안에 내용
  */
 
 const createDiv = (textNode) => {
