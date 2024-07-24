@@ -1,12 +1,12 @@
 // 에러 객체의 타입 정의
-interface ErrorResponse {
+export interface ErrorResponse {
   errorCode: number;
   errorMessage: string;
 }
 
 // 데이터 요청 함수
-export async function 데이터요청(): Promise<string | ErrorResponse> {
-  const url: string = 'http://localhost:8000/searchDate';
+export async function searchData(): Promise<string | ErrorResponse> {
+  const url: string = 'http://localhost:8000/searchData';
 
   try {
     // fetch를 사용하여 GET 요청 보내기
