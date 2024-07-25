@@ -7,9 +7,7 @@ export const Form = () => {
   return (
     <div>
       <AddBut />
-      <form action="/createTable" method="post">
-        <AddInput />
-      </form>
+      <form action="/createTable" method="post"></form>
     </div>
   );
 };
