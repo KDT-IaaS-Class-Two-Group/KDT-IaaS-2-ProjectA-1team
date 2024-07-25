@@ -25,6 +25,7 @@ export async function searchData(): Promise<string | ErrorResponse> {
 
     // 콘솔에 데이터 기록
     console.log('Received data:', data);
+    console.log(typeof data);
 
     // 데이터 반환 (JSON 문자열로)
     return data;
