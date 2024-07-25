@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { searchData, ErrorResponse } from '../lib/AJAXTest';
 
 const DataComponent = () => {
-  const [data, setData] = useState<{ [key: string]: any } | null>(null);
+  const [data, setData] = useState<{ [key: string]: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = async () => {
