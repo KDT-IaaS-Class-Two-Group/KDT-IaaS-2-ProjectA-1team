@@ -12,5 +12,5 @@ def create_database(db_name):
             conn.close()
 
 # 예시 사용법
-db_name = 'example.db'
+db_name = 'test.db'
 create_database(db_name)

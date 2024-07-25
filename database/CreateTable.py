@@ -19,9 +19,9 @@ def create_table(conn, table_name, columns):
         print(f"SQLite 오류: {e}")
 
 # 예시 사용법
-db_name = 'example.db'
-table_name = 'my_table'
-columns = ['key1', 'key2', 'key3', 'key4']
+db_name = 'test.db'
+table_name = 'testtable'
+columns = ['감자', '고구마', '초콜릿', '스튜']
 
 # 데이터베이스 연결
 conn = sqlite3.connect(db_name)
