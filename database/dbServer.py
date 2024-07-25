@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
@@ -24,9 +24,29 @@ class User(BaseModel):
 def read_data():
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
-    cursor.execute("SELECT id, password FROM users")
+    cursor.execute("SELECT id, password FROM adminData")  # 테이블 이름 수정
     rows = cursor.fetchall()
     conn.close()
 
     users = [User(id=row[0], password=row[1]) for row in rows]
     return users
+
+class VerifyRequest(BaseModel):
+    id: str
+    password: str
+
+@app.post("/searchData/verify")
+def verify_user(request: VerifyRequest):
+    conn = sqlite3.connect(DATABASE)
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT id FROM adminData WHERE id = ? AND password = ?",  # 테이블 이름 수정
+        (request.id, request.password)
+    )
+    row = cursor.fetchone()
+    conn.close()
+
+    if row:
+        return True
+    else:
+        return False
