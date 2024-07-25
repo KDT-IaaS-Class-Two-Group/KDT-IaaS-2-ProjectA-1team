@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Tabs from '../app/lib/tabs';
-import FormComponent from './ui/FormComponentTestFirst';
+import RenderLoginFormSection from './ui/RenderLoginFormSection';
 export default function Home() {
-  return <FormComponent />;
+  return <RenderLoginFormSection />;
 }
