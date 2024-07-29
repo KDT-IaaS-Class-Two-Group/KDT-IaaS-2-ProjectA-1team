@@ -10,7 +10,8 @@ import {
 } from './testComponent/labelsContent';
 import { fetchData } from '../lib/fetchDataTest';
 
-import { AddBut } from '../lib/client/addButton';
+import { AddBut } from '../lib/client/addSets';
+import { CreateTableForm } from '../lib/client/form';
 
 const RenderLoginFormSection: React.FC = () => {
   const [id, setId] = useState('');
@@ -33,8 +34,8 @@ const RenderLoginFormSection: React.FC = () => {
 
   return (
     <div id="root">
-      <AddBut />
-      <div className={styles.container}>
+      <CreateTableForm />
+      {/* <div className={styles.container}>
         {message === null ? (
           <Form
             id={id}
@@ -46,7 +47,7 @@ const RenderLoginFormSection: React.FC = () => {
         ) : (
           <Message message={message} isSuccess={isSuccess} />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
