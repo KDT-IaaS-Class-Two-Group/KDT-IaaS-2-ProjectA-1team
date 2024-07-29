@@ -1,12 +1,13 @@
 import React from 'react';
-import { AddInput } from './addInput';
-import { AddBut } from './addBut';
+import { AddSets } from './addSets';
 
-export const Form = () => {
+export const CreateTableForm = () => {
   return (
     <div>
-      <AddBut />
-      <form action="/createTable" method="post"></form>
+      <AddSets />
+      <form action="/createTable" method="post">
+        <button type="submit">생성</button>
+      </form>
     </div>
   );
 };
