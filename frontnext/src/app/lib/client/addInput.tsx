@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import TagMaker from '@/app/ui/components/TagMaker';
+/**
+ * * input setting
+ */
+export const InputSet = () => {
+  const [count, setCount] = useState(0);
 
-interface AddInputProps {
-  id: string;
-}
+  const id = count + 1;
 
-export const AddInput: React.FC<AddInputProps> = ({ id }) => {
-  return <input type="text" id={id} placeholder="내용을 입력하세요." />;
+  const input = TagMaker('input');
+  input.setAttribute('type', 'text');
+  input.setAttribute('id', `item-${id}`);
+  input.setAttribute('placeholder', '내용을 입려하세요.');
+  console.log(input);
 };
