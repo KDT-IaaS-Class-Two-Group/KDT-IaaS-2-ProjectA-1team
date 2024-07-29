@@ -17,7 +17,6 @@ export const AddBut = () => {
   return (
     <div>
       <button onClick={handleClick}>항목 추가</button>
-      <button type="submit">생성하기</button>
       <div ref={containerRef}></div>
     </div>
   );
