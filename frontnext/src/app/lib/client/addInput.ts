@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TagMaker from '@/app/ui/components/TagMaker';
+import { AttrId } from './attributeId';
 /**
- * * input setting
+ * * input 태그 생성 및 세팅
  */
 export const InputSet = () => {
-  const [count, setCount] = useState(0);
-
-  const id = count + 1;
-
   const input = TagMaker('input');
   input.setAttribute('type', 'text');
-  input.setAttribute('id', `item-${id}`);
+  input.setAttribute('id', `item-${AttrId}`);
   input.setAttribute('placeholder', '내용을 입려하세요.');
   console.log(input);
 };
