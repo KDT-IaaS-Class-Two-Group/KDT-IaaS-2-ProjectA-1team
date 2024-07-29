@@ -1,116 +1,42 @@
-/**
- *
- * @param url string - 데이터를 전송할 최종 URL
- * @param data T - 전송할 데이터 객체 (제네릭 타입 사용)
- * @param intermediateUrls string[] - 중간 서버를 거쳐 갈 경우 중간 서버들의 URL 목록
- * @returns
- */
-async function sendData<T>(
+type UseDataType = object | string;
+type ApiResponseType = boolean | string | object;
+
+export const callApi = async (
   url: string,
-  data: T,
-  intermediateUrls?: string[],
-): Promise<T> {
+  method: string,
+  usedata: UseDataType,
+): Promise<ApiResponseType> => {
   try {
-    // 만약 중간 서버들이 있으면
-    if (intermediateUrls && intermediateUrls.length > 0) {
-      // 처음엔 보내려는 데이터를 그대로 사용
-      let intermediateData = data;
-
-      // 모든 중간 서버들을 순서대로 거쳐가며 데이터 전송
-      for (const intermediateUrl of intermediateUrls) {
-        // 중간 서버로 데이터를 보내기 위해 fetch 함수 사용
-        const response = await fetch(intermediateUrl, {
-          method: 'POST', // 데이터를 보낼 때는 POST 방식 사용
-          headers: {
-            'Content-Type': 'application/json', // 데이터가 JSON 형식임을 서버에 알려줌
-          },
-          body: JSON.stringify(intermediateData), // 데이터를 JSON 문자열로 변환해서 보냄
-        });
-
-        // 서버 응답이 성공적인지 확인
-        if (!response.ok) {
-          throw new Error(`Intermediate server error: ${response.statusText}`);
-        }
-
-        // 중간 서버에서 받은 응답 데이터를 다음 서버로 보낼 데이터로 업데이트
-        intermediateData = await response.json();
-      }
-
-      // 마지막 최종 서버로 데이터 전송
-      const finalResponse = await fetch(url, {
-        method: 'POST', // 데이터를 보낼 때는 POST 방식 사용
-        headers: {
-          'Content-Type': 'application/json', // 데이터가 JSON 형식임을 서버에 알려줌
-        },
-        body: JSON.stringify(intermediateData), // 최종 데이터를 JSON 문자열로 변환해서 보냄
-      });
-
-      // 최종 서버 응답이 성공적인지 확인
-      if (!finalResponse.ok) {
-        throw new Error(`Final server error: ${finalResponse.statusText}`);
-      }
-
-      // 최종 서버에서 받은 데이터를 반환
-      return await finalResponse.json();
-    } else {
-      // 중간 서버가 없으면 바로 최종 서버로 데이터 전송
-      const response = await fetch(url, {
-        method: 'POST', // 데이터를 보낼 때는 POST 방식 사용
-        headers: {
-          'Content-Type': 'application/json', // 데이터가 JSON 형식임을 서버에 알려줌
-        },
-        body: JSON.stringify(data), // 데이터를 JSON 문자열로 변환해서 보냄
-      });
-
-      // 서버 응답이 성공적인지 확인
-      if (!response.ok) {
-        throw new Error(`Final server error: ${response.statusText}`);
-      }
-
-      // 최종 서버에서 받은 데이터를 반환
-      return await response.json();
-    }
+    const response = await fetch(`http://localhost:${url}`, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(usedata), // data 객체를 JSON 문자열로 변환하여 요청 본문에 포함시킴
+    });
+    const result: ApiResponseType = await response.json();
+    return result; // 응답 데이터를 반환
   } catch (error) {
-    // 에러 발생 시 콘솔에 에러 메시지 출력
-    console.error('데이터 전송 중 에러 발생:', error);
-    throw error;
+    console.error('Error:', error);
+    throw error; // 오류 발생 시 예외를 던져서 호출하는 곳에서 처리할 수 있게 함
   }
-}
+};
 
-// 함수를 외부에서 사용할 수 있도록 export
-export default sendData;
+// 사용 예시 login post 요청을 받아서 data를 8000/gomain으로 보내는 것
 
-// 예제 사용 방법
+// app.post("/login", async (req, res) => {
+//   const id = req.body.id;
+//   const password = req.body.password;
 
-// 중간 서버가 있는 경우
-// const intermediateUrls = [
-//   "http://localhost:3000/api/step1"
-// ];
+//   const data = { putid: id, putpas: password };
+//   console.log(data);
 
-// 중간 서버가 없는 경우
-// const noIntermediateUrls: string[] = [];
-
-// const finalUrl = "http://localhost:3001/final";
-
-// const data = {
-//   id: "user123",
-//   password: "securepassword"
-// };
-
-// 데이터를 중간 서버를 거쳐 전송하는 예제
-// sendData(finalUrl, data, intermediateUrls)
-//   .then(response => {
-//       console.log('최종 응답:', response);
-//   })
-//   .catch(error => {
-//       console.error('에러 발생:', error);
-//   });
-
-// 데이터를 중간 서버 없이 바로 전송하는 예제
-// sendData(finalUrl, data, noIntermediateUrls)
-//   .then(response => {
-//       console.log('최종 응답:', response);
-//   })
-//   .catch(error => {
-//       console.error('에러 발생:', error);
-//   });
+//   try {
+//     const result = await callApi("8000/gomain", "POST", data);
+//     console.log("Response from gomain:", result);
+//     res.send("로그인 시도됨");
+//   } catch (error) {
+//     console.error("Error:", error);
+//     res.status(500).send("서버 오류");
+//   }
+// });
