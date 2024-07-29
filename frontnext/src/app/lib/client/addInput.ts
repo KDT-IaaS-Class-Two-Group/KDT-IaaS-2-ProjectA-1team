@@ -1,5 +1,4 @@
 import TagMaker from '@/app/ui/components/TagMaker';
-import { AttrId } from './attributeId';
 /**
  * * input 태그 생성 및 세팅
  */
