@@ -10,6 +10,8 @@ import {
 } from './testComponent/labelsContent';
 import { fetchData } from '../lib/fetchDataTest';
 
+import { CreateTableForm } from '../lib/form';
+
 const RenderLoginFormSection: React.FC = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
@@ -30,18 +32,21 @@ const RenderLoginFormSection: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      {message === null ? (
-        <Form
-          id={id}
-          password={password}
-          setId={setId}
-          setPassword={setPassword}
-          handleSubmit={handleSubmit}
-        />
-      ) : (
-        <Message message={message} isSuccess={isSuccess} />
-      )}
+    <div id="root">
+      <CreateTableForm />
+      <div className={styles.container}>
+        {message === null ? (
+          <Form
+            id={id}
+            password={password}
+            setId={setId}
+            setPassword={setPassword}
+            handleSubmit={handleSubmit}
+          />
+        ) : (
+          <Message message={message} isSuccess={isSuccess} />
+        )}
+      </div>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import { join } from 'path';
  * @param attrContent 어트리뷰트의 이름
  * @returns 어튜리뷰트를 설정하는 명령어
  */
-export const attribute = (
+export const Attribute = (
   tag: Element,
   attrType: string,
   attrContent: string,
