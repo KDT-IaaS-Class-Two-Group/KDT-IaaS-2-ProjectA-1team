@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { handleDelete, updateLabels } from './utils';
 import { createSet } from './createSet';
 
-export const AddBut = () => {
+export const AddSets = () => {
   const [count, setCount] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
