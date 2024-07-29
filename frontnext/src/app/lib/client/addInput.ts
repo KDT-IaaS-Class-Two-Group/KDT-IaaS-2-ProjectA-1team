@@ -3,10 +3,10 @@ import { AttrId } from './attributeId';
 /**
  * * input 태그 생성 및 세팅
  */
-export const InputSet = () => {
+export const InputSet = (id: Function) => {
   const input = TagMaker('input');
   input.setAttribute('type', 'text');
-  input.setAttribute('id', `item-${AttrId}`);
+  input.setAttribute('id', `item-${id}`);
   input.setAttribute('placeholder', '내용을 입려하세요.');
   console.log(input);
 };
