@@ -7,6 +7,6 @@ export const InputSet = (id: number) => {
   input.setAttribute('type', 'text');
   input.setAttribute('id', `item-${id}`);
   input.setAttribute('placeholder', '내용을 입려하세요.');
-  console.log(input);
+  // console.log(input);
   return input;
 };
