@@ -1,4 +1,3 @@
-import React from 'react';
 import TagMaker from '@/app/ui/components/TagMaker';
 import { AttrId } from './attributeId';
 /**
