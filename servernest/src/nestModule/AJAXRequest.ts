@@ -1,4 +1,7 @@
 // fetchUndefine.ts
+export interface ApiResponse {
+  success: boolean;
+}
 
 export interface FetchUndefineOptions {
   method: string;
@@ -10,7 +13,7 @@ export async function fetchUndefine({
   method,
   url,
   data,
-}: FetchUndefineOptions): Promise<any> {
+}: FetchUndefineOptions): Promise<ApiResponse> {
   try {
     // 요청 옵션 구성
     const options: RequestInit = {
