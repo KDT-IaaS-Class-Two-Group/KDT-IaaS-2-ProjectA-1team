@@ -10,7 +10,8 @@ import {
 } from './testComponent/labelsContent';
 import { fetchData } from '../lib/fetchDataTest';
 
-import { CreateTableForm } from '../lib/form';
+// * 정호연이 작업한 모듈
+import TableModal from './modal/components/tableModal';
 
 const RenderLoginFormSection: React.FC = () => {
   const [id, setId] = useState('');
@@ -33,7 +34,7 @@ const RenderLoginFormSection: React.FC = () => {
 
   return (
     <div id="root">
-      <CreateTableForm />
+      <TableModal />
       <div className={styles.container}>
         {message === null ? (
           <Form
