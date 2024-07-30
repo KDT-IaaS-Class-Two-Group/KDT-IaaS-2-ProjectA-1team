@@ -11,7 +11,7 @@ import { fetchUndefine } from '../nestModule/AJAXRequest'; // 경로는 실제 �
 @Controller('searchData')
 export class SearchDataController {
   @Get()
-  async findAll() {
+  async getTest() {
     const externalApiUrl = 'http://localhost:8080/searchData';
 
     try {
