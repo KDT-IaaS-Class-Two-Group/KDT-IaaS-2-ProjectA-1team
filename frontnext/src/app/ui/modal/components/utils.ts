@@ -24,11 +24,9 @@ export const updateLabels = (
   }
   const remainingSets = containerRef.current.querySelectorAll('div');
   remainingSets.forEach((set, index) => {
-    const label = set.querySelector('span');
     const input = set.querySelector('input');
     const button = set.querySelector('button');
     const newId = index + 1;
-    if (label) label.textContent = `항목 ${newId}`;
     if (input) input.id = `item-${newId}`;
     if (button) {
       button.onclick = () => handleDelete(newId, containerRef, setCount);

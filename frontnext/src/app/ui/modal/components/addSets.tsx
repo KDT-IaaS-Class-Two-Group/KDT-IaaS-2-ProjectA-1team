@@ -16,8 +16,19 @@ export const AddSets = () => {
 
   return (
     <div>
-      <button onClick={handleClick}>항목 추가</button>
       <div ref={containerRef}></div>
+      <div className="space-x-10">
+        <button
+          type="button"
+          onClick={handleClick}
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+        >
+          추가
+        </button>
+        <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+          생성
+        </button>
+      </div>
     </div>
   );
 };
