@@ -1,27 +1,34 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
+import axios from 'axios';
 
 // 검색 컴포넌트
 const Search: React.FC = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<string[]>([]);
-
-  const data = ['사과', '바나나', '참외', '수박', '복숭아', '딸기'];
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setQuery(value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (query) {
-      const filteredResults = data.filter((item) =>
-        item.toLowerCase().includes(query.toLowerCase()),
-      );
-      setResults(filteredResults);
-    } else {
-      setResults([]);
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await axios.get('http://localhost:3001/search', {
+        params: { query },
+      });
+      setResults(response.data.results);
+    } catch (err) {
+      console.error('There was an error fetching the results!', err);
+      setError('검색하신 내용이 없습니다.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -34,8 +41,11 @@ const Search: React.FC = () => {
           onChange={handleSearch}
           placeholder="Search..."
         />
-        <button type="submit">Search</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Searching...' : 'Search'}
+        </button>
       </form>
+      {error && <p>Error: {error}</p>}
       <ul>
         {results.map((result, index) => (
           <li key={index}>{result}</li>
