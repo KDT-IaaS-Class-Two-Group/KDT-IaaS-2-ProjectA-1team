@@ -1,29 +1,31 @@
-// pages/index.js
+// pages/index.tsx
 import React, { useState } from 'react';
 import Modal from '../modal';
 import { AddSets } from './addSets';
+import { CreateTableForm } from './form';
 
-const Home = () => {
+const HomePage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleOpenModal = () => {
-    setShowModal(true);
+  const toggleModal = () => {
+    setShowModal(!showModal);
   };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const addSets = AddSets();
 
   return (
-    <div>
-      <button onClick={handleOpenModal}>테이블 생성</button>
-      <Modal show={showModal} onClose={handleCloseModal}>
-        {addSets}
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <button
+        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+        onClick={toggleModal}
+      >
+        테이블 생성
+      </button>
+      <Modal show={showModal} onClose={toggleModal}>
+        <div className="text-center">
+          <CreateTableForm />
+        </div>
       </Modal>
     </div>
   );
 };
 
-export default Home;
+export default HomePage;
