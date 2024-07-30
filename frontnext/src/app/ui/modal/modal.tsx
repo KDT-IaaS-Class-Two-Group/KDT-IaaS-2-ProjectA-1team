@@ -1,38 +1,34 @@
+// components/Modal.tsx
 import React from 'react';
 
-const Modal = ({ show, onClose, children }) => {
+interface ModalProps {
+  show: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
+
+export const styles = {
+  modalOverlay:
+    'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50',
+  modalContent: 'bg-white p-6 rounded-lg relative max-w-lg w-full mx-4',
+  closeButton: 'absolute top-2 right-2 text-gray-500 hover:text-gray-700',
+};
+
+const Modal: React.FC<ModalProps> = ({ show, onClose, children }) => {
   if (!show) {
     return null;
   }
 
   return (
-    <div style={overlayStyles}>
-      <div style={modalStyles}>
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContent}>
+        <button className={styles.closeButton} onClick={onClose}>
+          ✕
+        </button>
         {children}
-        <button onClick={onClose}>Close</button>
       </div>
     </div>
   );
-};
-// * css 변경 가능
-const overlayStyles: React.CSSProperties = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
-const modalStyles: React.CSSProperties = {
-  backgroundColor: '#fff',
-  padding: '20px',
-  borderRadius: '5px',
-  width: '300px',
-  textAlign: 'center',
 };
 
 export default Modal;
