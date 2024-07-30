@@ -1,7 +1,6 @@
 // pages/index.tsx
 import React, { useState } from 'react';
 import Modal from '../modal';
-import { AddSets } from './addSets';
 import { CreateTableForm } from './form';
 
 const HomePage: React.FC = () => {
