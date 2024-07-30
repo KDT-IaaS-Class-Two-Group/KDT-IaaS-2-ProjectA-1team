@@ -1,9 +1,9 @@
 // pages/index.tsx
 import React, { useState } from 'react';
-import Modal from '../modal';
+import Modal from '../modalComponent';
 import { CreateTableForm } from './form';
 
-const HomePage: React.FC = () => {
+const TableModal: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => {
@@ -27,4 +27,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default TableModal;
