@@ -12,6 +12,7 @@ import { fetchData } from '../lib/fetchDataTest';
 
 // * 정호연이 작업한 모듈
 import TableModal from './modal/components/tableModal';
+import { TabToggle } from './toggle/tabToggle';
 
 const RenderLoginFormSection: React.FC = () => {
   const [id, setId] = useState('');
@@ -34,7 +35,7 @@ const RenderLoginFormSection: React.FC = () => {
 
   return (
     <div id="root">
-      <TableModal />
+      <TabToggle />
       <div className={styles.container}>
         {message === null ? (
           <Form
@@ -48,6 +49,7 @@ const RenderLoginFormSection: React.FC = () => {
           <Message message={message} isSuccess={isSuccess} />
         )}
       </div>
+      <TableModal />
     </div>
   );
 };
