@@ -1,0 +1,17 @@
+.header {
+  @apply flex justify-between items-center p-4 bg-gray-100;
+}
+
+.header__left,
+.header__center,
+.header__right {
+  @apply flex items-center;
+}
+
+.header__center {
+  @apply flex-grow;
+}
+
+.header__right {
+  @apply ml-auto;
+}
