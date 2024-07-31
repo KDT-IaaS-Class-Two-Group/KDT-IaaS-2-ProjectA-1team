@@ -8,20 +8,20 @@ def create_table(db_name):
         
         # 테이블 생성
         cursor.execute('''
-        CREATE TABLE IF NOT EXISTS 유저 (
+        CREATE TABLE IF NOT EXISTS 샌드위치 (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             age INTEGER NOT NULL
         )
         ''')
-        print("테이블 '유저'가 성공적으로 생성되었습니다.")
+        print("테이블 '하리보'가 성공적으로 생성되었습니다.")
         
         # 데이터 삽입
         cursor.execute('''
-        INSERT INTO 유저 (name, age)
-        VALUES ('John Doe', 30),
-               ('Jane Doe', 25),
-               ('Alice', 28)
+        INSERT INTO 샌드위치 (name, age)
+        VALUES ('이연승', 30),
+               ('정호연', 27),
+               ('겨울이', 4)
         ''')
         print("데이터가 성공적으로 삽입되었습니다.")
         
