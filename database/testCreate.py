@@ -5,7 +5,7 @@ cursor = conn.cursor()  # 커서 생성
 
 try:
     # 데이터 삽입
-    cursor.execute("INSERT INTO `users-input` (테이블명, 날짜) VALUES (?, ?)", ("HRIM1", "2024-07-31"))
+    cursor.execute("INSERT INTO `usersInput` (테이블명, 날짜) VALUES (?, ?)", ("HRIM1", "2024-07-31"))
     cursor.execute("INSERT INTO `users-input` (테이블명, 날짜) VALUES (?, ?)", ("HRIM2", "2024-07-31"))
     cursor.execute("INSERT INTO `users-input` (테이블명, 날짜) VALUES (?, ?)", ("HRIM3", "2024-07-31"))
     
