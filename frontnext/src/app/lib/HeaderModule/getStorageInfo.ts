@@ -1,7 +1,6 @@
-이 기능은 export로 내보내질 기능이다.
-import하여 사용할 것이다.
+type UserID = string | null;
 
-내보낸다 기능 스토리지의 정보를 가져온다 () : 타입은 해당 타입 {
-  로컬 스토리지에 저장되어있는 id정보를 받아와서 반환한다.
-  리턴된 id정보는 textContent로 사용될 것이다.
-} 
+export function getStoredUserId(): UserID {
+  const userId = localStorage.getItem('userId');
+  return userId;
+}
