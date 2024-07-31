@@ -1,16 +1,24 @@
-import React from "react";
+import React from 'react';
+import navigateRoute from '@/app/lib/HeaderModule/navigateRoute';
 
 interface ButtonProps {
-    textNode : string;
-    onclickFunc? : () => void;
-    className? : string;
+  textNode: string;
+  route: string;
+  className?: string;
 }
 
-const ButtonClick : React.FC<ButtonProps> = ({textNode, onclickFunc, className}) => {
-    return (
-        <button onClick={onclickFunc} className={className}>{textNode}</button>
-    )
-}
+const ButtonClick: React.FC<ButtonProps> = ({ textNode, route, className }) => {
+  const navigate = navigateRoute();
+  return (
+    <button
+      onClick={() => {
+        navigate(route);
+      }}
+      className={className}
+    >
+      {textNode}
+    </button>
+  );
+};
 
-
-export default ButtonClick
+export default ButtonClick;
