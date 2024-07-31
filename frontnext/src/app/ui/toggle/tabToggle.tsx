@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Toggle } from './toggleComponent';
 
-export const TabToggle = (children: React.ReactNode) => {
+export const TabToggle: React.FC = ({ children }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   const toggleVisibility = () => {
