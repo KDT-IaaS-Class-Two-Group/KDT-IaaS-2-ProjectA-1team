@@ -8,17 +8,17 @@ def create_table(db_name):
         
         # 테이블 생성
         cursor.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            제품 번호 INTEGER PRIMARY KEY AUTOINCREMENT,
-             TEXT NOT NULL,
+        CREATE TABLE IF NOT EXISTS 유저 (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
             age INTEGER NOT NULL
         )
         ''')
-        print("테이블 'users'가 성공적으로 생성되었습니다.")
+        print("테이블 '유저'가 성공적으로 생성되었습니다.")
         
         # 데이터 삽입
         cursor.execute('''
-        INSERT INTO users (이름, age)
+        INSERT INTO 유저 (name, age)
         VALUES ('John Doe', 30),
                ('Jane Doe', 25),
                ('Alice', 28)
@@ -34,5 +34,5 @@ def create_table(db_name):
             conn.close()
 
 # 예시 사용법
-db_name = 'user-1.db'
+db_name = '테스트.db'
 create_table(db_name)
