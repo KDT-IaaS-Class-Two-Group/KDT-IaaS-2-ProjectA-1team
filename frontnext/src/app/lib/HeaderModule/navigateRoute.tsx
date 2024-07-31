@@ -1,14 +1,21 @@
-// @/src/app/lib/header/useRoute.ts
+'use client';
+
 import { useRouter } from 'next/router';
 
 type NavigateFunction = (route: string) => void;
 
-export const useRoute = (): NavigateFunction => {
+const navigateRoute = (): NavigateFunction => {
   const router = useRouter();
 
   const navigate = (route: string) => {
-    router.push(route);
+    if (router) {
+      router.push(route);
+    } else {
+      console.error('Router is not initialized yet.');
+    }
   };
 
   return navigate;
 };
+
+export default navigateRoute;
