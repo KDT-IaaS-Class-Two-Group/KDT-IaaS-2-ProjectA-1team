@@ -1,4 +1,4 @@
-import { attribute } from './attribute';
+import { Attribute } from './attribute';
 import React from 'react'; //html + js -> reqct hook
 import ReactDOM from 'react';
 
