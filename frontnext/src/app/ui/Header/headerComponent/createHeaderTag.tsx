@@ -5,8 +5,8 @@ interface HeaderPros {
   className?: string;
 }
 
-const HeaderSection: React.FC<HeaderPros> = ({ children, className }) => {
+const HeaderTags: React.FC<HeaderPros> = ({ children, className }) => {
   return <header className={className}>{children}</header>;
 };
 
-export default HeaderSection;
+export default HeaderTags;
