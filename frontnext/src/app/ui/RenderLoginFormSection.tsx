@@ -12,7 +12,11 @@ import { fetchData } from '../lib/fetchDataTest';
 
 // * 정호연이 작업한 모듈
 import TableModal from './modal/components/tableModal';
+<<<<<<< HEAD
 import { TabToggle } from './toggle/tabToggle';
+=======
+import HeaderSection from './Header/headerSection';
+>>>>>>> 219d704 (:white_check_mark: 김정수 : 중간저장)
 
 const RenderLoginFormSection: React.FC = () => {
   const [id, setId] = useState('');
@@ -33,6 +37,7 @@ const RenderLoginFormSection: React.FC = () => {
     }
   };
 
+<<<<<<< HEAD
   return (
     <div id="root">
       <TabToggle />
@@ -52,6 +57,9 @@ const RenderLoginFormSection: React.FC = () => {
       <TableModal />
     </div>
   );
+=======
+  return <HeaderSection />;
+>>>>>>> 219d704 (:white_check_mark: 김정수 : 중간저장)
 };
 
 export default RenderLoginFormSection;
