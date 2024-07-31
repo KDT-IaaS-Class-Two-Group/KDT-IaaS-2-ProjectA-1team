@@ -1,17 +1,16 @@
+// frontnext/src/app/ui/toggleComponent.tsx
 import React from 'react';
 
-export const Toggle = (
-  show: boolean,
-  onClose: () => void,
-  children: React.ReactNode,
-) => {
-  if (!show) {
-    return null;
-  }
+interface ToggleProps {
+  isVisible: () => void;
+}
+
+export const Toggle: React.FC<ToggleProps> = ({ isVisible }) => {
   return (
     <div>
-      <div>{children}</div>
-      <button onClick={onClose}>▼</button>
+      <button onClick={isVisible} className="px-4 py-2 text-black rounded mt-4">
+        ▼
+      </button>
     </div>
   );
 };
