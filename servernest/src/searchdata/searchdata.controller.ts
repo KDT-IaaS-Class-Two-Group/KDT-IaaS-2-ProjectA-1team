@@ -6,26 +6,20 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { fetchUndefine } from '../nestModule/AJAXRequest'; // 경로는 실제 위치에 맞게 조정하세요
 
 @Controller('searchData')
 export class SearchDataController {
   @Get()
-  async findAll() {
+  async getTest() {
     const externalApiUrl = 'http://localhost:8080/searchData';
 
     try {
-      const response = await fetch(externalApiUrl);
-      if (!response.ok) {
-        throw new HttpException(
-          'Failed to fetch data from external API',
-          HttpStatus.BAD_REQUEST,
-        );
-      }
-      const data = await response.json();
+      const data = await fetchUndefine({ method: 'GET', url: externalApiUrl });
       return data;
     } catch (error) {
       throw new HttpException(
-        'Failed to fetch data from external API',
+        error.message || 'Failed to fetch data from external API',
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -34,24 +28,14 @@ export class SearchDataController {
   @Post('verify')
   async verify(@Body() sendData: { id: string; password: string }) {
     const externalApiUrl = 'http://localhost:8080/searchData/verify';
+    const requestData = JSON.stringify(sendData);
 
     try {
-      const response = await fetch(externalApiUrl, {
+      const result = await fetchUndefine({
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(sendData),
+        url: externalApiUrl,
+        data: requestData,
       });
-
-      if (!response.ok) {
-        throw new HttpException(
-          'Failed to fetch data from external API',
-          HttpStatus.BAD_REQUEST,
-        );
-      }
-
-      const result = await response.json();
 
       // Ensure that the result is a boolean
       if (typeof result !== 'boolean') {
@@ -64,7 +48,7 @@ export class SearchDataController {
       return result;
     } catch (error) {
       throw new HttpException(
-        'Failed to process request',
+        error.message || 'Failed to process request',
         HttpStatus.BAD_REQUEST,
       );
     }
