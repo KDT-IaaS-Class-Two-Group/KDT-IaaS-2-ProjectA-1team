@@ -1,9 +1,10 @@
-// src/components/DeleteColumn.tsx
-"use client";
-
 import { useState } from 'react';
 
-const DeleteColumn = () => {
+interface DeleteColumnProps {
+  onColumnChange: () => void;
+}
+
+const DeleteColumn: React.FC<DeleteColumnProps> = ({ onColumnChange }) => {
   const [deleteColumnName, setDeleteColumnName] = useState<string>('');
 
   const deleteColumn = async () => {
@@ -24,6 +25,7 @@ const DeleteColumn = () => {
       if (res.ok) {
         console.log('Column deleted successfully');
         setDeleteColumnName('');
+        onColumnChange();  // Column 변경시 호출
       } else {
         console.error('Failed to delete column:', res.statusText);
       }
