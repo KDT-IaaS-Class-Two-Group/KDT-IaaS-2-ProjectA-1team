@@ -1,14 +1,12 @@
+// src/App.tsx
 import React from 'react';
-// import './App.css';
-import Search from './search';
+import SearchComponent from './SearchComponent';
 
 const App: React.FC = () => {
   return (
-    <div className="search-test">
-      <header className="header">
-        <h1>과일 이름 검색하기 </h1>
-        <Search />
-      </header>
+    <div>
+      <h1>Search App</h1>
+      <SearchComponent />
     </div>
   );
 };
