@@ -51,8 +51,14 @@
 }
 
 .button__logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
   background-color: #f8f9fa; /* 버튼 기본 배경색 */
   color: #495057; /* 버튼 기본 텍스트 색상 */
+  text-decoration: underline;
 }
 
 .button:hover {
