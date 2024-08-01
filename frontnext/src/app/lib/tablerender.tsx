@@ -1,6 +1,3 @@
-// src/components/UserList.tsx
-"use client";
-
 import { useEffect, useState } from 'react';
 
 interface User {
@@ -9,7 +6,11 @@ interface User {
   [key: string]: any;
 }
 
-const Tablerender = () => {
+interface TablerenderProps {
+  refreshKey: number;
+}
+
+const Tablerender: React.FC<TablerenderProps> = ({ refreshKey }) => {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const Tablerender = () => {
     };
 
     fetchData();
-  }, []);
+  }, [refreshKey]);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -66,3 +67,31 @@ const Tablerender = () => {
 };
 
 export default Tablerender;
+
+
+//* 실행시 page.tsx에 넣어야함
+// "use client"; // 이 지시어를 추가하여 클라이언트 컴포넌트로 설정
+
+
+// import Tablerender from './lib/tablerender';
+// import AddColumn from './lib/addColumn';
+// import DeleteColumn from './lib/deleteColumn';
+// import Search from './lib/search';
+// import { useState } from 'react';
+
+// export default function Home() {
+//   const [refreshKey, setRefreshKey] = useState<number>(0);
+
+//   const handleColumnChange = () => {
+//     setRefreshKey((prevKey) => prevKey + 1);
+//   };
+
+//   return (
+//     <>
+     
+//       <Tablerender refreshKey={refreshKey} />
+//       <AddColumn onColumnChange={handleColumnChange} />
+//       <DeleteColumn onColumnChange={handleColumnChange} />
+//     </>
+//   );
+// }
