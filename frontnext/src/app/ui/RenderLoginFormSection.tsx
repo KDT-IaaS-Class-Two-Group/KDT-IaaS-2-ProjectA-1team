@@ -6,13 +6,11 @@ import Form from './testComponent/MakeFormSection';
 import { styles } from './testComponent/stylesContent';
 import { fetchData } from '../lib/fetchDataTest';
 
-<<<<<<< HEAD
 // * 정호연이 작업한 모듈
 import TableModal from './modal/components/tableModal';
 import { TabToggle } from './toggle/tabToggle';
+import HeaderSection from './Header/headerSection';
 
-=======
->>>>>>> 2b663a6 (:white_check_mark: 김정수 : 중간저장)
 const RenderLoginFormSection: React.FC = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
@@ -36,48 +34,7 @@ const RenderLoginFormSection: React.FC = () => {
     }
   };
 
-<<<<<<< HEAD
-  return (
-    <div id="root">
-      <TabToggle />
-      <div className={styles.container}>
-        {message === null ? (
-          <Form
-            id={id}
-            password={password}
-            setId={setId}
-            setPassword={setPassword}
-            handleSubmit={handleSubmit}
-          />
-        ) : (
-          <Message message={message} isSuccess={isSuccess} />
-        )}
-      </div>
-      <TableModal />
-=======
-  useEffect(() => {
-    if (isSuccess) {
-      // isSuccess가 true일 경우 /testField로 이동
-      router.push('/testField');
-    }
-  }, [isSuccess, router]);
-
-  const handleCloseModal = () => {
-    setIsLoginSuccess(false);
-  };
-
-  return (
-    <div className={styles.container}>
-      <Form
-        id={id}
-        password={password}
-        setId={setId}
-        setPassword={setPassword}
-        handleSubmit={handleSubmit}
-      />
->>>>>>> 2b663a6 (:white_check_mark: 김정수 : 중간저장)
-    </div>
-  );
+  return <HeaderSection />;
 };
 
 export default RenderLoginFormSection;
