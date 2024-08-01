@@ -1,5 +1,7 @@
+'use client';
+
 import Image from 'next/image';
-import Tabs from '../app/lib/tabs';
+import HeaderSection from './ui/Header/headerSection';
 import RenderLoginFormSection from './ui/RenderLoginFormSection';
 
 import Search from './lib/search';
