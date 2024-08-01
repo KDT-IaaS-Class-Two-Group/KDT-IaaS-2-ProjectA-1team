@@ -1,21 +1,21 @@
+'use client';
+
 import React from 'react';
-import navigateRoute from '@/app/lib/HeaderModule/navigateRoute';
+import { useRouter } from 'next/router';
 
 interface ButtonProps {
   textNode: string;
-  route: string;
+  clickFunc?: () => {};
   className?: string;
 }
 
-const ButtonClick: React.FC<ButtonProps> = ({ textNode, route, className }) => {
-  const navigate = navigateRoute();
+const ButtonClick: React.FC<ButtonProps> = ({
+  textNode,
+  clickFunc,
+  className,
+}) => {
   return (
-    <button
-      onClick={() => {
-        navigate(route);
-      }}
-      className={className}
-    >
+    <button onClick={clickFunc} className={className}>
       {textNode}
     </button>
   );

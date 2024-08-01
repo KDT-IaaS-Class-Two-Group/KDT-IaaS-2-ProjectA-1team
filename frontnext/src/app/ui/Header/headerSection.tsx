@@ -1,75 +1,52 @@
 'use client';
 
 import React from 'react';
-import { ConDiv } from './headerComponent/createConDiv';
 import HeaderTags from './headerComponent/createHeaderTag';
+import ConDiv from './headerComponent/createConDiv';
 import SpanTag from './headerComponent/createSpanTag';
 import ButtonClick from './headerComponent/createBtn';
 import styles from '@/app/header.module.css';
-import { getStoredUserId } from '@/app/lib/HeaderModule/getStorageInfo';
+import { useRouter } from 'next/router';
+import { TABMENUTEXTS, TABROUTES } from './headerComponent/RoutePath';
 
-export default function HeaderSection() {
-  const insertId = getStoredUserId();
+const HeaderSection: React.FC = () => {
+  const router = useRouter();
+
+  const handleClick = async (route: keyof typeof TABROUTES) => {
+    router.push(TABROUTES[route]);
+  };
 
   return (
     <HeaderTags className={styles.header}>
       <ConDiv className={styles.header__left}>
         <ButtonClick
-          route={'ViewPage'}
+          clickFunc={() => handleClick('TAB_ONE')}
           className={styles.button}
-          textNode={`조회`}
+          textNode={TABMENUTEXTS.TABMENUONE}
         />
         <ButtonClick
-          route={'InsertPage'}
+          clickFunc={() => handleClick('TAB_TWO')}
           className={styles.button}
-          textNode={`입력`}
+          textNode={TABMENUTEXTS.TABMENUTWO}
         />
       </ConDiv>
       <ConDiv className={styles.header__center}>
         <ButtonClick
-          route={'TabSetting'}
+          clickFunc={() => handleClick('TAB_THREE')}
           className={styles.button}
-          textNode={`설정`}
+          textNode={TABMENUTEXTS.TABMENUTHREE}
         />
       </ConDiv>
       <ConDiv className={styles.header__right}>
-        <SpanTag className={styles.span} textNode={`${insertId}`} />
+        <SpanTag className={styles.span} textNode={`admin`} />
         <ButtonClick
-          route={'ViewPage'}
+          clickFunc={() => handleClick('TAB_FOUR')}
           className={styles.button__logout}
-          textNode={`로그아웃`}
+          textNode={TABMENUTEXTS.TABMENUFOUR}
         />
       </ConDiv>
     </HeaderTags>
   );
-}
+};
 
-// 'use client';
-
-// import React from 'react';
-// import { ConDiv } from './headerComponent/createConDiv';
-// import HeaderTags from './headerComponent/createHeaderTag';
-// import SpanTag from './headerComponent/createSpanTag';
-// import ButtonClick from './headerComponent/createBtn';
-// import styles from '@/app/header.module.css';
-// import { getStoredUserId } from '@/app/lib/HeaderModule/getStorageInfo';
-
-// export default function HeaderSection() {
-//   const insertId = getStoredUserId();
-
-//   return (
-//     <HeaderTags className={styles.header}>
-//       <ConDiv className={styles.header__left}>
-//         <ButtonClick route={'ViewPage'} className={}} textNode={`조회`} />
-//         <ButtonClick route={'InsertPage'} className={} textNode={`입력`} />
-//       </ConDiv>
-//       <ConDiv className={styles.header__center}>
-//         <ButtonClick route={'TabSetting'} className={} textNode={`설정`} />
-//       </ConDiv>
-//       <ConDiv className={styles.header__right}>
-//         <SpanTag className={} textNode={`${insertId}`} />
-//         <ButtonClick route={'/'} className={} textNode={`로그아웃`} />
-//       </ConDiv>
-//     </HeaderTags>
-//   );
-// }
+export default HeaderSection;

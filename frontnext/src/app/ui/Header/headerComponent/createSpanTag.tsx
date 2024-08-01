@@ -1,14 +1,14 @@
-import React from 'react'
+'use client';
+
+import React from 'react';
 
 interface SpanProps {
-    textNode : string;
-    className? : string;
+  textNode: string;
+  className?: string;
 }
 
-const SpanTag : React.FC<SpanProps> = ({textNode, className}) => {
-    return (
-        <span className={className}>{textNode}</span>
-    )
-}
+const SpanTag: React.FC<SpanProps> = ({ textNode, className }) => {
+  return <span className={className}>{textNode}</span>;
+};
 
-export default SpanTag
+export default SpanTag;
