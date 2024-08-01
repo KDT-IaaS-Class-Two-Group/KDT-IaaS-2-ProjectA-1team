@@ -32,7 +32,7 @@ def search(query:str):
     try:
         cursor = conn.cursor()
         query = query.lower()  # 검색어를 소문자로 변환
-        cursor.execute("SELECT name, age FROM users WHERE LOWER(name) LIKE ?", (f'%{query}%',))
+        cursor.execute("SELECT name, age FROM users WHERE LOWER(name) OR age LIKE ?", (f'%{query}%',))
         rows = cursor.fetchall()
         results = [{"name": row["name"], "age": row["age"]} for row in rows]
         print(f"Search results for query '{query}': {results}")  # 검색 결과 확인 메시지 출력
