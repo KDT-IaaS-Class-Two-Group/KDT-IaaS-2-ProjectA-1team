@@ -1,7 +1,7 @@
 export const TABROUTES = {
-  TAB_ONE: '/viewpage',
-  TAB_TWO: '/TabSetting',
-  TAB_THREE: '/InsertPage',
+  TAB_ONE: '/viewRef',
+  TAB_TWO: '/InsertPage',
+  TAB_THREE: '/TabSetting',
   TAB_FOUR: '/',
 };
 
