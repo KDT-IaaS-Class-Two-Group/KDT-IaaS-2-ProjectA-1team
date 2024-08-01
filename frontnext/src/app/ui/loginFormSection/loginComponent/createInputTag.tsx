@@ -7,9 +7,11 @@ interface InputValueProps {
   value: string;
   onChangeFunc?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  className?: string;
 }
 
 const InputValueTag: React.FC<InputValueProps> = ({
+  className,
   id,
   name,
   type,
@@ -19,6 +21,7 @@ const InputValueTag: React.FC<InputValueProps> = ({
 }) => {
   return (
     <input
+      className={className}
       type={type}
       id={id}
       name={name}
