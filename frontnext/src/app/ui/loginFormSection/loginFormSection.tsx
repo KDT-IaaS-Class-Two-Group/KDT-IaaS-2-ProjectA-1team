@@ -18,6 +18,8 @@ import LoginLabelTag from './loginComponent/createLabelTag';
 
 import { FormSectionstyles } from './loginComponent/loginFormStyles';
 
+import { LoginFormText } from './loginComponent/loginFormLiteral';
+
 const LoginFormSection = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
@@ -26,10 +28,14 @@ const LoginFormSection = () => {
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const useData = { id, password };
-    const response = await callApi('8000/searchData/login', 'POST', useData);
+    const response = await callApi(
+      LoginFormText.AJAXReq.url,
+      LoginFormText.AJAXReq.method,
+      useData,
+    );
 
     if (response) {
-      router.push('/viewRef');
+      router.push(LoginFormText.route);
     } else {
     }
   };
@@ -44,42 +50,38 @@ const LoginFormSection = () => {
           <ConDiv className={FormSectionstyles.labelInputContainer}>
             <LoginLabelTag
               className={FormSectionstyles.label}
-              htmlFor={'id'}
-              value={'아이디'}
+              htmlFor={LoginFormText.form.nameI}
+              value={LoginFormText.form.valueID}
             />
             <InputValueTag
               className={FormSectionstyles.input}
-              type={'text'}
-              name={'id'}
+              type={LoginFormText.form.inputTypeT}
+              name={LoginFormText.form.nameI}
               value={id}
-              placeholder={'ID를 입력하세요'}
-              onChangeFunc={(e) => {
-                setId(e.target.value);
-              }}
+              placeholder={LoginFormText.form.placeholders.id}
+              onChangeFunc={(e) => setId(e.target.value)}
             />
           </ConDiv>
           <ConDiv className={FormSectionstyles.labelInputContainer}>
             <LoginLabelTag
               className={FormSectionstyles.label}
-              htmlFor={'password'}
-              value={'비밀번호'}
+              htmlFor={LoginFormText.form.password}
+              value={LoginFormText.form.valuePassword}
             />
             <InputValueTag
               className={FormSectionstyles.input}
-              type={'password'}
-              name={'password'}
+              type={LoginFormText.form.inputTypeP}
+              name={LoginFormText.form.password}
               value={password}
-              placeholder={'password를 입력하세요'}
-              onChangeFunc={(e) => {
-                setPassword(e.target.value);
-              }}
+              placeholder={LoginFormText.form.placeholders.password}
+              onChangeFunc={(e) => setPassword(e.target.value)}
             />
           </ConDiv>
           <ConDiv className={FormSectionstyles.messageContainer}>
             <ButtonClick
               className={FormSectionstyles.button}
-              type={'submit'}
-              textNode="로그인"
+              type={LoginFormText.form.buttonType}
+              textNode={LoginFormText.form.submitButton}
             />
           </ConDiv>
         </LoginForm>
