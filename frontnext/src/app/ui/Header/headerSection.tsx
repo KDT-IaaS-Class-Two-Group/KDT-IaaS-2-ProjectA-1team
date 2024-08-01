@@ -6,13 +6,13 @@ import ConDiv from './headerComponent/createConDiv';
 import SpanTag from './headerComponent/createSpanTag';
 import ButtonClick from './headerComponent/createBtn';
 import styles from '@/app/header.module.css';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { TABMENUTEXTS, TABROUTES } from './headerComponent/RoutePath';
 
 const HeaderSection: React.FC = () => {
   const router = useRouter();
 
-  const handleClick = async (route: keyof typeof TABROUTES) => {
+  const handleClick = (route: keyof typeof TABROUTES) => {
     router.push(TABROUTES[route]);
   };
 
