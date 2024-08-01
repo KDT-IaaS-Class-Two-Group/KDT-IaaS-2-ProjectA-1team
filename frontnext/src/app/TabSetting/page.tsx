@@ -1,5 +1,10 @@
 import Image from 'next/image';
+import HeaderSection from '../ui/Header/headerSection';
 
 export default function Home() {
-  return <h1>Hellow TabSetting</h1>;
+  return;
+  <>
+    <HeaderSection />
+    <h1>Hellow TabSetting</h1>;
+  </>;
 }
