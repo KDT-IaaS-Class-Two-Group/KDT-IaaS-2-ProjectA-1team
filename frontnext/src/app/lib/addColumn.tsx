@@ -1,9 +1,10 @@
-// src/components/AddColumn.tsx
-"use client";
-
 import { useState } from 'react';
 
-const AddColumn = () => {
+interface AddColumnProps {
+  onColumnChange: () => void;
+}
+
+const AddColumn: React.FC<AddColumnProps> = ({ onColumnChange }) => {
   const [columnName, setColumnName] = useState<string>('');
 
   const addColumn = async () => {
@@ -24,6 +25,7 @@ const AddColumn = () => {
       if (res.ok) {
         console.log('Column added successfully');
         setColumnName('');
+        onColumnChange();  // Column 변경시 호출
       } else {
         console.error('Failed to add column:', res.statusText);
       }
