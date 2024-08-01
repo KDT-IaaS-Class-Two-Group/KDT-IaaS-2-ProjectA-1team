@@ -26,6 +26,7 @@ const Search: React.FC = () => {
       const response = await axios.get('http://localhost:3001/search', {
         params: { query },
       });
+      console.log(response);
       setResults(response.data.results); // 검색 결과 상태 업데이트
     } catch (err) {
       console.error('There was an error fetching the results!', err);
