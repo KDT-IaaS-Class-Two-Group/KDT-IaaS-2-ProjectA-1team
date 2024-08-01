@@ -23,7 +23,7 @@ def get_db_connection():
 
 # 검색 API 엔드포인트
 @app.get("/search")
-def search(query: str):
+def search(query:str):
     if not query:
         print("Query parameter is missing")  # 쿼리 매개변수 확인 메시지 출력
         raise HTTPException(status_code=400, detail="Query parameter is required")
