@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 interface ContainerDivProps {
@@ -5,9 +7,8 @@ interface ContainerDivProps {
   className?: string;
 }
 
-export const ConDiv: React.FC<ContainerDivProps> = ({
-  children,
-  className,
-}) => {
+const ConDiv: React.FC<ContainerDivProps> = ({ children, className }) => {
   return <div className={className}>{children}</div>;
 };
+
+export default ConDiv;

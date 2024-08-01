@@ -1,57 +1,40 @@
-'use client';
+'use client'; // 클라이언트 사이드 렌더링을 보장합니다.
 
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
+import { useRouter } from 'next/navigation'; // `next/navigation`에서 `useRouter`를 가져옵니다.
 import Form from './testComponent/MakeFormSection';
-import Message from './testComponent/InputMessage';
 import { styles } from './testComponent/stylesContent';
-import {
-  SUCCESS_MESSAGE,
-  FAILURE_MESSAGE,
-} from './testComponent/labelsContent';
 import { fetchData } from '../lib/fetchDataTest';
 
 // * 정호연이 작업한 모듈
 import TableModal from './modal/components/tableModal';
 import { TabToggle } from './toggle/tabToggle';
+import HeaderSection from './Header/headerSection';
 
 const RenderLoginFormSection: React.FC = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoginSuccess, setIsLoginSuccess] = useState(false);
+
+  const router = useRouter(); // 클라이언트 사이드에서 `useRouter` 사용
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Assume fetchData is a function that sends data to the server and returns true or false
+    // 서버에 데이터 전송 후 응답 받기
     const response = await fetchData({ id, password });
+
     if (response) {
-      setMessage(SUCCESS_MESSAGE);
+      // 응답이 성공일 경우
       setIsSuccess(true);
     } else {
-      setMessage(FAILURE_MESSAGE);
+      // 응답이 실패일 경우
       setIsSuccess(false);
+      setIsLoginSuccess(true); // 모달 열기
     }
   };
 
-  return (
-    <div id="root">
-      <TabToggle />
-      <div className={styles.container}>
-        {message === null ? (
-          <Form
-            id={id}
-            password={password}
-            setId={setId}
-            setPassword={setPassword}
-            handleSubmit={handleSubmit}
-          />
-        ) : (
-          <Message message={message} isSuccess={isSuccess} />
-        )}
-      </div>
-      <TableModal />
-    </div>
-  );
+  return <HeaderSection />;
 };
 
 export default RenderLoginFormSection;
