@@ -1,11 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/router';
 
 interface ButtonProps {
   textNode: string;
-  clickFunc?: () => {};
+  clickFunc?: () => void;
   className?: string;
 }
 
