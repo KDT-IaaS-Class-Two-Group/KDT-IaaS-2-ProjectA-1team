@@ -18,13 +18,13 @@ class VerifyRequest(BaseModel):
     id: str
     password: str
 
-@app.post("/searchData/verify")
+@app.post("/login")
 def verify_user(request: VerifyRequest):
     DATABASE = 'login.db'
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
     cursor.execute(
-        "SELECT id FROM adminData WHERE id = ? AND password = ?",  # 테이블 이름 수정
+        "SELECT id FROM adminData WHERE id = ? AND password = ?",
         (request.id, request.password)
     )
     row = cursor.fetchone()
