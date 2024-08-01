@@ -1,21 +1,21 @@
-'use client';
+// 'use client';
 
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
-type NavigateFunction = (route: string) => void;
+// type NavigateFunction = (route: string) => void;
 
-const navigateRoute = (): NavigateFunction => {
-  const router = useRouter();
+// const navigateRoute = (): NavigateFunction => {
+//   const router = useRouter();
 
-  const navigate = (route: string) => {
-    if (router) {
-      router.push(route);
-    } else {
-      console.error('Router is not initialized yet.');
-    }
-  };
+//   const navigate = (route: string) => {
+//     if (router) {
+//       router.push(route);
+//     } else {
+//       console.error('Router is not initialized yet.');
+//     }
+//   };
 
-  return navigate;
-};
+//   return navigate;
+// };
 
-export default navigateRoute;
+// export default navigateRoute;
