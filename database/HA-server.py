@@ -1,7 +1,8 @@
-from fastapi import FastAPI, HTTPException
+
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 import sqlite3
+from pydantic import BaseModel
 from typing import List
 
 app = FastAPI()
@@ -15,9 +16,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# SQLite 데이터베이스 연결 함수
+# SQLite 데이터베이스 연결
 def get_db_connection():
-    conn = sqlite3.connect('세탁소.db')
+    conn = sqlite3.connect('UserInput.db')
+    conn.row_factory = sqlite3.Row
     return conn
 
 # 테이블 컬럼 정보 모델
@@ -30,13 +32,6 @@ class TableInfo(BaseModel):
     table_name: str
     columns: List[ColumnInfo]
 
-# 사용자가 입력한 데이터 모델
-class UserInput(BaseModel):
-    name: str
-    item: str
-    quantity: int
-    phone: str
-
 # 테이블 생성 API 엔드포인트
 @app.post("/create_table")
 def create_table(table_info: TableInfo):
@@ -47,40 +42,66 @@ def create_table(table_info: TableInfo):
         # SQL 쿼리 동적 생성
         columns = ", ".join([f"{col.name} {col.type}" for col in table_info.columns])
         create_table_query = f"CREATE TABLE IF NOT EXISTS {table_info.table_name} ({columns})"
-        print(f"Executing query: {create_table_query}")  # 쿼리 확인 메시지 출력
         cursor.execute(create_table_query)
         conn.commit()
         return {"message": f"Table '{table_info.table_name}' created successfully."}
     except sqlite3.Error as e:
-        print(f"Database error: {e}")  # 오류 메시지 출력
         raise HTTPException(status_code=500, detail=f"Database error: {e}")
     finally:
         conn.close()
-        print("DB 종료")  # 데이터베이스 연결 종료 확인 메시지 출력
 
-# 데이터 저장 API 엔드포인트
-@app.post("/save_data")
-def save_data(user_input: UserInput):
+# 테이블 목록 반환 API 엔드포인트
+@app.get("/tables")
+def get_tables():
+    conn = get_db_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        tables = cursor.fetchall()
+        table_names = [table["name"] for table in tables]
+        return {"tables": table_names}
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database query failed: {e}")
+    finally:
+        conn.close()
+
+# 데이터 삽입 API 엔드포인트
+class InsertData(BaseModel):
+    table_name: str
+    data: dict
+
+@app.post("/insert_data")
+def insert_data(insert_data: InsertData):
     conn = get_db_connection()
     cursor = conn.cursor()
 
     try:
-        insert_query = """
-        INSERT INTO 세탁소 (이름, 품목, 수량, 전화번호, 금액) 
-        VALUES (?, ?, ?, ?, ?)
-        """
-        cursor.execute(insert_query, (user_input.name, user_input.item, user_input.quantity, user_input.phone))
+        columns = ", ".join(insert_data.data.keys())
+        placeholders = ", ".join(['?' for _ in insert_data.data.values()])
+        values = tuple(insert_data.data.values())
+        insert_query = f"INSERT INTO {insert_data.table_name} ({columns}) VALUES ({placeholders})"
+        cursor.execute(insert_query, values)
         conn.commit()
-        return {"message": "Data saved successfully."}
+        return {"message": "Data inserted successfully"}
     except sqlite3.Error as e:
-        print(f"Database error: {e}")
         raise HTTPException(status_code=500, detail=f"Database error: {e}")
     finally:
         conn.close()
-        print("Database connection closed")
 
-# 서버 시작
-if __name__ == "__main__":
-    import uvicorn
-    print("Starting server on http://0.0.0.0:3001")  # 서버 시작 메시지 출력
-    uvicorn.run(app, host="0.0.0.0", port=3001)
+# 데이터 검색 API 엔드포인트
+@app.get("/search")
+def search(table_name: str, query: str):
+    conn = get_db_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM {table_name} WHERE LOWER(name) LIKE ? OR CAST(age AS TEXT) LIKE ?", (f'%{query}%', f'%{query}%'))
+        rows = cursor.fetchall()
+        results = [{key: row[key] for key in row.keys()} for row in rows]
+        return {"results": results}
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database query failed: {e}")
+    finally:
+        conn.close()
+
+
+   
