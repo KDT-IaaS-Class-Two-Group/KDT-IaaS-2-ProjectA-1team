@@ -2,21 +2,21 @@ import { useEffect, useState } from 'react';
 
 interface User {
   id: string;
-  password: string;
   [key: string]: any;
 }
 
 interface TablerenderProps {
   refreshKey: number;
+  tableName: string;
 }
 
-const Tablerender: React.FC<TablerenderProps> = ({ refreshKey }) => {
+const Tablerender: React.FC<TablerenderProps> = ({ refreshKey, tableName }) => {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('http://localhost:8080/users');
+        const res = await fetch(`http://localhost:8080/tables/${tableName}/rows`);
         const data: User[] = await res.json();
         setUsers(data);
       } catch (error) {
@@ -25,11 +25,11 @@ const Tablerender: React.FC<TablerenderProps> = ({ refreshKey }) => {
     };
 
     fetchData();
-  }, [refreshKey]);
+  }, [refreshKey, tableName]);
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>User List</h1>
+      <h1>{tableName} Table</h1>
       <table style={{
         borderCollapse: 'collapse',
         width: '100%',
@@ -68,30 +68,51 @@ const Tablerender: React.FC<TablerenderProps> = ({ refreshKey }) => {
 
 export default Tablerender;
 
-
-//* 실행시 page.tsx에 넣어야함
+//* tabelerender와 AddDeleteColumn을 사요하려면 page.tsx에 넣어야함.
 // "use client"; // 이 지시어를 추가하여 클라이언트 컴포넌트로 설정
 
-
 // import Tablerender from './lib/tablerender';
-// import AddColumn from './lib/addColumn';
-// import DeleteColumn from './lib/deleteColumn';
-// import Search from './lib/search';
+// import AddDeleteColumn from './lib/AddDeleteColumn';
 // import { useState } from 'react';
 
 // export default function Home() {
 //   const [refreshKey, setRefreshKey] = useState<number>(0);
+//   const [tableName, setTableName] = useState<string>('users');
+//   const [error, setError] = useState<string>('');
 
 //   const handleColumnChange = () => {
 //     setRefreshKey((prevKey) => prevKey + 1);
 //   };
 
+//   const handleTableNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     const value = e.target.value;
+//     setTableName(value);
+//     if (!value) {
+//       setError('Table name must be provided.');
+//     } else {
+//       setError('');
+//     }
+//   };
+
 //   return (
 //     <>
-     
-//       <Tablerender refreshKey={refreshKey} />
-//       <AddColumn onColumnChange={handleColumnChange} />
-//       <DeleteColumn onColumnChange={handleColumnChange} />
+//       <div>
+//         <input
+//           type="text"
+//           value={tableName}
+//           onChange={handleTableNameChange}
+//           placeholder="Enter table name"
+//         />
+//         {error && <p style={{ color: 'red' }}>{error}</p>}
+//       </div>
+//       {tableName ? (
+//         <>
+//           <Tablerender refreshKey={refreshKey} tableName={tableName} />
+//           <AddDeleteColumn onColumnChange={handleColumnChange} tableName={tableName} />
+//         </>
+//       ) : (
+//         <p>Please enter a table name to view and modify the table.</p>
+//       )}
 //     </>
 //   );
 // }
