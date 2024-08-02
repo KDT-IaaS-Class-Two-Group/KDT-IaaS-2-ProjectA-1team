@@ -28,6 +28,10 @@ class ColumnAction(BaseModel):
     table_name: str
     column_name: str
 
+class UpdateRowsAction(BaseModel):
+    tableName: str
+    data: List[Dict[str, Any]]
+
 @app.get("/tables/{table_name}/columns")
 def read_columns(table_name: str) -> List[Dict[str, Any]]:
     with get_db_connection() as conn:
@@ -85,5 +89,22 @@ def delete_column(action: ColumnAction):
             conn.commit()
 
         return {"message": f"Column {action.column_name} deleted from {action.table_name}."}
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {e}")
+
+@app.post("/update-rows/")
+def update_rows(action: UpdateRowsAction):
+    if not action.tableName or not action.data:
+        raise HTTPException(status_code=400, detail="Table name and data must be provided.")
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            for row in action.data:
+                placeholders = ", ".join([f"{k} = ?" for k in row.keys()])
+                values = list(row.values())
+                query = f"UPDATE {action.tableName} SET {placeholders} WHERE id = ?"
+                cursor.execute(query, values + [row['id']])
+            conn.commit()
+        return {"message": f"Rows in {action.tableName} updated successfully."}
     except sqlite3.Error as e:
         raise HTTPException(status_code=500, detail=f"Database error: {e}")
