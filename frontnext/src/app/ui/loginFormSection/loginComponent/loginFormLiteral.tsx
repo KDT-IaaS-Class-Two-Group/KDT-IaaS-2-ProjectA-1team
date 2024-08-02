@@ -18,4 +18,9 @@ export const LoginFormText = {
     method: 'POST',
   },
   route: '/viewRef',
+  modal: {
+    modalBtnType: 'button' as 'button',
+    modalBtnText: '확인',
+    pMessage: '아이디 혹은 비밀번호가 틀렸습니다.',
+  },
 };
