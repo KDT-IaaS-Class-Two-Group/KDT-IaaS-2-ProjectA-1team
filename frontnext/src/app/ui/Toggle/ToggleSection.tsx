@@ -10,7 +10,7 @@ interface UserDTO {
   [key: string]: string | number;
 }
 
-export default function ToggleSection() {
+export default function Home() {
   const [name, setName] = useState('');
   const [data, setData] = useState<UserDTO[]>([]);
   const [error, setError] = useState('');
@@ -21,7 +21,7 @@ export default function ToggleSection() {
   useEffect(() => {
     const fetchTables = async () => {
       try {
-        const res = await fetch('http://localhost:8000/tables');
+        const res = await fetch('http://127.0.0.1:8000/tables');
         if (!res.ok) {
           throw new Error('Network response was not ok');
         }
@@ -39,7 +39,7 @@ export default function ToggleSection() {
     e.preventDefault();
     try {
       const requestData = { table: selectedTable, name: name || null };
-      const res = await fetch('http://localhost:8000/data', {
+      const res = await fetch('http://127.0.0.1:8000/data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
