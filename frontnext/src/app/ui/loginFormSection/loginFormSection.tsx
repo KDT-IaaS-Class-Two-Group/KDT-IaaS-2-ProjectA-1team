@@ -20,6 +20,8 @@ import { FormSectionstyles } from './loginComponent/loginFormStyles';
 
 import { LoginFormText } from './loginComponent/loginFormLiteral';
 
+import LoginCheckModal from '../modal/modalLoginCheck';
+
 const LoginFormSection = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
@@ -40,14 +42,17 @@ const LoginFormSection = () => {
       setIsResText(true);
     } else {
       setIsResText(false);
+      setIsLoginModal(true);
     }
+  };
+
+  const handleLoginModal = () => {
+    setIsLoginModal(false);
   };
 
   useEffect(() => {
     if (isResText) {
       router.push(LoginFormText.route);
-    } else {
-      setIsLoginModal(true);
     }
   }, [isResText]);
 
@@ -97,7 +102,14 @@ const LoginFormSection = () => {
           </ConDiv>
         </LoginForm>
 
-        {isLoginModal && ()}
+        {isLoginModal && (
+          <LoginCheckModal
+            clickFunc={handleLoginModal}
+            btnType={LoginFormText.modal.modalBtnType}
+            BtnLiteral={LoginFormText.modal.modalBtnText}
+            Message={LoginFormText.modal.pMessage}
+          />
+        )}
       </ConDiv>
     </>
   );
