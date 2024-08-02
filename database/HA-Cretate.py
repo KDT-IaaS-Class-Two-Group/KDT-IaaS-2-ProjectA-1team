@@ -1,25 +1,27 @@
 import sqlite3
 
-# SQLite 데이터베이스 연결
-conn = sqlite3.connect("세탁소.db")
-cursor = conn.cursor()
+conn = sqlite3.connect("UserInput.db")  # 데이터베이스 연결
+cursor = conn.cursor()  # 커서 생성
 
-# 테이블 생성 SQL 쿼리
-create_table_query = """
-CREATE TABLE IF NOT EXISTS 세탁소 (
-    아이디 INTEGER PRIMARY KEY AUTOINCREMENT,
-    이름 TEXT NOT NULL,
-    품목 TEXT NOT NULL,
-    수량 INTEGER NOT NULL,
-    전화번호 TEXT NOT NULL
-)
-"""
+# 테이블 생성 
+cursor.execute("""
+               ( 
+                 
+               
+              )
+              """)
 
-# 테이블 생성 실행
-cursor.execute(create_table_query)
+try:
+   
+    
+    # 트랜잭션 커밋
+    conn.commit()
+except Exception as e:
+    # 오류 발생 시 롤백
+    conn.rollback()
+    print(e)
+finally:
+    # 커서와 연결 닫기
+    cursor.close()
+    conn.close()
 
-# 커밋하고 연결 종료
-conn.commit()
-conn.close()
-
-print("테이블이 성공적으로 생성되었습니다.")
