@@ -1,27 +1,28 @@
 import sqlite3
 
-def create_table(db_name):
+def create_table(db_name, table_name, name, id, price):
     try:
         # 데이터베이스 연결
         conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
         
         # 테이블 생성
-        cursor.execute('''
-        CREATE TABLE IF NOT EXISTS 바케트 (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            age INTEGER NOT NULL
+        cursor.execute(f'''
+        CREATE TABLE IF NOT EXISTS {table_name} (
+            {name} TEXT NOT NULL,
+            {price} INTEGER NOT NULL
         )
         ''')
-        print("테이블 '바케트'가 성공적으로 생성되었습니다.")
+        print(f"테이블 '{table_name}'가 성공적으로 생성되었습니다.")
         
         # 데이터 삽입
-        cursor.execute('''
-        INSERT INTO 바케트 (name, age)
-        VALUES ('이연승', 30),
-               ('정호연', 27),
-               ('겨울이', 4)
+        cursor.execute(f'''
+        INSERT INTO {table_name} ({name}, {price})
+        VALUES ('튀김소보로', 1700),
+               ('튀소구마', 1700),
+               ('판타롱부추빵', 2000),
+               ('오보름달', 2800),
+               ('참쌀방망이', 4500)
         ''')
         print("데이터가 성공적으로 삽입되었습니다.")
         
@@ -34,5 +35,9 @@ def create_table(db_name):
             conn.close()
 
 # 예시 사용법
-db_name = '테스트.db'
-create_table(db_name)
+db_name = '정호연.db'
+table_name = '성심당'
+name = '제품명'
+# id = '아이디'
+price = '가격'
+create_table(db_name, table_name, name, id, price)
