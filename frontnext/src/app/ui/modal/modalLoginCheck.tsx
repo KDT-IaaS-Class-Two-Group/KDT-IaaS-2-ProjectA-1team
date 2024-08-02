@@ -8,7 +8,7 @@ import { LoginCheckCardStyles } from './modalStyle';
 
 import ButtonClick from '../Header/headerComponent/createBtn';
 
-import ModalPTag from './components/createPTag';
+import ModalPTag from './components/createTag';
 
 interface LoginCheckProps {
   clickFunc: () => void;
