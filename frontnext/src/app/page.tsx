@@ -3,12 +3,12 @@ import Tabs from '../app/lib/tabs';
 import RenderLoginFormSection from './ui/RenderLoginFormSection';
 
 import Search from './lib/search';
+import UserInput from './lib/UserInput';
 export default function Home() {
   return (
     <div className="search-test">
       <header className="header">
-        <h1>검색하기</h1>
-        <Search />
+        <UserInput />
       </header>
     </div>
   );
