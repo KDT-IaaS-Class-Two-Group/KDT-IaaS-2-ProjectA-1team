@@ -6,15 +6,17 @@ interface ButtonProps {
   textNode: string;
   clickFunc?: () => void;
   className?: string;
+  type?: 'submit' | 'button';
 }
 
 const ButtonClick: React.FC<ButtonProps> = ({
   textNode,
   clickFunc,
   className,
+  type,
 }) => {
   return (
-    <button onClick={clickFunc} className={className}>
+    <button type={type} onClick={clickFunc} className={className}>
       {textNode}
     </button>
   );
