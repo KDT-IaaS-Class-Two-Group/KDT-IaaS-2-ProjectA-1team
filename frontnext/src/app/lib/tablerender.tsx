@@ -12,6 +12,8 @@ interface TablerenderProps {
 
 const Tablerender: React.FC<TablerenderProps> = ({ refreshKey, tableName }) => {
   const [users, setUsers] = useState<User[]>([]);
+  const [editing, setEditing] = useState<{ [key: string]: boolean }>({});
+  const [tempUsers, setTempUsers] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +21,7 @@ const Tablerender: React.FC<TablerenderProps> = ({ refreshKey, tableName }) => {
         const res = await fetch(`http://localhost:8080/tables/${tableName}/rows`);
         const data: User[] = await res.json();
         setUsers(data);
+        setTempUsers(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -26,6 +29,39 @@ const Tablerender: React.FC<TablerenderProps> = ({ refreshKey, tableName }) => {
 
     fetchData();
   }, [refreshKey, tableName]);
+
+  const handleDoubleClick = (id: string, key: string) => {
+    setEditing({ ...editing, [`${id}-${key}`]: true });
+  };
+
+  const handleChange = (id: string, key: string, value: string) => {
+    const updatedUsers = tempUsers.map(user => 
+      user.id === id ? { ...user, [key]: value } : user
+    );
+    setTempUsers(updatedUsers);
+  };
+
+  const handleSave = async () => {
+    try {
+      const res = await fetch(`http://localhost:8080/update-rows`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ tableName, data: tempUsers }),
+      });
+
+      if (res.ok) {
+        setUsers(tempUsers);
+        setEditing({});
+        console.log('Table updated successfully');
+      } else {
+        console.error('Failed to update table:', res.statusText);
+      }
+    } catch (error) {
+      console.error('Error updating table:', error);
+    }
+  };
 
   return (
     <div style={{ padding: '20px' }}>
@@ -56,24 +92,36 @@ const Tablerender: React.FC<TablerenderProps> = ({ refreshKey, tableName }) => {
                 <td key={key} style={{
                   border: '1px solid #ddd',
                   padding: '12px 15px'
-                }}>{user[key]}</td>
+                }} onDoubleClick={() => handleDoubleClick(user.id, key)}>
+                  {editing[`${user.id}-${key}`] ? (
+                    <input
+                      type="text"
+                      value={tempUsers.find(u => u.id === user.id)?.[key] || ''}
+                      onChange={(e) => handleChange(user.id, key, e.target.value)}
+                    />
+                  ) : (
+                    user[key]
+                  )}
+                </td>
               ))}
             </tr>
           ))}
         </tbody>
       </table>
+      <button onClick={handleSave} style={{ marginTop: '20px' }}>Save Changes</button>
     </div>
   );
 };
 
 export default Tablerender;
 
-//* tabelerender와 AddDeleteColumn을 사요하려면 page.tsx에 넣어야함.
-// "use client"; // 이 지시어를 추가하여 클라이언트 컴포넌트로 설정
+//* tablerender.tsx, AddDeleteColumn.tsx, addcolumn_render.py 사용할 시 필요.
 
+// 'use client';
+
+// import { useState } from 'react';
 // import Tablerender from './lib/tablerender';
 // import AddDeleteColumn from './lib/AddDeleteColumn';
-// import { useState } from 'react';
 
 // export default function Home() {
 //   const [refreshKey, setRefreshKey] = useState<number>(0);
