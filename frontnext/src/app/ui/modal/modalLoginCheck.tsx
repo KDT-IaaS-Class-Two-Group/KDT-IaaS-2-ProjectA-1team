@@ -4,7 +4,7 @@ import React from 'react';
 
 import ConDiv from '../Header/headerComponent/createConDiv';
 
-import { ModalStyles } from './modalStyle';
+import { LoginCheckCardStyles } from './modalStyle';
 
 import ButtonClick from '../Header/headerComponent/createBtn';
 
@@ -25,17 +25,17 @@ const LoginCheckModal: React.FC<LoginCheckProps> = ({
 }) => {
   return (
     <>
-      <ConDiv className={ModalStyles.modalOverlay}>
-        <ConDiv className={ModalStyles.modalContent}>
+      <ConDiv className={LoginCheckCardStyles.cardContainer}>
+        <ConDiv className={LoginCheckCardStyles.cardContent}>
           <ModalPTag
             textNode={Message}
-            className={ModalStyles.messageContainer}
+            className={LoginCheckCardStyles.cardBody}
           />
           <ButtonClick
             type={btnType}
             textNode={BtnLiteral}
             clickFunc={clickFunc}
-            className={ModalStyles.closeButton}
+            className={LoginCheckCardStyles.cardButton}
           />
         </ConDiv>
       </ConDiv>
