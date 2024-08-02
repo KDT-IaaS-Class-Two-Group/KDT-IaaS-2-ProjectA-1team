@@ -1,7 +1,7 @@
 'use client';
 
 import HeaderSection from '../ui/Header/headerSection';
-import { TabToggle } from '../ui/toggle/tabToggle';
+import ToggleSection from '../ui/Toggle/ToggleSection';
 
 export default function Home() {
   return (
@@ -9,7 +9,8 @@ export default function Home() {
       <HeaderSection />
       <main>
         {/* <h1>Hellow View</h1> */}
-        <TabToggle />
+        {/* <TabToggle /> */}
+        <ToggleSection />
       </main>
     </div>
   );
