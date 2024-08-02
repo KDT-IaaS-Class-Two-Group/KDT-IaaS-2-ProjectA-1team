@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -23,6 +23,8 @@ import { LoginFormText } from './loginComponent/loginFormLiteral';
 const LoginFormSection = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+  const [isResText, setIsResText] = useState(false);
+  const [isLoginModal, setIsLoginModal] = useState(false);
   const router = useRouter();
 
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -35,10 +37,19 @@ const LoginFormSection = () => {
     );
 
     if (response) {
-      router.push(LoginFormText.route);
+      setIsResText(true);
     } else {
+      setIsResText(false);
     }
   };
+
+  useEffect(() => {
+    if (isResText) {
+      router.push(LoginFormText.route);
+    } else {
+      setIsLoginModal(true);
+    }
+  }, [isResText]);
 
   return (
     <>
@@ -85,6 +96,8 @@ const LoginFormSection = () => {
             />
           </ConDiv>
         </LoginForm>
+
+        {isLoginModal && ()}
       </ConDiv>
     </>
   );
