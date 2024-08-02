@@ -17,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DATABASE = 'login.db'
+DATABASE = '테스트.db'
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
@@ -25,31 +25,36 @@ def get_db_connection():
     return conn
 
 class ColumnAction(BaseModel):
+    table_name: str
     column_name: str
 
-class User(BaseModel):
-    id: str
-    password: str
-
-@app.get("/users")
-def read_users() -> List[Dict[str, Any]]:
+@app.get("/tables/{table_name}/columns")
+def read_columns(table_name: str) -> List[Dict[str, Any]]:
     with get_db_connection() as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM users")
-        users = cursor.fetchall()
-    return [dict(row) for row in users]
+        cursor.execute(f"PRAGMA table_info({table_name})")
+        columns_info = cursor.fetchall()
+    return [dict(row) for row in columns_info]
+
+@app.get("/tables/{table_name}/rows")
+def read_rows(table_name: str) -> List[Dict[str, Any]]:
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM {table_name}")
+        rows = cursor.fetchall()
+    return [dict(row) for row in rows]
 
 @app.post("/add-column/")
 def add_column(action: ColumnAction):
-    if not action.column_name:
-        raise HTTPException(status_code=400, detail="Column name must be provided.")
+    if not action.table_name or not action.column_name:
+        raise HTTPException(status_code=400, detail="Table name and column name must be provided.")
     try:
-        query = f"ALTER TABLE users ADD COLUMN {action.column_name} TEXT"
+        query = f"ALTER TABLE {action.table_name} ADD COLUMN {action.column_name} TEXT"
         with sqlite3.connect(DATABASE) as conn:
             cursor = conn.cursor()
             cursor.execute(query)
             conn.commit()
-        return {"message": f"Column {action.column_name} added."}
+        return {"message": f"Column {action.column_name} added to {action.table_name}."}
     except sqlite3.OperationalError as e:
         if "duplicate column name" in str(e).lower():
             raise HTTPException(status_code=400, detail="Column already exists.")
@@ -59,12 +64,12 @@ def add_column(action: ColumnAction):
 
 @app.post("/delete-column/")
 def delete_column(action: ColumnAction):
-    if not action.column_name:
-        raise HTTPException(status_code=400, detail="Column name must be provided.")
+    if not action.table_name or not action.column_name:
+        raise HTTPException(status_code=400, detail="Table name and column name must be provided.")
     try:
         with sqlite3.connect(DATABASE) as conn:
             cursor = conn.cursor()
-            cursor.execute("PRAGMA table_info(users);")
+            cursor.execute(f"PRAGMA table_info({action.table_name})")
             columns_info = cursor.fetchall()
             columns = [col[1] for col in columns_info]
 
@@ -74,11 +79,11 @@ def delete_column(action: ColumnAction):
             # 새 테이블 생성 (삭제할 열 제외)
             columns.remove(action.column_name)
             columns_str = ", ".join(columns)
-            cursor.execute(f"CREATE TABLE new_users AS SELECT {columns_str} FROM users;")
-            cursor.execute("DROP TABLE users;")
-            cursor.execute("ALTER TABLE new_users RENAME TO users;")
+            cursor.execute(f"CREATE TABLE new_{action.table_name} AS SELECT {columns_str} FROM {action.table_name};")
+            cursor.execute(f"DROP TABLE {action.table_name};")
+            cursor.execute(f"ALTER TABLE new_{action.table_name} RENAME TO {action.table_name};")
             conn.commit()
 
-        return {"message": f"Column {action.column_name} deleted."}
+        return {"message": f"Column {action.column_name} deleted from {action.table_name}."}
     except sqlite3.Error as e:
         raise HTTPException(status_code=500, detail=f"Database error: {e}")
