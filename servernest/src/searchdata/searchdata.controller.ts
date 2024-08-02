@@ -10,24 +10,9 @@ import { fetchUndefine } from '../nestModule/AJAXRequest'; // 경로는 실제 �
 
 @Controller('searchData')
 export class SearchDataController {
-  @Get()
-  async getTest() {
-    const externalApiUrl = 'http://localhost:8080/searchData';
-
-    try {
-      const data = await fetchUndefine({ method: 'GET', url: externalApiUrl });
-      return data;
-    } catch (error) {
-      throw new HttpException(
-        error.message || 'Failed to fetch data from external API',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-  }
-
-  @Post('verify')
-  async verify(@Body() sendData: { id: string; password: string }) {
-    const externalApiUrl = 'http://localhost:8080/searchData/verify';
+  @Post('login')
+  async login(@Body() sendData: { id: string; password: string }) {
+    const externalApiUrl = 'http://localhost:8080/login';
     const requestData = JSON.stringify(sendData);
 
     try {
@@ -37,7 +22,6 @@ export class SearchDataController {
         data: requestData,
       });
 
-      // Ensure that the result is a boolean
       if (typeof result !== 'boolean') {
         throw new HttpException(
           'Invalid response from external API',
