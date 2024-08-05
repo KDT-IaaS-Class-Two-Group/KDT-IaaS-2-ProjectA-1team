@@ -1,13 +1,13 @@
 import sqlite3
 
-def copy_table_structure(a_db_path, b_db_path, table_name):
+def copy_table_structure(table_name):
     try:
         # A 데이터베이스 연결
-        a_conn = sqlite3.connect(a_db_path)
+        a_conn = sqlite3.connect('recommendTable.db')
         a_cursor = a_conn.cursor()
         
         # B 데이터베이스 연결
-        b_conn = sqlite3.connect(b_db_path)
+        b_conn = sqlite3.connect('testCopyTable.db')
         b_cursor = b_conn.cursor()
         
         # A 데이터베이스에서 테이블 구조 가져오기
@@ -43,10 +43,3 @@ def copy_table_structure(a_db_path, b_db_path, table_name):
             a_conn.close()
         if b_conn:
             b_conn.close()
-
-# 사용 예시
-a_db_path = 'recommendTable.db'
-b_db_path = 'testCopyTable.db'
-table_name = '인력부'  # 요청에 따라 테이블 이름을 설정
-
-copy_table_structure(a_db_path, b_db_path, table_name)
