@@ -16,7 +16,13 @@ export const AddSets = () => {
 
   return (
     <div>
-      <div ref={containerRef}></div>
+      <div ref={containerRef}>
+        <input
+          type="text"
+          placeholder="테이블 이름을 입력하세요."
+          className="border rounded-lg p-2 w-full mb-4"
+        />
+      </div>
       <div className="space-x-10">
         <button
           type="button"
