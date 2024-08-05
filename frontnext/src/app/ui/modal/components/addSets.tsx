@@ -7,7 +7,7 @@ export const AddSets = () => {
   const [sets, setSets] = useState<React.ReactNode[]>([]);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const tableNameInputRef = useRef<HTMLInputElement | null>(null);
-  const [isComposing, setIsComposing] = useState(false);
+  const isComposingRef = useRef(false); // 한글 입력 중인지 여부를 추적하는 ref
 
   const handleClick = () => {
     const id = count + 1;
@@ -21,13 +21,13 @@ export const AddSets = () => {
         handleKeyDown,
         handleCompositionStart,
         handleCompositionEnd,
-      ),
+      ), // 수정된 부분: handleKeyDown, handleCompositionStart, handleCompositionEnd 추가
     ]);
     setCount((prev) => prev + 1);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && !isComposing) {
+    if (e.key === 'Enter' && !isComposingRef.current) {
       e.preventDefault();
       const inputs = containerRef.current?.querySelectorAll('input');
       if (inputs) {
@@ -41,11 +41,11 @@ export const AddSets = () => {
   };
 
   const handleCompositionStart = () => {
-    setIsComposing(true);
+    isComposingRef.current = true; // 한글 입력 시작
   };
 
   const handleCompositionEnd = () => {
-    setIsComposing(false);
+    isComposingRef.current = false; // 한글 입력 종료
   };
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export const AddSets = () => {
           onKeyDown={handleKeyDown}
           onCompositionStart={handleCompositionStart}
           onCompositionEnd={handleCompositionEnd}
-          autoComplete="off"
+          autoComplete="off" // 자동 완성 기능 비활성화
         />
         {createSetJSX(
           1,
@@ -76,7 +76,13 @@ export const AddSets = () => {
           handleCompositionStart,
           handleCompositionEnd,
         )}
-        {sets}
+        {sets.map((set, index) =>
+          React.cloneElement(set as React.ReactElement, {
+            onKeyDown: handleKeyDown,
+            onCompositionStart: handleCompositionStart,
+            onCompositionEnd: handleCompositionEnd,
+          }),
+        )}
       </div>
       <div className="space-x-10">
         <button
