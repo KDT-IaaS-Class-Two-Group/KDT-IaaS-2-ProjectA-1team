@@ -18,9 +18,9 @@ const SumComponent = ({
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gray-100 p-4">
-      <div className="flex justify-between items-center">
-        <span>합계</span>
-        <span>{sum}</span>
+      <div className="flex justify-end items-center w-full pr-10">
+        <span className="text-lg font-bold mr-2">합계</span>
+        <span className="text-lg font-bold">{sum}</span>
       </div>
     </div>
   );
