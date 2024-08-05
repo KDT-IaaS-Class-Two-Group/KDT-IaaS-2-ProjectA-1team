@@ -7,7 +7,6 @@ import SumComponent from '../ui/Sumsection/Sum';
 
 export default function Home() {
   const selectedTableData = ['Item: 2000원', 'Item: 3000원'];
-  //특정 table을 읽어와서 ㅌ
 
   return (
     <div>
