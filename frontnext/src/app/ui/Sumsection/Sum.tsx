@@ -1,4 +1,3 @@
-// SumComponent.tsx
 import React, { useState, useEffect } from 'react';
 import { sumFromArray } from '@/app/lib/addIntAll';
 
