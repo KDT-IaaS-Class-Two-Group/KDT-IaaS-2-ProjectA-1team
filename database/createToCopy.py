@@ -1,1 +1,1 @@
-print('createToCopy.py')
+A데이터 베이스의 E테이블을 그대로 B데이터베이스의 테이블로 생성하기.
