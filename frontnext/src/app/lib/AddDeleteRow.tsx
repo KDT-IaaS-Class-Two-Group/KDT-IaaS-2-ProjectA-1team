@@ -70,3 +70,48 @@ const AddDeleteRow: React.FC<AddDeleteRowProps> = ({ tableName, refreshKey, setR
 };
 
 export default AddDeleteRow;
+
+//* AddDeleteRow.tsx 결합 시 사용 
+// "use client";
+
+// import { useState } from 'react';
+// import Tablerender from '../lib/tablerender';
+// import AddDeleteRow from '../lib/AddDeleteRow';
+
+// export default function Home() {
+//   const [refreshKey, setRefreshKey] = useState<number>(0);
+//   const [tableName, setTableName] = useState<string>('users');
+//   const [error, setError] = useState<string>('');
+
+//   const handleTableNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     const value = e.target.value;
+//     setTableName(value);
+//     if (!value) {
+//       setError('Table name must be provided.');
+//     } else {
+//       setError('');
+//     }
+//   };
+
+//   return (
+//     <>
+//       <div>
+//         <input
+//           type="text"
+//           value={tableName}
+//           onChange={handleTableNameChange}
+//           placeholder="Enter table name"
+//         />
+//         {error && <p style={{ color: 'red' }}>{error}</p>}
+//       </div>
+//       {tableName ? (
+//         <>
+//           <Tablerender refreshKey={refreshKey} tableName={tableName} />
+//           <AddDeleteRow tableName={tableName} refreshKey={refreshKey} setRefreshKey={setRefreshKey} />
+//         </>
+//       ) : (
+//         <p>Please enter a table name to view and modify the table.</p>
+//       )}
+//     </>
+//   );
+// }
