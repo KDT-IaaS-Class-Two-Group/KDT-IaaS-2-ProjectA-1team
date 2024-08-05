@@ -6,27 +6,26 @@ def InsertDummy():
         cursor = conn.cursor()
         
         cursor.execute('''
-        CREATE TABLE IF NOT EXISTS 요식업 (
-            재료명 TEXT NOT NULL,
-            수량 INTEGER NOT NULL,
-            단위 TEXT NOT NULL,
+        CREATE TABLE IF NOT EXISTS 인력부 (
+            업무날짜 TEXT NOT NULL,
+            이름 TEXT NOT NULL,
+            작업 TEXT NOT NULL,
             단가 INTEGER NOT NULL,
-            입고가격 INTEGER NOT NULL,
-            입고날짜 TEXT NOT NULL,
-            소비기한 TEXT NOT NULL
+            횟수 REAL NOT NULL,
+            출금입금금액 INTEGER NOT NULL
         )
         ''')
         
-        dummy_data = [
-            ('고추장', 100, '통', 5000, 500000, '2024-08-01', '2025-08-01'),
-            ('된장', 200, '통', 6000, 1200000, '2024-07-15', '2025-07-15'),
-            ('간장', 150, '병', 12000, 1800000, '2024-07-20', '2025-07-20')
+        wage_dummy_data = [
+            ('2024-08-01', '홍길동', '공구리', 200000, 1.5, 300000),
+            ('2024-08-01', '김철수', '철거', 180000, 0.5, 90000),
+            ('2024-08-01', '이영희', '전기설비', 250000, 1.0, 250000)
         ]
         
         cursor.executemany('''
-        INSERT INTO 요식업 (재료명, 수량, 단위, 단가, 입고가격, 입고날짜, 소비기한)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-        ''', dummy_data)
+        INSERT INTO 인력부 (업무날짜, 이름, 작업, 단가, 횟수, 출금입금금액)
+        VALUES (?, ?, ?, ?, ?, ?)
+        ''', wage_dummy_data)
         
         conn.commit()
         
