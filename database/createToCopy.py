@@ -46,7 +46,7 @@ def copy_table_structure(a_db_path, b_db_path, table_name):
 
 # 사용 예시
 a_db_path = 'recommendTable.db'
-b_db_path = 'B_database.db'
+b_db_path = 'testCopyTable.db'
 table_name = '요식업'  # 요청에 따라 테이블 이름을 설정
 
 copy_table_structure(a_db_path, b_db_path, table_name)
