@@ -31,7 +31,9 @@ const Tablerender: React.FC<TablerenderProps> = ({ refreshKey, tableName }) => {
   }, [refreshKey, tableName]);
 
   const handleDoubleClick = (id: string, key: string) => {
-    setEditing({ ...editing, [`${id}-${key}`]: true });
+    if (key !== 'id') {
+      setEditing({ ...editing, [`${id}-${key}`]: true });
+    }
   };
 
   const handleChange = (id: string, key: string, value: string) => {
@@ -74,36 +76,40 @@ const Tablerender: React.FC<TablerenderProps> = ({ refreshKey, tableName }) => {
       }}>
         <thead style={{ backgroundColor: '#f4f4f4' }}>
           <tr>
-            {users.length > 0 && Object.keys(users[0]).map(key => (
-              <th key={key} style={{
-                border: '1px solid #ddd',
-                padding: '12px 15px',
-                textAlign: 'left',
-                fontWeight: 'bold',
-                color: '#333'
-              }}>{key}</th>
-            ))}
+            {users.length > 0 && Object.keys(users[0])
+              .filter(key => key !== 'id') // id를 필터링하여 제외
+              .map(key => (
+                <th key={key} style={{
+                  border: '1px solid #ddd',
+                  padding: '12px 15px',
+                  textAlign: 'left',
+                  fontWeight: 'bold',
+                  color: '#333'
+                }}>{key}</th>
+              ))}
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
             <tr key={user.id} style={{ backgroundColor: '#fff' }}>
-              {Object.keys(user).map((key) => (
-                <td key={key} style={{
-                  border: '1px solid #ddd',
-                  padding: '12px 15px'
-                }} onDoubleClick={() => handleDoubleClick(user.id, key)}>
-                  {editing[`${user.id}-${key}`] ? (
-                    <input
-                      type="text"
-                      value={tempUsers.find(u => u.id === user.id)?.[key] || ''}
-                      onChange={(e) => handleChange(user.id, key, e.target.value)}
-                    />
-                  ) : (
-                    user[key]
-                  )}
-                </td>
-              ))}
+              {Object.keys(user)
+                .filter(key => key !== 'id') // id를 필터링하여 제외
+                .map((key) => (
+                  <td key={key} style={{
+                    border: '1px solid #ddd',
+                    padding: '12px 15px'
+                  }} onDoubleClick={() => handleDoubleClick(user.id, key)}>
+                    {editing[`${user.id}-${key}`] ? (
+                      <input
+                        type="text"
+                        value={tempUsers.find(u => u.id === user.id)?.[key] || ''}
+                        onChange={(e) => handleChange(user.id, key, e.target.value)}
+                      />
+                    ) : (
+                      user[key]
+                    )}
+                  </td>
+                ))}
             </tr>
           ))}
         </tbody>
@@ -115,22 +121,25 @@ const Tablerender: React.FC<TablerenderProps> = ({ refreshKey, tableName }) => {
 
 export default Tablerender;
 
-//* tablerender.tsx, AddDeleteColumn.tsx, addcolumn_render.py 사용할 시 필요.
 
-// 'use client';
+//* tablerender시 사용
+// "use client";
 
 // import { useState } from 'react';
-// import Tablerender from './lib/tablerender';
-// import AddDeleteColumn from './lib/AddDeleteColumn';
+// import Tablerender from '../lib/tablerender';
+// import AddDeleteRow from '../lib/AddDeleteRow';
+// import AddDeleteColumn from './Lib/AddDeleteColumn';
+
 
 // export default function Home() {
 //   const [refreshKey, setRefreshKey] = useState<number>(0);
 //   const [tableName, setTableName] = useState<string>('users');
 //   const [error, setError] = useState<string>('');
+// const handLeColumnChange = () => {
+//   setRefreshKey((prevKey) => prevKey + 1);
+// };
 
-//   const handleColumnChange = () => {
-//     setRefreshKey((prevKey) => prevKey + 1);
-//   };
+
 
 //   const handleTableNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 //     const value = e.target.value;
@@ -156,7 +165,8 @@ export default Tablerender;
 //       {tableName ? (
 //         <>
 //           <Tablerender refreshKey={refreshKey} tableName={tableName} />
-//           <AddDeleteColumn onColumnChange={handleColumnChange} tableName={tableName} />
+//           <AddDeleteRow tableName={tableName} refreshKey={refreshKey} setRefreshKey={setRefreshKey} />
+//           <AddDeleteColumn onCoLumnChange={handLeColumnChange} tableName={tableName} />
 //         </>
 //       ) : (
 //         <p>Please enter a table name to view and modify the table.</p>
