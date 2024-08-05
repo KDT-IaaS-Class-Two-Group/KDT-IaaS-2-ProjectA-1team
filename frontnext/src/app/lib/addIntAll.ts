@@ -3,7 +3,7 @@ import extractNumbers from './replaceInt';
 
 // 숫자를 가격 형식으로 변환하는 함수
 const formatPrice = (value: number): string => {
-  return value.toLocaleString('ko-KR') + ' 원';
+  return value.toLocaleString('ko-KR');
 };
 
 // 배열에서 가격을 합산하고 포맷화하는 함수
