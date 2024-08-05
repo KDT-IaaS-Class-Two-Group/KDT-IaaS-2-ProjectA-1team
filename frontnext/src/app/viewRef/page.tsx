@@ -8,8 +8,6 @@ export default function Home() {
     <div>
       <HeaderSection />
       <main>
-        {/* <h1>Hellow View</h1> */}
-        {/* <TabToggle /> */}
         <ToggleSection />
       </main>
     </div>
