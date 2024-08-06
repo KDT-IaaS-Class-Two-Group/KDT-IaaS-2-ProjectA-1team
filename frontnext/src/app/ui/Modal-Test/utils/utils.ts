@@ -20,9 +20,9 @@ export const updateLabels = (
   setCount: SetCountFunction,
 ) => {
   if (!containerRef.current) {
-    return; // containerRef.current가 null일 경우 함수를 종료합니다.
+    return;
   }
-  const remainingSets = containerRef.current.querySelectorAll('div');
+  const remainingSets = containerRef.current.querySelectorAll('[id^="set-"]');
   remainingSets.forEach((set, index) => {
     const input = set.querySelector('input');
     const button = set.querySelector('button');

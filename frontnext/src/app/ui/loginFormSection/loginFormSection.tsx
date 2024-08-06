@@ -20,7 +20,7 @@ import { FormSectionstyles } from './loginComponent/loginFormStyles';
 
 import { LoginFormText } from './loginComponent/loginFormLiteral';
 
-import LoginCheckModal from '../modal/modalLoginCheck';
+import LoginCheckModal from '../Modal-Test/modalLoginCheck';
 
 const LoginFormSection = () => {
   const [id, setId] = useState('');
