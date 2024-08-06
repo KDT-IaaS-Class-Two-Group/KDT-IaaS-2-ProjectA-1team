@@ -6,19 +6,16 @@ import { callApi } from '@/app/lib/AJAX';
 
 interface RecommendProps {
   className?: string;
-  onclick?: (text: string) => void;
+  onClose?: () => void;
 }
 
-const RecommendTemp: React.FC<RecommendProps> = ({ className, onclick }) => {
-  // 버튼 클릭 시 호출되는 함수
+const RecommendTemp: React.FC<RecommendProps> = ({ className, onClose }) => {
   const handleButtonClick = async (text: string) => {
-    // useData를 생성
     const useData = { table: text };
 
     try {
-      // API 호출
       const response = await callApi('8000/createRecommend', 'POST', useData);
-      console.log(response); // 응답을 콘솔에 출력
+      console.log(response);
     } catch (error) {
       console.error('API 호출 중 오류 발생:', error);
     }
@@ -38,7 +35,12 @@ const RecommendTemp: React.FC<RecommendProps> = ({ className, onclick }) => {
         textNode="인력부"
         clickFunc={() => handleButtonClick('인력부')}
       />
-      <ButtonClick type="button" className={className} textNode="돌아가기" />
+      <ButtonClick
+        type="button"
+        className={className}
+        textNode="돌아가기"
+        clickFunc={onClose}
+      />
     </>
   );
 };
