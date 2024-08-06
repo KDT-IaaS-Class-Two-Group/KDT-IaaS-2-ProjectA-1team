@@ -102,16 +102,11 @@ export const AddSets: React.FC = () => {
         if (!response.ok) {
           throw new Error('네트워크 응답이 정상이 아닙니다.');
         }
-
         const result = await response.json();
-        console.log('서버 응답:', result);
 
-        // 서버 응답 처리 로직 추가
-        // 페이지 이동 로직 추가 (원하는 경우)
-        // window.location.href = 'http://localhost:3000/somePage';
+        console.log('서버 응답:', result);
       } catch (error) {
         console.error('폼 제출 중 오류 발생:', error);
-        // 오류 처리 로직 추가
       }
     }
   };
