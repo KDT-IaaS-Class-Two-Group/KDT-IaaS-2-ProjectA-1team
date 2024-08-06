@@ -4,7 +4,7 @@ import React from 'react';
 
 import ConDiv from '../Header/headerComponent/createConDiv';
 
-import { LoginCheckCardStyles } from './ModalStyles';
+import { LoginCheckCardStyles } from './styles/ModalStyles';
 
 import ButtonClick from '../Header/headerComponent/createBtn';
 
