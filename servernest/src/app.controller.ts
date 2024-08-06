@@ -33,4 +33,10 @@ export class AppController {
       res.status(error.response?.status || 500).send(error.message || 'Error');
     }
   }
+  // * 테이블 생성 모달에서 생성 버튼을 눌렀을 때의 요청
+  @Post('/createTable')
+  createTable(@Body() createTableDto: any, @Res() res: Response) {
+    console.log('Received createTable request:', createTableDto);
+    res.status(200).json({ message: 'Request received' });
+  }
 }
