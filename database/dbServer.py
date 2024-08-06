@@ -38,15 +38,8 @@ def verify_user(request: VerifyRequest):
 
 app.include_router(table_router)  # table_router를 추가한다.
 app.include_router(data_router)  # data_router를 추가한다.
-<<<<<<< HEAD
 app.include_router(create_table_router)  # create_table_router를 추가한다.
 
 if __name__ == "__dbServer__":
     import uvicorn
     uvicorn.run("dbServer:app", host="0.0.0.0", port=8080, reload=True)
-=======
-
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
->>>>>>> upstream/main
