@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DataTable from './ToggleComponents/DataTable';
 import Form from './ToggleComponents/Form';
 import ToggleButton from './ToggleButton';
@@ -10,13 +10,21 @@ interface UserDTO {
   [key: string]: string | number;
 }
 
-export default function ToggleSection() {
-  const [name, setName] = useState('');
+interface Props {
+  setColumns: (columns: string[]) => void;
+  setSelectedTableData: (data: UserDTO[]) => void; // 데이터 상태 업데이트 함수
+}
+
+export default function ToggleSection({
+  setColumns,
+  setSelectedTableData,
+}: Props) {
+  const [name, setName] = useState<string>('');
   const [data, setData] = useState<UserDTO[]>([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string>('');
   const [tables, setTables] = useState<string[]>([]);
-  const [selectedTable, setSelectedTable] = useState('');
-  const [isFormOpen, setIsFormOpen] = useState(true);
+  const [selectedTable, setSelectedTable] = useState<string>('');
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchTables = async () => {
@@ -51,8 +59,12 @@ export default function ToggleSection() {
         throw new Error('Network response was not ok');
       }
 
-      const data: UserDTO[] = await res.json();
-      setData(data);
+      const newData: UserDTO[] = await res.json();
+      setData(newData);
+      setSelectedTableData(newData); // Home 컴포넌트의 상태 업데이트
+      if (newData.length > 0) {
+        setColumns(Object.keys(newData[0])); // 첫 번째 데이터 항목의 키를 컬럼 이름으로 설정
+      }
       setError('');
     } catch (error) {
       setError('Failed to fetch data');
