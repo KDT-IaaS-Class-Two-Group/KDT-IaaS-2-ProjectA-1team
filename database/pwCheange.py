@@ -38,6 +38,9 @@ async def check_password(data: PasswordCheck):
 
 @app.put("/change-password")
 async def change_password(data: PasswordCheck):
+    if not data.new_password:
+        raise HTTPException(status_code=400, detail="New password cannot be empty.")
+
     stored_password = get_password_from_db()
     if not (stored_password and stored_password == data.current_password):
         raise HTTPException(status_code=400, detail="Current password is incorrect.")
