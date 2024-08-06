@@ -2,8 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
-from typing import List
-from routers import table_router, data_router  # user_router, table_router, data_router를 불러온다.
+from routers import table_router, data_router, create_table_router
 
 app = FastAPI()
 
@@ -39,3 +38,8 @@ def verify_user(request: VerifyRequest):
 
 app.include_router(table_router)  # table_router를 추가한다.
 app.include_router(data_router)  # data_router를 추가한다.
+app.include_router(create_table_router)  # create_table_router를 추가한다.
+
+if __name__ == "__dbServer__":
+    import uvicorn
+    uvicorn.run("dbServer:app", host="0.0.0.0", port=8080, reload=True)
