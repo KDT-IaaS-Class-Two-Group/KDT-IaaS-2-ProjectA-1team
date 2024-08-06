@@ -1,5 +1,5 @@
 import React from 'react';
-import { AddSets } from './addSets';
+import { AddSets } from './AddSets';
 
 export const CreateTableForm = () => {
   return (
