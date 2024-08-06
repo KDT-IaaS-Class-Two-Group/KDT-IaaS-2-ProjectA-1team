@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
 from YSDB import get_db_connection
 from fastapi.middleware.cors import CORSMiddleware
@@ -27,14 +27,19 @@ class Order(BaseModel):
     item_name: str
     quantity: str
 
+class ColumnOperation(BaseModel):
+    column_name: str
+
 @app.get("/tables/")
 def read_tables():
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';")
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY rowid ASC;")
     tables = cursor.fetchall()
     conn.close()
     return [dict(table) for table in tables]
+
+
 
 @app.get("/{table_name}/")
 def read_table_data(table_name: str):
@@ -45,41 +50,70 @@ def read_table_data(table_name: str):
     conn.close()
     return [dict(item) for item in items]
 
-@app.post("/{table_name}/")
-def create_data(table_name: str, data: Dict):
+@app.put("/{table_name}/{item_id}")
+async def update_item(table_name: str, item_id: int, request: Request):
+    data = await request.json()
+    columns = ', '.join([f"{key} = ?" for key in data.keys()])
+    values = list(data.values())
+    values.append(item_id)
+    
     conn = get_db_connection()
     cursor = conn.cursor()
-    
-    placeholders = ', '.join(['?' for _ in data])
-    columns = ', '.join(data.keys())
-    sql = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})"
-    
-    cursor.execute(sql, tuple(data.values()))
+    cursor.execute(f"UPDATE {table_name} SET {columns} WHERE id = ?", values)
     conn.commit()
     conn.close()
-    return {"message": "Data added successfully"}
+    return {"message": "Item updated successfully"}
 
-@app.put("/{table_name}/{data_id}")
-def update_data(table_name: str, data_id: int, data: Dict):
+@app.post("/{table_name}/add_column")
+def add_column(table_name: str, column: ColumnOperation):
     conn = get_db_connection()
     cursor = conn.cursor()
-    
-    placeholders = ', '.join([f"{key} = ?" for key in data])
-    sql = f"UPDATE {table_name} SET {placeholders} WHERE id = ?"
-    
-    cursor.execute(sql, tuple(data.values()) + (data_id,))
+    cursor.execute(f"ALTER TABLE {table_name} ADD COLUMN {column.column_name} TEXT")
     conn.commit()
     conn.close()
-    return {"message": "Data updated successfully"}
+    return {"message": f"Column {column.column_name} added successfully"}
 
-@app.delete("/{table_name}/{data_id}")
-def delete_data(table_name: str, data_id: int):
+@app.post("/{table_name}/delete_column")
+def delete_column(table_name: str, column: ColumnOperation):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute(f"DELETE FROM {table_name} WHERE id = ?", (data_id,))
-    conn.commit()
-    conn.close()
-    return {"message": "Data deleted successfully"}
+
+    try:
+        # 외래 키 제약 조건 해제
+        cursor.execute(f"PRAGMA foreign_keys=off;")
+
+        # 기존 테이블 정보 가져오기
+        cursor.execute(f"PRAGMA table_info({table_name});")
+        columns = cursor.fetchall()
+        columns = [col['name'] for col in columns if col['name'] != column.column_name]
+
+        if not columns:
+            raise HTTPException(status_code=400, detail="Cannot delete the only column in the table")
+
+        columns_str = ", ".join(columns)
+
+        # 임시 테이블 생성
+        cursor.execute(f"CREATE TABLE IF NOT EXISTS temp_table AS SELECT {columns_str} FROM {table_name} WHERE 1=0;")
+
+        # 임시 테이블에 데이터 복사
+        cursor.execute(f"INSERT INTO temp_table SELECT {columns_str} FROM {table_name};")
+
+        # 기존 테이블 삭제 및 임시 테이블 이름 변경
+        cursor.execute(f"DROP TABLE {table_name};")
+        cursor.execute(f"ALTER TABLE temp_table RENAME TO {table_name};")
+
+        # 외래 키 제약 조건 설정
+        cursor.execute(f"PRAGMA foreign_keys=on;")
+
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        cursor.execute("DROP TABLE IF EXISTS temp_table;")
+        conn.close()
+
+    return {"message": f"Column {column.column_name} deleted successfully"}
 
 if __name__ == "__main__":
     import uvicorn
