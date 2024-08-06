@@ -1,7 +1,9 @@
+'use client';
+
 // pages/index.tsx
 import React, { useState } from 'react';
 import Modal from '../modalComponent';
-import { CreateTableForm } from './form';
+import { CreateTableForm } from './CreateTableForm';
 
 const TableModal: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
