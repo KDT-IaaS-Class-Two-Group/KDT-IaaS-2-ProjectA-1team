@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from YSDB import get_db_connection
 from fastapi.middleware.cors import CORSMiddleware
+from typing import Dict
 
 app = FastAPI()
 
@@ -20,11 +21,11 @@ app.add_middleware(
 
 class Item(BaseModel):
     name: str
-    price: float
+    price: str
 
 class Order(BaseModel):
     item_name: str
-    quantity: int
+    quantity: str
 
 @app.get("/tables/")
 def read_tables():
@@ -44,41 +45,41 @@ def read_table_data(table_name: str):
     conn.close()
     return [dict(item) for item in items]
 
-@app.post("/items/")
-def create_item(item: Item):
+@app.post("/{table_name}/")
+def create_data(table_name: str, data: Dict):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO items (name, price) VALUES (?, ?)", (item.name, item.price))
+    
+    placeholders = ', '.join(['?' for _ in data])
+    columns = ', '.join(data.keys())
+    sql = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})"
+    
+    cursor.execute(sql, tuple(data.values()))
     conn.commit()
     conn.close()
-    return {"message": "Item added successfully"}
+    return {"message": "Data added successfully"}
 
-@app.post("/orders/")
-def create_order(order: Order):
+@app.put("/{table_name}/{data_id}")
+def update_data(table_name: str, data_id: int, data: Dict):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO orders (item_name, quantity) VALUES (?, ?)", (order.item_name, order.quantity))
+    
+    placeholders = ', '.join([f"{key} = ?" for key in data])
+    sql = f"UPDATE {table_name} SET {placeholders} WHERE id = ?"
+    
+    cursor.execute(sql, tuple(data.values()) + (data_id,))
     conn.commit()
     conn.close()
-    return {"message": "Order added successfully"}
+    return {"message": "Data updated successfully"}
 
-@app.delete("/items/{item_id}")
-def delete_item(item_id: int):
+@app.delete("/{table_name}/{data_id}")
+def delete_data(table_name: str, data_id: int):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM items WHERE id = ?", (item_id,))
+    cursor.execute(f"DELETE FROM {table_name} WHERE id = ?", (data_id,))
     conn.commit()
     conn.close()
-    return {"message": "Item deleted successfully"}
-
-@app.delete("/orders/{order_id}")
-def delete_order(order_id: int):
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM orders WHERE id = ?", (order_id,))
-    conn.commit()
-    conn.close()
-    return {"message": "Order deleted successfully"}
+    return {"message": "Data deleted successfully"}
 
 if __name__ == "__main__":
     import uvicorn
