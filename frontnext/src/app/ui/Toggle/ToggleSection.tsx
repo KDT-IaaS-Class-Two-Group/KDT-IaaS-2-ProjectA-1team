@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DataTable from './ToggleComponents/DataTable';
 import Form from './ToggleComponents/Form';
 import ToggleButton from './ToggleButton';
@@ -9,8 +9,11 @@ import styles from '../styles/styles';
 interface UserDTO {
   [key: string]: string | number;
 }
+interface Props {
+  setColumns: (columns: string[]) => void;
+}
 
-export default function ToggleSection() {
+export default function ToggleSection({ setColumns }: Props) {
   const [name, setName] = useState('');
   const [data, setData] = useState<UserDTO[]>([]);
   const [error, setError] = useState('');
@@ -38,6 +41,8 @@ export default function ToggleSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      console.log('Selected table:', selectedTable);
+
       const requestData = { table: selectedTable, name: name || null };
       const res = await fetch('http://localhost:8000/data', {
         method: 'POST',
@@ -53,6 +58,13 @@ export default function ToggleSection() {
 
       const data: UserDTO[] = await res.json();
       setData(data);
+      if (data.length > 0) {
+        setColumns(Object.keys(data[0])); // 컬럼 키 저장
+        console.log(
+          'Column keys of the first table data:',
+          Object.keys(data[0]),
+        );
+      }
       setError('');
     } catch (error) {
       setError('Failed to fetch data');

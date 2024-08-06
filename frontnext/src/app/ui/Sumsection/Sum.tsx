@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { sumFromArray } from '@/app/lib/addIntAll';
+// SumComponent.tsx
+import React from 'react';
 
-const SumComponent = ({
-  selectedTableData,
-}: {
-  selectedTableData: string[];
-}) => {
-  const [sum, setSum] = useState('0');
-
-  useEffect(() => {
-    if (selectedTableData.length > 0) {
-      const totalSum = sumFromArray(selectedTableData);
-      setSum(totalSum);
-    }
-  }, [selectedTableData]);
-
+const SumComponent = ({ selectedTableData, columns }) => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gray-100 p-4">
       <div className="flex justify-end items-center w-full pr-10">
         <span className="text-lg font-bold mr-2">합계</span>
-        <span className="text-lg font-bold">{sum}</span>
+        <select className="mx-2">
+          {columns.map((column, index) => (
+            <option key={index} value={column}>
+              {column}
+            </option>
+          ))}
+        </select>
+        <span className="text-lg font-bold">{selectedTableData}</span>
       </div>
     </div>
   );
