@@ -15,26 +15,25 @@ def init_db():
         CREATE TABLE IF NOT EXISTS items (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
-            price REAL NOT NULL
+            price TEXT NOT NULL
         )
     ''')
-    # items 테이블에 테스트 데이터 추가
-    cursor.execute("INSERT INTO items (name, price) VALUES ('Item 1', 10.99)")
-    cursor.execute("INSERT INTO items (name, price) VALUES ('Item 2', 15.49)")
-    cursor.execute("INSERT INTO items (name, price) VALUES ('Item 3', 7.25)")
-
     # orders 테이블 생성
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS orders (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             item_name TEXT NOT NULL,
-            quantity INTEGER NOT NULL
+            quantity TEXT NOT NULL
         )
     ''')
-    # orders 테이블에 테스트 데이터 추가
-    cursor.execute("INSERT INTO orders (item_name, quantity) VALUES ('Item 1', 2)")
-    cursor.execute("INSERT INTO orders (item_name, quantity) VALUES ('Item 2', 1)")
-    cursor.execute("INSERT INTO orders (item_name, quantity) VALUES ('Item 3', 4)")
+    
+    # items와 orders 테이블에 테스트 데이터 추가
+    cursor.execute("INSERT INTO items (name, price) VALUES ('Item 1', '10.99')")
+    cursor.execute("INSERT INTO items (name, price) VALUES ('Item 2', '15.49')")
+    cursor.execute("INSERT INTO items (name, price) VALUES ('Item 3', '7.25')")
+    cursor.execute("INSERT INTO orders (item_name, quantity) VALUES ('Item 1', '2')")
+    cursor.execute("INSERT INTO orders (item_name, quantity) VALUES ('Item 2', '1')")
+    cursor.execute("INSERT INTO orders (item_name, quantity) VALUES ('Item 3', '4')")
 
     conn.commit()
     conn.close()
