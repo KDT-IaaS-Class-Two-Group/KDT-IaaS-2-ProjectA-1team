@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import HeaderSection from '../ui/Header/headerSection';
-import TableModal from '../ui/modal/components/CreateTableModal';
+import TableModal from '../ui/Modal-Test/components/CreateTableModal';
 
 export default function Home() {
   return (
