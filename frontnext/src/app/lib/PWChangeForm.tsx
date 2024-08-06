@@ -11,7 +11,7 @@ const PasswordChangeForm = () => {
 
   const handleCheckPassword = async () => {
     try {
-      const response = await fetch('http://localhost:8000/check-password', {
+      const response = await fetch('http://localhost:8080/check-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ const PasswordChangeForm = () => {
     setEmptyPasswordError(false);
 
     try {
-      const response = await fetch('http://localhost:8000/change-password', {
+      const response = await fetch('http://localhost:8080/change-password', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
