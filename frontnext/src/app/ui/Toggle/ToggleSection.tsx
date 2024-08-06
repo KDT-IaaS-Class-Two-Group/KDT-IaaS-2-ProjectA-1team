@@ -9,17 +9,22 @@ import styles from '../styles/styles';
 interface UserDTO {
   [key: string]: string | number;
 }
+
 interface Props {
   setColumns: (columns: string[]) => void;
+  setSelectedTableData: (data: UserDTO[]) => void; // 데이터 상태 업데이트 함수
 }
 
-export default function ToggleSection({ setColumns }: Props) {
-  const [name, setName] = useState('');
+export default function ToggleSection({
+  setColumns,
+  setSelectedTableData,
+}: Props) {
+  const [name, setName] = useState<string>('');
   const [data, setData] = useState<UserDTO[]>([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string>('');
   const [tables, setTables] = useState<string[]>([]);
-  const [selectedTable, setSelectedTable] = useState('');
-  const [isFormOpen, setIsFormOpen] = useState(true);
+  const [selectedTable, setSelectedTable] = useState<string>('');
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchTables = async () => {
@@ -41,8 +46,6 @@ export default function ToggleSection({ setColumns }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      console.log('Selected table:', selectedTable);
-
       const requestData = { table: selectedTable, name: name || null };
       const res = await fetch('http://localhost:8000/data', {
         method: 'POST',
@@ -56,14 +59,11 @@ export default function ToggleSection({ setColumns }: Props) {
         throw new Error('Network response was not ok');
       }
 
-      const data: UserDTO[] = await res.json();
-      setData(data);
-      if (data.length > 0) {
-        setColumns(Object.keys(data[0])); // 컬럼 키 저장
-        console.log(
-          'Column keys of the first table data:',
-          Object.keys(data[0]),
-        );
+      const newData: UserDTO[] = await res.json();
+      setData(newData);
+      setSelectedTableData(newData); // Home 컴포넌트의 상태 업데이트
+      if (newData.length > 0) {
+        setColumns(Object.keys(newData[0])); // 첫 번째 데이터 항목의 키를 컬럼 이름으로 설정
       }
       setError('');
     } catch (error) {

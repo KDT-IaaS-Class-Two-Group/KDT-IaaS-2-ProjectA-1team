@@ -6,18 +6,20 @@ import ToggleSection from '../ui/Toggle/ToggleSection';
 import SumComponent from '../ui/Sumsection/Sum';
 
 export default function Home() {
-  const [selectedTableData, setSelectedTableData] = useState([
-    'Item: 2000원',
-    'Item: 3000원',
-  ]);
-  const [columns, setColumns] = useState([]); // 컬럼 데이터 상태 관리 추가
+  const [columns, setColumns] = useState<string[]>([]); // 컬럼 데이터 상태 관리
+  const [selectedTableData, setSelectedTableData] = useState<
+    Array<Record<string, any>>
+  >([]); // 선택된 테이블의 데이터 상태
 
   return (
     <div>
       <HeaderSection />
       <main>
-        <ToggleSection setColumns={setColumns} />
-        <SumComponent selectedTableData={selectedTableData} columns={columns} />
+        <ToggleSection
+          setColumns={setColumns}
+          setSelectedTableData={setSelectedTableData}
+        />
+        <SumComponent columns={columns} selectedTableData={selectedTableData} />
       </main>
     </div>
   );
