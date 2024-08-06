@@ -11,10 +11,14 @@ interface InputState {
 
 export const AddSets: React.FC = () => {
   const [count, setCount] = useState(1);
+  const [tableName, setTableName] = useState<InputState>({
+    id: 0,
+    value: '',
+    error: '',
+  });
   const [sets, setSets] = useState<InputState[]>([
     { id: 1, value: '', error: '' },
   ]);
-  const [isFormValid, setIsFormValid] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const tableNameInputRef = useRef<HTMLInputElement | null>(null);
   const isComposingRef = useRef(false);
@@ -26,9 +30,13 @@ export const AddSets: React.FC = () => {
   };
 
   const handleInputChange = (id: number, value: string) => {
-    setSets(
-      sets.map((set) => (set.id === id ? { ...set, value, error: '' } : set)),
-    );
+    if (id === 0) {
+      setTableName({ ...tableName, value, error: '' });
+    } else {
+      setSets(
+        sets.map((set) => (set.id === id ? { ...set, value, error: '' } : set)),
+      );
+    }
   };
 
   const handleKeyDown = (
@@ -62,10 +70,13 @@ export const AddSets: React.FC = () => {
         ? { ...set, error: '이 필드는 필수입니다.' }
         : set,
     );
+    const tableNameError =
+      tableName.value.trim() === '' ? '이 필드는 필수입니다.' : '';
+    setTableName({ ...tableName, error: tableNameError });
     setSets(newSets);
 
-    const allFilled = newSets.every((set) => set.value.trim() !== '');
-    setIsFormValid(allFilled);
+    const allFilled =
+      newSets.every((set) => set.value.trim() !== '') && tableNameError === '';
     return allFilled;
   };
 
@@ -75,12 +86,13 @@ export const AddSets: React.FC = () => {
 
     if (formIsValid) {
       const formData = {
-        tableName: '테이블 이름', // 여기에 테이블 이름 입력 값을 추가하세요
+        tableName: tableName.value, // 입력된 테이블 이름 값을 사용합니다.
         sets: sets.map((set) => set.value),
       };
 
       try {
-        const response = await fetch('/createTable', {
+        const response = await fetch('http://localhost:8000/createTable', {
+          // URL을 확인합니다.
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -96,11 +108,18 @@ export const AddSets: React.FC = () => {
         console.log('서버 응답:', result);
 
         // 서버 응답 처리 로직 추가
+        // 페이지 이동 로직 추가
+        window.location.href = 'http://localhost:3000/createTable';
       } catch (error) {
         console.error('폼 제출 중 오류 발생:', error);
         // 오류 처리 로직 추가
       }
     }
+  };
+
+  const handleDeleteWrapper = (id: number) => {
+    handleDelete(id, containerRef, setCount);
+    setSets((prevSets) => prevSets.filter((set) => set.id !== id));
   };
 
   useEffect(() => {
@@ -121,14 +140,19 @@ export const AddSets: React.FC = () => {
             onKeyDown={(e) => handleKeyDown(e, 0)}
             onCompositionStart={handleCompositionStart}
             onCompositionEnd={handleCompositionEnd}
+            onChange={(e) => handleInputChange(0, e.target.value)}
+            value={tableName.value}
             autoComplete="off"
           />
+          {tableName.error && (
+            <p className={CreateTableStyle.errorText}>{tableName.error}</p>
+          )}
         </div>
         {sets.map((set) => (
           <div key={set.id}>
             {createSetJSX(
               set.id,
-              handleDelete,
+              handleDeleteWrapper,
               containerRef,
               setCount,
               (e) => handleKeyDown(e, set.id),
