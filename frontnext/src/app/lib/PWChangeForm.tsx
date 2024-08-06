@@ -1,56 +1,50 @@
-'use client'; // 이 줄을 추가합니다
+'use client';
 
 import { useState } from 'react';
 
 const PasswordChangeForm = () => {
   const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [passwordMatch, setPasswordMatch] = useState<null | boolean>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const response = await fetch('http://localhost:8000/change-password', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        current_password: currentPassword,
-        new_password: newPassword,
-      }),
-    });
+  const handleCheckPassword = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/check-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          current_password: currentPassword,
+        }),
+      });
 
-    const data = await response.json();
-    if (response.ok) {
-      alert(data.message);
-    } else {
-      alert(data.detail);
+      const data = await response.json();
+      setPasswordMatch(data.match);
+    } catch (error) {
+      console.error('Error checking password:', error);
     }
   };
 
+  const handleConfirmPassword = async () => {
+    await handleCheckPassword();
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="current-password">현재 비밀번호</label>
-        <input
-          id="current-password"
-          type="password"
-          value={currentPassword}
-          onChange={(e) => setCurrentPassword(e.target.value)}
-          aria-label="현재 비밀번호"
-        />
-      </div>
-      <div>
-        <label htmlFor="new-password">변경 할 비밀번호</label>
-        <input
-          id="new-password"
-          type="password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          aria-label="변경 할 비밀번호"
-        />
-      </div>
-      <button type="submit">변경</button>
-    </form>
+    <div>
+      <label htmlFor="current-password">현재 비밀번호</label>
+      <input
+        id="current-password"
+        type="password"
+        value={currentPassword}
+        onChange={(e) => setCurrentPassword(e.target.value)}
+        aria-label="현재 비밀번호"
+      />
+      <button type="button" onClick={handleConfirmPassword}>
+        확인
+      </button>
+      {passwordMatch === true && <p>비밀번호가 일치합니다</p>}
+      {passwordMatch === false && <p>비밀번호가 일치하지 않습니다</p>}
+    </div>
   );
 };
 
