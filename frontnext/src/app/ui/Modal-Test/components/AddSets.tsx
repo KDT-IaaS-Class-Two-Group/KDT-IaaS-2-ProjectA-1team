@@ -67,11 +67,11 @@ export const AddSets: React.FC = () => {
   const validateForm = () => {
     const newSets = sets.map((set) =>
       set.value.trim() === ''
-        ? { ...set, error: '이 필드는 필수입니다.' }
+        ? { ...set, error: '이 항목은 필수입니다.' }
         : set,
     );
     const tableNameError =
-      tableName.value.trim() === '' ? '이 필드는 필수입니다.' : '';
+      tableName.value.trim() === '' ? '이 항목은 필수입니다.' : '';
     setTableName({ ...tableName, error: tableNameError });
     setSets(newSets);
 
@@ -100,7 +100,7 @@ export const AddSets: React.FC = () => {
         });
 
         if (!response.ok) {
-          throw new Error('네트워크 응답이 정상이 아닙니다.');
+          alert('중복된 테이블 이름입니다.');
         }
         const result = await response.json();
 
