@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
 from routers import table_router, data_router, create_table_router
+from pwCheange import router as pwCheange_router  # pwCheange 라우터를 임포트
 
 app = FastAPI()
 
@@ -39,6 +40,7 @@ def verify_user(request: VerifyRequest):
 app.include_router(table_router)  # table_router를 추가한다.
 app.include_router(data_router)  # data_router를 추가한다.
 app.include_router(create_table_router)  # create_table_router를 추가한다.
+app.include_router(pwCheange_router)  # pwCheange 라우터를 추가
 
 if __name__ == "__dbServer__":
     import uvicorn
