@@ -35,7 +35,7 @@ export const LoginCheckCardStyles = {
 
 const CreateTableStyle = {
   container: 'flex flex-col items-start mb-2.5 w-full',
-  input: 'border rounded-lg p-2 w-full mb-4',
+  input: 'border rounded-lg p-2 w-full',
   errorText: 'text-red-500 text-sm mt-1',
   buttonContainer: 'space-x-10',
   button: 'px-4 py-2 text-white rounded-lg hover:bg-blue-600',
