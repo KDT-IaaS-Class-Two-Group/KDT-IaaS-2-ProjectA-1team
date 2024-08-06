@@ -1,32 +1,40 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { handleDelete, updateLabels } from './utils';
-import { createSetJSX } from './createSet';
+import { handleDelete } from '../utils';
+import { createSetJSX } from '../utils/CreateSet';
+import CreateTableStyle from '../styles/ModalStyles';
 
-export const AddSets = () => {
+interface InputState {
+  id: number;
+  value: string;
+  error: string;
+}
+
+export const AddSets: React.FC = () => {
   const [count, setCount] = useState(1);
-  const [sets, setSets] = useState<React.ReactNode[]>([]);
+  const [sets, setSets] = useState<InputState[]>([
+    { id: 1, value: '', error: '' },
+  ]);
+  const [isFormValid, setIsFormValid] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const tableNameInputRef = useRef<HTMLInputElement | null>(null);
-  const isComposingRef = useRef(false); // 한글 입력 중인지 여부를 추적하는 ref
+  const isComposingRef = useRef(false);
 
   const handleClick = () => {
     const id = count + 1;
-    setSets((prevSets) => [
-      ...prevSets,
-      createSetJSX(
-        id,
-        handleDelete,
-        containerRef,
-        setCount,
-        handleKeyDown,
-        handleCompositionStart,
-        handleCompositionEnd,
-      ), // 수정된 부분: handleKeyDown, handleCompositionStart, handleCompositionEnd 추가
-    ]);
-    setCount((prev) => prev + 1);
+    setSets([...sets, { id, value: '', error: '' }]);
+    setCount(id);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleInputChange = (id: number, value: string) => {
+    setSets(
+      sets.map((set) => (set.id === id ? { ...set, value, error: '' } : set)),
+    );
+  };
+
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    id: number,
+  ) => {
     if (e.key === 'Enter' && !isComposingRef.current) {
       e.preventDefault();
       const inputs = containerRef.current?.querySelectorAll('input');
@@ -41,11 +49,58 @@ export const AddSets = () => {
   };
 
   const handleCompositionStart = () => {
-    isComposingRef.current = true; // 한글 입력 시작
+    isComposingRef.current = true;
   };
 
   const handleCompositionEnd = () => {
-    isComposingRef.current = false; // 한글 입력 종료
+    isComposingRef.current = false;
+  };
+
+  const validateForm = () => {
+    const newSets = sets.map((set) =>
+      set.value.trim() === ''
+        ? { ...set, error: '이 필드는 필수입니다.' }
+        : set,
+    );
+    setSets(newSets);
+
+    const allFilled = newSets.every((set) => set.value.trim() !== '');
+    setIsFormValid(allFilled);
+    return allFilled;
+  };
+
+  const handleCreate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formIsValid = validateForm();
+
+    if (formIsValid) {
+      const formData = {
+        tableName: '테이블 이름', // 여기에 테이블 이름 입력 값을 추가하세요
+        sets: sets.map((set) => set.value),
+      };
+
+      try {
+        const response = await fetch('/createTable', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+          throw new Error('네트워크 응답이 정상이 아닙니다.');
+        }
+
+        const result = await response.json();
+        console.log('서버 응답:', result);
+
+        // 서버 응답 처리 로직 추가
+      } catch (error) {
+        console.error('폼 제출 중 오류 발생:', error);
+        // 오류 처리 로직 추가
+      }
+    }
   };
 
   useEffect(() => {
@@ -55,47 +110,52 @@ export const AddSets = () => {
   }, []);
 
   return (
-    <div>
+    <form onSubmit={handleCreate}>
       <div ref={containerRef}>
-        <input
-          type="text"
-          placeholder="테이블 이름을 입력하세요."
-          className="border rounded-lg p-2 w-full mb-4"
-          ref={tableNameInputRef}
-          onKeyDown={handleKeyDown}
-          onCompositionStart={handleCompositionStart}
-          onCompositionEnd={handleCompositionEnd}
-          autoComplete="off" // 자동 완성 기능 비활성화
-        />
-        {createSetJSX(
-          1,
-          handleDelete,
-          containerRef,
-          setCount,
-          handleKeyDown,
-          handleCompositionStart,
-          handleCompositionEnd,
-        )}
-        {sets.map((set, index) =>
-          React.cloneElement(set as React.ReactElement, {
-            onKeyDown: handleKeyDown,
-            onCompositionStart: handleCompositionStart,
-            onCompositionEnd: handleCompositionEnd,
-          }),
-        )}
+        <div className={CreateTableStyle.container}>
+          <input
+            type="text"
+            placeholder="테이블 이름을 입력하세요."
+            className={CreateTableStyle.input}
+            ref={tableNameInputRef}
+            onKeyDown={(e) => handleKeyDown(e, 0)}
+            onCompositionStart={handleCompositionStart}
+            onCompositionEnd={handleCompositionEnd}
+            autoComplete="off"
+          />
+        </div>
+        {sets.map((set) => (
+          <div key={set.id}>
+            {createSetJSX(
+              set.id,
+              handleDelete,
+              containerRef,
+              setCount,
+              (e) => handleKeyDown(e, set.id),
+              handleCompositionStart,
+              handleCompositionEnd,
+              (e) => handleInputChange(set.id, e.target.value),
+              set.value,
+              set.error,
+            )}
+          </div>
+        ))}
       </div>
-      <div className="space-x-10">
+      <div className={CreateTableStyle.buttonContainer}>
         <button
           type="button"
           onClick={handleClick}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          className={`${CreateTableStyle.button} ${CreateTableStyle.addButton}`}
         >
           추가
         </button>
-        <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+        <button
+          type="submit"
+          className={`${CreateTableStyle.button} ${CreateTableStyle.createButton}`}
+        >
           생성
         </button>
       </div>
-    </div>
+    </form>
   );
 };
