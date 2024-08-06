@@ -86,13 +86,12 @@ export const AddSets: React.FC = () => {
 
     if (formIsValid) {
       const formData = {
-        tableName: tableName.value, // 입력된 테이블 이름 값을 사용합니다.
+        tableName: tableName.value,
         sets: sets.map((set) => set.value),
       };
 
       try {
         const response = await fetch('http://localhost:8000/createTable', {
-          // URL을 확인합니다.
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -108,8 +107,8 @@ export const AddSets: React.FC = () => {
         console.log('서버 응답:', result);
 
         // 서버 응답 처리 로직 추가
-        // 페이지 이동 로직 추가
-        window.location.href = 'http://localhost:3000/createTable';
+        // 페이지 이동 로직 추가 (원하는 경우)
+        // window.location.href = 'http://localhost:3000/somePage';
       } catch (error) {
         console.error('폼 제출 중 오류 발생:', error);
         // 오류 처리 로직 추가
