@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
+import uvicorn  # uvicorn 모듈을 임포트합니다
 
 app = FastAPI()
 
@@ -38,12 +39,12 @@ async def check_password(data: PasswordCheck):
 
 @app.put("/change-password")
 async def change_password(data: PasswordCheck):
-    if not data.new_password:
-        raise HTTPException(status_code=400, detail="New password cannot be empty.")
-
     stored_password = get_password_from_db()
     if not (stored_password and stored_password == data.current_password):
         raise HTTPException(status_code=400, detail="Current password is incorrect.")
+    
+    if not data.new_password:
+        raise HTTPException(status_code=400, detail="New password cannot be empty.")
     
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
@@ -51,3 +52,6 @@ async def change_password(data: PasswordCheck):
     conn.commit()
     conn.close()
     return {"message": "Password changed successfully"}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
