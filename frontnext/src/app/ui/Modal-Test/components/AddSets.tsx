@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { handleDelete } from '../utils';
 import { createSetJSX } from '../utils/CreateSet';
 import CreateTableStyle from '../styles/ModalStyles';
+import RecommendTemp from '../../recommendTemp/recommendTemp';
+import { callApi } from '@/app/lib/AJAX';
 
 interface InputState {
   id: number;
@@ -19,6 +21,7 @@ export const AddSets: React.FC = () => {
   const [sets, setSets] = useState<InputState[]>([
     { id: 1, value: '', error: '' },
   ]);
+  const [isRecommend, setIsRecommend] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const tableNameInputRef = useRef<HTMLInputElement | null>(null);
   const isComposingRef = useRef(false);
@@ -62,6 +65,30 @@ export const AddSets: React.FC = () => {
 
   const handleCompositionEnd = () => {
     isComposingRef.current = false;
+  };
+
+  const handleRecommend = (): void => {
+    setIsRecommend((prevState) => !prevState);
+  };
+
+  const clickToCopyRecommend = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    const btnTextNode = e.currentTarget.textContent;
+    if (btnTextNode === '돌아가기') {
+      handleRecommend();
+    } else {
+      const useData = { table: btnTextNode };
+      try {
+        const response = await callApi('8000/createRecommend', 'POST', useData);
+        console.log(response);
+        alert('테이블이 생성되었습니다.');
+      } catch (error) {
+        console.error('API 호출 중 오류 발생:', error);
+      } finally {
+        handleRecommend();
+      }
+    }
   };
 
   const validateForm = () => {
@@ -126,57 +153,75 @@ export const AddSets: React.FC = () => {
   }, []);
 
   return (
-    <form onSubmit={handleCreate}>
-      <div ref={containerRef}>
-        <div className={CreateTableStyle.container}>
-          <input
-            type="text"
-            placeholder="테이블 이름을 입력하세요."
-            className={CreateTableStyle.input}
-            ref={tableNameInputRef}
-            onKeyDown={(e) => handleKeyDown(e, 0)}
-            onCompositionStart={handleCompositionStart}
-            onCompositionEnd={handleCompositionEnd}
-            onChange={(e) => handleInputChange(0, e.target.value)}
-            value={tableName.value}
-            autoComplete="off"
-          />
-          {tableName.error && (
-            <p className={CreateTableStyle.errorText}>{tableName.error}</p>
-          )}
-        </div>
-        {sets.map((set) => (
-          <div key={set.id}>
-            {createSetJSX(
-              set.id,
-              handleDeleteWrapper,
-              containerRef,
-              setCount,
-              (e) => handleKeyDown(e, set.id),
-              handleCompositionStart,
-              handleCompositionEnd,
-              (e) => handleInputChange(set.id, e.target.value),
-              set.value,
-              set.error,
-            )}
+    <>
+      {!isRecommend ? (
+        <form onSubmit={handleCreate}>
+          <div ref={containerRef}>
+            <div className={CreateTableStyle.container}>
+              <input
+                type="text"
+                placeholder="테이블 이름을 입력하세요."
+                className={CreateTableStyle.input}
+                ref={tableNameInputRef}
+                onKeyDown={(e) => handleKeyDown(e, 0)}
+                onCompositionStart={handleCompositionStart}
+                onCompositionEnd={handleCompositionEnd}
+                onChange={(e) => handleInputChange(0, e.target.value)}
+                value={tableName.value}
+                autoComplete="off"
+              />
+              {tableName.error && (
+                <p className={CreateTableStyle.errorText}>{tableName.error}</p>
+              )}
+            </div>
+            {sets.map((set) => (
+              <div key={set.id}>
+                {createSetJSX(
+                  set.id,
+                  handleDeleteWrapper,
+                  containerRef,
+                  setCount,
+                  (e) => handleKeyDown(e, set.id),
+                  handleCompositionStart,
+                  handleCompositionEnd,
+                  (e) => handleInputChange(set.id, e.target.value),
+                  set.value,
+                  set.error,
+                )}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className={CreateTableStyle.buttonContainer}>
-        <button
-          type="button"
-          onClick={handleClick}
-          className={`${CreateTableStyle.button} ${CreateTableStyle.addButton}`}
-        >
-          추가
-        </button>
-        <button
-          type="submit"
-          className={`${CreateTableStyle.button} ${CreateTableStyle.createButton}`}
-        >
-          생성
-        </button>
-      </div>
-    </form>
+          <div>
+            <button
+              type="button"
+              onClick={handleRecommend}
+              className={CreateTableStyle.recommendButton}
+            >
+              추천 템플릿
+            </button>
+          </div>
+          <div className={CreateTableStyle.buttonContainer}>
+            <button
+              type="button"
+              onClick={handleClick}
+              className={`${CreateTableStyle.button} ${CreateTableStyle.addButton}`}
+            >
+              추가
+            </button>
+            <button
+              type="submit"
+              className={`${CreateTableStyle.button} ${CreateTableStyle.createButton}`}
+            >
+              생성
+            </button>
+          </div>
+        </form>
+      ) : (
+        <RecommendTemp
+          className={CreateTableStyle.recommendButton}
+          onClose={clickToCopyRecommend}
+        />
+      )}
+    </>
   );
 };

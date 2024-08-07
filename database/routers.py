@@ -9,7 +9,7 @@ table_router = APIRouter()
 @table_router.get("/tables", response_model=List[str])
 async def get_tables():
     try:
-        tables = get_table_names('정호연.db')
+        tables = get_table_names('testCopyTable.db')
         return tables
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

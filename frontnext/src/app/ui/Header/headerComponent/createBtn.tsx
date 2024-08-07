@@ -4,7 +4,9 @@ import React from 'react';
 
 interface ButtonProps {
   textNode: string;
-  clickFunc?: () => void;
+  clickFunc?:
+    | (() => void)
+    | ((event: React.MouseEvent<HTMLButtonElement>) => void);
   className?: string;
   type?: 'submit' | 'button';
 }

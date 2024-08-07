@@ -4,6 +4,8 @@ from pydantic import BaseModel
 import sqlite3
 from routers import table_router, data_router, create_table_router
 from pwCheange import router as pwCheange_router  # pwCheange 라우터를 임포트
+from typing import List
+from createToCopy import copy_table_structure
 
 app = FastAPI()
 
@@ -41,6 +43,18 @@ app.include_router(table_router)  # table_router를 추가한다.
 app.include_router(data_router)  # data_router를 추가한다.
 app.include_router(create_table_router)  # create_table_router를 추가한다.
 app.include_router(pwCheange_router)  # pwCheange 라우터를 추가
+
+class Recommend(BaseModel):
+    table: str
+
+@app.post('/createRecommend')
+def create_recommend(request: Recommend):
+    print('createRecommend')
+    copy_table_structure(request.table)
+
+    print(bool(request.table))
+    # JSON 응답으로 반환
+    return {"success": bool(request.table)}
 
 if __name__ == "__dbServer__":
     import uvicorn
