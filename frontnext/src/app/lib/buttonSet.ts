@@ -1,5 +1,5 @@
 // deleteButton.tsx
-import { handleDelete } from '../ui/modal/components/utils';
+import { handleDelete } from '../ui/Modal-Test/utils/utils';
 
 import TagMaker from '@/app/ui/components/TagMaker';
 

@@ -32,6 +32,9 @@ class UpdateRowsAction(BaseModel):
     tableName: str
     data: List[Dict[str, Any]]
 
+class TableAction(BaseModel):
+    table_name: str
+
 @app.get("/tables/{table_name}/columns")
 def read_columns(table_name: str) -> List[Dict[str, Any]]:
     with get_db_connection() as conn:
@@ -100,6 +103,7 @@ def update_rows(action: UpdateRowsAction):
         with get_db_connection() as conn:
             cursor = conn.cursor()
             for row in action.data:
+                # id 열을 업데이트 가능하게 하도록 쿼리 수정
                 placeholders = ", ".join([f"{k} = ?" for k in row.keys()])
                 values = list(row.values())
                 query = f"UPDATE {action.tableName} SET {placeholders} WHERE id = ?"
@@ -108,3 +112,29 @@ def update_rows(action: UpdateRowsAction):
         return {"message": f"Rows in {action.tableName} updated successfully."}
     except sqlite3.Error as e:
         raise HTTPException(status_code=500, detail=f"Database error: {e}")
+
+@app.post("/add-row")
+def add_row(action: TableAction):
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(f"INSERT INTO {action.table_name} (name, age) VALUES (NULL, NULL)")
+            conn.commit()
+        return {"message": f"Row added to {action.table_name}."}
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {e}")
+
+@app.post("/delete-row")
+def delete_row(action: TableAction):
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(f"DELETE FROM {action.table_name} WHERE id = (SELECT id FROM {action.table_name} ORDER BY id DESC LIMIT 1)")
+            conn.commit()
+        return {"message": f"Row deleted from {action.table_name}."}
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {e}")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8080)

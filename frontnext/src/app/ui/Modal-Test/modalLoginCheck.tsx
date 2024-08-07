@@ -4,11 +4,11 @@ import React from 'react';
 
 import ConDiv from '../Header/headerComponent/createConDiv';
 
-import { LoginCheckCardStyles } from './modalStyle';
+import { LoginCheckCardStyles } from './styles/ModalStyles';
 
 import ButtonClick from '../Header/headerComponent/createBtn';
 
-import ModalPTag from './components/createPTag';
+import ModalPTag from './components/createTag';
 
 interface LoginCheckProps {
   clickFunc: () => void;
