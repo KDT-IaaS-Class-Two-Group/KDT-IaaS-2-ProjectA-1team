@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import ModalComponent from './ModalComponent';
-import { CreateTableForm } from './components/CreateTableForm';
+import { AddSets } from './components/AddSets';
 
 const TotalSidebar: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -25,7 +25,7 @@ const TotalSidebar: React.FC = () => {
       {/* 테이블 생성 모달*/}
       <ModalComponent show={showModal} onClose={toggleModal}>
         <div className="text-center">
-          <CreateTableForm />
+          <AddSets />
         </div>
       </ModalComponent>
     </div>
