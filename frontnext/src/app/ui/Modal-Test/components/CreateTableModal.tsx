@@ -1,9 +1,7 @@
 'use client';
-
-// pages/index.tsx
 import React, { useState } from 'react';
-import Modal from '../modalComponent';
-import { CreateTableForm } from './CreateTableForm';
+import Modal from '../ModalComponent';
+import { AddSets } from './AddSets';
 
 const TableModal: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -22,7 +20,7 @@ const TableModal: React.FC = () => {
       </button>
       <Modal show={showModal} onClose={toggleModal}>
         <div className="text-center">
-          <CreateTableForm />
+          <AddSets />
         </div>
       </Modal>
     </div>
