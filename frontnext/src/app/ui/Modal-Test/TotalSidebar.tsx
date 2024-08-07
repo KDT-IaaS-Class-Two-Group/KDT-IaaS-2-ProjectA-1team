@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
-import ModalComponent from './modalComponent';
+import ModalComponent from './ModalComponent';
 import { CreateTableForm } from './components/CreateTableForm';
 
 const TotalSidebar: React.FC = () => {
