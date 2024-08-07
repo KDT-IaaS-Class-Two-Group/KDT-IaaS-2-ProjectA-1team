@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { fetchTables } from '@/app/lib/fetchDataTest';
 
 interface TableListProps {
   onTableClick: (tableName: string) => void;
@@ -8,17 +9,12 @@ const TableList: React.FC<TableListProps> = ({ onTableClick }) => {
   const [tables, setTables] = useState<string[]>([]);
 
   useEffect(() => {
-    const fetchTables = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/tables');
-        const data = await response.json();
-        setTables(data);
-      } catch (error) {
-        console.error('Error fetching tables:', error);
-      }
+    const getTables = async () => {
+      const tables = await fetchTables();
+      setTables(tables);
     };
 
-    fetchTables();
+    getTables();
   }, []);
 
   return (
