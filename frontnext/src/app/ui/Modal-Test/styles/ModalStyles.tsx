@@ -31,6 +31,8 @@ const CreateTableStyle = {
   addButton: 'bg-blue-500',
   createButton: 'bg-green-500 hover:bg-green-600',
   inputError: 'border-red-500',
+  recommendButton:
+    'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 w-full mb-4',
 };
 
 export default CreateTableStyle;
