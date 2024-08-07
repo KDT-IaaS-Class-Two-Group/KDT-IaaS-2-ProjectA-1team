@@ -32,3 +32,16 @@ export const LoginCheckCardStyles = {
   cardSubtitle: 'text-sm text-gray-500',
   cardLink: 'text-blue-600 hover:text-blue-700 underline',
 };
+
+const CreateTableStyle = {
+  container: 'flex flex-col items-start mb-2.5 w-full',
+  input: 'border rounded-lg p-2 w-full',
+  errorText: 'text-red-500 text-sm mt-1',
+  buttonContainer: 'space-x-10',
+  button: 'px-4 py-2 text-white rounded-lg hover:bg-blue-600',
+  addButton: 'bg-blue-500',
+  createButton: 'bg-green-500 hover:bg-green-600',
+  inputError: 'border-red-500',
+};
+
+export default CreateTableStyle;

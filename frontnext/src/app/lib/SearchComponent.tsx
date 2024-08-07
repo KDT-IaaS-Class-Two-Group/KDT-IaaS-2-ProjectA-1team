@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import axios from 'axios';
 
 // Define the type for search results
 interface SearchResult {
@@ -9,17 +8,29 @@ interface SearchResult {
 }
 
 const SearchComponent: React.FC = () => {
-  const [query, setQuery] = useState<any>('');
+  const [query, setQuery] = useState<string>('');
   const [results, setResults] = useState<SearchResult[]>([]);
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get<{ results: SearchResult[] }>(
+      const response = await fetch(
         `http://localhost:3001/search?query=${query}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
       );
-      setResults(response.data.results);
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      setResults(data.results);
     } catch (error) {
-      console.error('There was an error fetching the results!', error);
+      console.error('에러 발생!', error);
     }
   };
 
