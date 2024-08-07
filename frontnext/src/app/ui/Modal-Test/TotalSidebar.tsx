@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import ModalComponent from './ModalComponent';
 import { AddSets } from './components/AddSets';
+import TableData from './components/TableData';
 
 const TotalSidebar: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -42,7 +43,7 @@ const TotalSidebar: React.FC = () => {
         {selectedTable && (
           <div>
             <h2 className="text-xl font-bold mb-4">{selectedTable}</h2>
-            <pre>{JSON.stringify(tableData, null, 2)}</pre>
+            <TableData data={tableData} />
           </div>
         )}
       </div>
