@@ -5,7 +5,7 @@ import Sidebar from './components/Sidebar';
 import ModalComponent from './modalComponent';
 import { CreateTableForm } from './components/CreateTableForm';
 
-const Home: React.FC = () => {
+const TotalSidebar: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => {
@@ -32,4 +32,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default TotalSidebar;
