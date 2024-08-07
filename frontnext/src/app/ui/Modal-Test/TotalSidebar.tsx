@@ -24,9 +24,6 @@ const TotalSidebar: React.FC = () => {
         },
         body: JSON.stringify({ table: tableName }),
       });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
       const data = await response.json();
       setTableData(data);
     } catch (error) {
@@ -41,6 +38,7 @@ const TotalSidebar: React.FC = () => {
 
       {/* 메인 콘텐츠 영역 */}
       <div className="flex-grow p-4">
+        <h1 className="text-2xl font-bold">Main Content</h1>
         {selectedTable && (
           <div>
             <h2 className="text-xl font-bold mb-4">{selectedTable}</h2>
