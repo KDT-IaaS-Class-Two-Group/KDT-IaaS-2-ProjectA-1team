@@ -1,13 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { PwChangeModalStyles as styles } from '../ui/Modal/styles/PWcheangeModal';
 
-const PasswordChangeForm = () => {
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [passwordMatch, setPasswordMatch] = useState<null | boolean>(null);
-  const [changeSuccess, setChangeSuccess] = useState<null | boolean>(null);
-  const [emptyPasswordError, setEmptyPasswordError] = useState(false);
+interface PasswordCheck {
+  current_password: string;
+  new_password?: string;
+}
+
+const PasswordChangeForm: React.FC = () => {
+  const [currentPassword, setCurrentPassword] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [passwordMatch, setPasswordMatch] = useState<boolean | null>(null);
+  const [changeSuccess, setChangeSuccess] = useState<boolean | null>(null);
+  const [emptyPasswordError, setEmptyPasswordError] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleChangePassword = async () => {
     if (currentPassword.trim() === '' || newPassword.trim() === '') {
@@ -28,7 +35,7 @@ const PasswordChangeForm = () => {
           },
           body: JSON.stringify({
             current_password: currentPassword,
-          }),
+          } as PasswordCheck),
         },
       );
 
@@ -51,7 +58,7 @@ const PasswordChangeForm = () => {
           body: JSON.stringify({
             current_password: currentPassword,
             new_password: newPassword,
-          }),
+          } as PasswordCheck),
         },
       );
 
@@ -64,50 +71,108 @@ const PasswordChangeForm = () => {
   };
 
   const handleCancel = () => {
-    // 입력 필드 초기화
     setCurrentPassword('');
     setNewPassword('');
     setPasswordMatch(null);
     setChangeSuccess(null);
     setEmptyPasswordError(false);
+    setIsModalOpen(false);
   };
 
+  const openModal = () => setIsModalOpen(true);
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      setCurrentPassword('');
+      setNewPassword('');
+      setPasswordMatch(null);
+      setChangeSuccess(null);
+      setEmptyPasswordError(false);
+    }
+  }, [isModalOpen]);
+
   return (
-    <div>
-      <label htmlFor="current-password">현재 비밀번호</label>
-      <input
-        id="current-password"
-        type="password"
-        value={currentPassword}
-        onChange={(e) => setCurrentPassword(e.target.value)}
-        aria-label="현재 비밀번호"
-      />
-
-      <label htmlFor="new-password">변경 할 비밀번호</label>
-      <input
-        id="new-password"
-        type="password"
-        value={newPassword}
-        onChange={(e) => setNewPassword(e.target.value)}
-        aria-label="변경 할 비밀번호"
-      />
-
-      <button type="button" onClick={handleChangePassword}>
-        변경하기
-      </button>
-      <button type="button" onClick={handleCancel}>
-        취소하기
+    <div className={styles.container}>
+      <button
+        type="button"
+        onClick={openModal}
+        className="px-4 py-2 bg-green-500 text-white rounded hover:opacity-80"
+      >
+        비밀번호 변경
       </button>
 
-      {emptyPasswordError && <p>모든 비밀번호 필드를 작성해야 합니다.</p>}
-      {passwordMatch === false && !emptyPasswordError && (
-        <p>현재 비밀번호가 일치하지 않습니다</p>
-      )}
-      {passwordMatch === true && changeSuccess === true && (
-        <p>비밀번호가 성공적으로 변경되었습니다</p>
-      )}
-      {changeSuccess === false && !emptyPasswordError && (
-        <p>비밀번호 변경에 실패했습니다</p>
+      {isModalOpen && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <button onClick={handleCancel} className={styles.closeButton}>
+              &times;
+            </button>
+            <h2 className="text-xl font-semibold text-center">
+              비밀번호 변경하기
+            </h2>
+            <form
+              className={styles.form}
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleChangePassword();
+              }}
+            >
+              <div className="mt-4">
+                <label htmlFor="current-password" className={styles.label}>
+                  현재 비밀번호
+                </label>
+                <input
+                  id="current-password"
+                  type="password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  className={styles.input}
+                  aria-label="현재 비밀번호"
+                />
+              </div>
+              <div className="mt-4">
+                <label htmlFor="new-password" className={styles.label}>
+                  변경 할 비밀번호
+                </label>
+                <input
+                  id="new-password"
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className={styles.input}
+                  aria-label="변경 할 비밀번호"
+                />
+              </div>
+              <button type="submit" className={styles.button}>
+                변경하기
+              </button>
+              <button
+                type="button"
+                onClick={handleCancel}
+                className={`${styles.button} mt-2 bg-red-500 hover:bg-red-600`}
+              >
+                취소하기
+              </button>
+
+              {emptyPasswordError && (
+                <p className="text-red-500"> 모두 입력 해주세요.</p>
+              )}
+              {passwordMatch === false && !emptyPasswordError && (
+                <p className="text-red-500">
+                  현재 비밀번호가 일치하지 않습니다
+                </p>
+              )}
+              {passwordMatch === true && changeSuccess === true && (
+                <p className="text-green-500">
+                  비밀번호가 성공적으로 변경되었습니다
+                </p>
+              )}
+              {changeSuccess === false && !emptyPasswordError && (
+                <p className="text-red-500">비밀번호 변경에 실패했습니다</p>
+              )}
+            </form>
+          </div>
+        </div>
       )}
     </div>
   );
