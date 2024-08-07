@@ -112,8 +112,11 @@ export const AddSets: React.FC = () => {
   };
 
   const handleDeleteWrapper = (id: number) => {
-    handleDelete(id, containerRef, setCount);
-    setSets((prevSets) => prevSets.filter((set) => set.id !== id));
+    setSets((prevSets) => {
+      const newSets = prevSets.filter((set) => set.id !== id);
+      setCount(newSets.length);
+      return newSets;
+    });
   };
 
   useEffect(() => {
