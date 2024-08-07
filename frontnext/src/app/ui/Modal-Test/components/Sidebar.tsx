@@ -1,10 +1,19 @@
 import React from 'react';
 import TableModal from './CreateTableModal';
+import TableList from './TableList';
+import SidebarStyles from '../styles/SidebarStyles';
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  onTableClick: (tableName: string) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ onTableClick }) => {
   return (
     <>
       <TableModal />
+      <div className={SidebarStyles.sidebar}>
+        <TableList onTableClick={onTableClick} />
+      </div>
     </>
   );
 };
