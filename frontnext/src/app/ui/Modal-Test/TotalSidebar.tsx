@@ -10,6 +10,7 @@ const TotalSidebar: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
   const [tableData, setTableData] = useState<any[]>([]);
+  const [initialDataLoaded, setInitialDataLoaded] = useState(false);
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -17,6 +18,7 @@ const TotalSidebar: React.FC = () => {
 
   const handleTableClick = async (tableName: string) => {
     setSelectedTable(tableName);
+    setInitialDataLoaded(false);
     try {
       const response = await fetch('http://localhost:8080/data', {
         method: 'POST',
@@ -30,7 +32,12 @@ const TotalSidebar: React.FC = () => {
       console.log(
         '테이블과 연동되지 않는 데이터를 받아와 프론트에 나타냈다:',
         data,
-      ); // 콘솔 로그 추가
+      );
+
+      // 데이터 로드 후 1초 후에 initialDataLoaded를 true로 설정
+      setTimeout(() => {
+        setInitialDataLoaded(true);
+      }, 1000);
     } catch (error) {
       console.error('Error fetching table data:', error);
     }
@@ -39,7 +46,7 @@ const TotalSidebar: React.FC = () => {
   const handleSave = async () => {
     if (selectedTable) {
       const requestData = { table: selectedTable, data: tableData };
-      console.log('저장할 데이터:', requestData); // 콘솔 로그 추가
+      console.log('저장할 데이터:', requestData);
       try {
         const response = await fetch('http://localhost:8000/updateTable', {
           method: 'POST',
@@ -60,6 +67,10 @@ const TotalSidebar: React.FC = () => {
     }
   };
 
+  const handleDataChange = (updatedData: any[]) => {
+    setTableData(updatedData);
+  };
+
   return (
     <div className="flex">
       {/* 사이드바 영역 */}
@@ -71,7 +82,11 @@ const TotalSidebar: React.FC = () => {
         {selectedTable && (
           <div>
             <h2 className="text-xl font-bold mb-4">{selectedTable}</h2>
-            <TableData data={tableData} />
+            <TableData
+              data={tableData}
+              onDataChange={handleDataChange}
+              initialDataLoaded={initialDataLoaded}
+            />
             <button
               className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
               onClick={handleSave}
