@@ -27,6 +27,7 @@ const TotalSidebar: React.FC = () => {
       });
       const data = await response.json();
       setTableData(data);
+      console.log('테이블과 연동되지 않은 데이터:', data); // 콘솔 로그 추가
     } catch (error) {
       console.error('Error fetching table data:', error);
     }
@@ -43,7 +44,7 @@ const TotalSidebar: React.FC = () => {
         {selectedTable && (
           <div>
             <h2 className="text-xl font-bold mb-4">{selectedTable}</h2>
-            <TableData data={tableData} />
+            <pre>{JSON.stringify(tableData, null, 2)}</pre>
           </div>
         )}
       </div>
