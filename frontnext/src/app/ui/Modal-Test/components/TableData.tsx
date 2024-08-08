@@ -13,6 +13,7 @@ const TableData: React.FC<TableDataProps> = ({ data }) => {
     setTableData(data);
     if (data.length > 0) {
       setHeaders(Object.keys(data[0]));
+      setErrors(Array(Object.keys(data[0]).length).fill(''));
     }
   }, [data]);
 
@@ -25,7 +26,7 @@ const TableData: React.FC<TableDataProps> = ({ data }) => {
     const updatedErrors = [...errors];
 
     // Check for duplicate header names
-    if (updatedHeaders.includes(value)) {
+    if (headers.includes(value) && value !== headers[index]) {
       updatedErrors[index] = `중복된 열 이름입니다: ${value}`;
     } else {
       updatedHeaders[index] = value;
