@@ -49,12 +49,19 @@ def update_table(request: UpdateTableRequest):
         conn = sqlite3.connect('정호연.db')
         cursor = conn.cursor()
 
+        # 테이블 구조 변경
+        existing_columns = get_column_names(request.table)
+        new_columns = list(request.data[0].keys())
+        for column in new_columns:
+            if column not in existing_columns:
+                cursor.execute(f'ALTER TABLE "{request.table}" ADD COLUMN "{column}" TEXT')
+
         # Clear existing data
         cursor.execute(f'DELETE FROM "{request.table}"')
 
         # Insert updated data
-        columns = ', '.join(request.data[0].keys())
-        placeholders = ', '.join(['?' for _ in request.data[0].keys()])
+        columns = ', '.join(new_columns)
+        placeholders = ', '.join(['?' for _ in new_columns])
         for row in request.data:
             values = tuple(row.values())
             cursor.execute(f'INSERT INTO "{request.table}" ({columns}) VALUES ({placeholders})', values)
@@ -66,6 +73,16 @@ def update_table(request: UpdateTableRequest):
         raise HTTPException(status_code=500, detail=f"테이블 업데이트 중 오류 발생: {str(e)}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"알 수 없는 오류 발생: {str(e)}")
+
+def get_column_names(table: str) -> List[str]:
+    conn = sqlite3.connect('정호연.db')
+    try:
+        cursor = conn.cursor()
+        cursor.execute(f'PRAGMA table_info("{table}")')
+        columns = [col[1] for col in cursor.fetchall()]
+        return columns
+    finally:
+        conn.close()
 
 app.include_router(table_router)  # table_router를 추가한다.
 app.include_router(data_router)  # data_router를 추가한다.
