@@ -38,13 +38,15 @@ const TotalSidebar: React.FC = () => {
 
   const handleSave = async () => {
     if (selectedTable) {
+      const requestData = { table: selectedTable, data: tableData };
+      console.log('저장할 데이터:', requestData); // 콘솔 로그 추가
       try {
         const response = await fetch('http://localhost:8000/updateTable', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ table: selectedTable, data: tableData }),
+          body: JSON.stringify(requestData),
         });
         const result = await response.json();
         if (response.ok) {
