@@ -39,8 +39,6 @@ def read_tables():
     conn.close()
     return [dict(table) for table in tables]
 
-
-
 @app.get("/{table_name}/")
 def read_table_data(table_name: str):
     conn = get_db_connection()
@@ -79,10 +77,7 @@ def delete_column(table_name: str, column: ColumnOperation):
     cursor = conn.cursor()
 
     try:
-        # 외래 키 제약 조건 해제
         cursor.execute(f"PRAGMA foreign_keys=off;")
-
-        # 기존 테이블 정보 가져오기
         cursor.execute(f"PRAGMA table_info({table_name});")
         columns = cursor.fetchall()
         columns = [col['name'] for col in columns if col['name'] != column.column_name]
@@ -92,17 +87,10 @@ def delete_column(table_name: str, column: ColumnOperation):
 
         columns_str = ", ".join(columns)
 
-        # 임시 테이블 생성
         cursor.execute(f"CREATE TABLE IF NOT EXISTS temp_table AS SELECT {columns_str} FROM {table_name} WHERE 1=0;")
-
-        # 임시 테이블에 데이터 복사
         cursor.execute(f"INSERT INTO temp_table SELECT {columns_str} FROM {table_name};")
-
-        # 기존 테이블 삭제 및 임시 테이블 이름 변경
         cursor.execute(f"DROP TABLE {table_name};")
         cursor.execute(f"ALTER TABLE temp_table RENAME TO {table_name};")
-
-        # 외래 키 제약 조건 설정
         cursor.execute(f"PRAGMA foreign_keys=on;")
 
         conn.commit()
@@ -114,6 +102,21 @@ def delete_column(table_name: str, column: ColumnOperation):
         conn.close()
 
     return {"message": f"Column {column.column_name} deleted successfully"}
+
+# 새로운 행을 추가하는 POST 엔드포인트 추가
+@app.post("/{table_name}/")
+async def add_row(table_name: str, request: Request):
+    data = await request.json()
+    columns = ', '.join(data.keys())
+    placeholders = ', '.join('?' * len(data))
+    values = list(data.values())
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})", values)
+    conn.commit()
+    conn.close()
+    return {"message": "Row added successfully"}
 
 if __name__ == "__main__":
     import uvicorn
