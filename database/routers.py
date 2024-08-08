@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict
-from models import TableRequest, CreateTableRequest
+from models import TableRequest, CreateTableRequest, UpdateTableRequest
 from database import get_table_names, search_data_by_table_and_value
 import sqlite3
 
@@ -51,5 +51,31 @@ async def create_table(request: CreateTableRequest):
         return {"message": "테이블 생성 완료 및 테스트 데이터 삽입 완료"}
     except sqlite3.Error as e:
         raise HTTPException(status_code=500, detail=f"테이블 생성 중 오류 발생: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"알 수 없는 오류 발생: {str(e)}")
+
+update_table_router = APIRouter()
+
+@update_table_router.post("/updateTable")
+async def update_table(request: UpdateTableRequest):
+    try:
+        conn = sqlite3.connect('정호연.db')
+        cursor = conn.cursor()
+
+        # Clear existing data
+        cursor.execute(f'DELETE FROM "{request.table}"')
+
+        # Insert updated data
+        columns = ', '.join(request.data[0].keys())
+        placeholders = ', '.join(['?' for _ in request.data[0].keys()])
+        for row in request.data:
+            values = tuple(row.values())
+            cursor.execute(f'INSERT INTO "{request.table}" ({columns}) VALUES ({placeholders})', values)
+
+        conn.commit()
+        conn.close()
+        return {"message": "테이블이 정상적으로 업데이트 되었습니다"}
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"테이블 업데이트 중 오류 발생: {str(e)}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"알 수 없는 오류 발생: {str(e)}")

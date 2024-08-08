@@ -16,3 +16,7 @@ class TableRequest(BaseModel):
 class CreateTableRequest(BaseModel):
     tableName: str
     sets: List[str]
+
+class UpdateTableRequest(BaseModel):
+    table: str
+    data: List[dict]

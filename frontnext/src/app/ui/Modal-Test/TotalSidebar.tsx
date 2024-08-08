@@ -36,6 +36,28 @@ const TotalSidebar: React.FC = () => {
     }
   };
 
+  const handleSave = async () => {
+    if (selectedTable) {
+      try {
+        const response = await fetch('http://localhost:8000/updateTable', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ table: selectedTable, data: tableData }),
+        });
+        const result = await response.json();
+        if (response.ok) {
+          console.log('테이블이 정상적으로 업데이트 되었습니다:', result);
+        } else {
+          console.error('테이블 업데이트 중 오류 발생:', result);
+        }
+      } catch (error) {
+        console.error('Error saving table data:', error);
+      }
+    }
+  };
+
   return (
     <div className="flex">
       {/* 사이드바 영역 */}
@@ -48,6 +70,12 @@ const TotalSidebar: React.FC = () => {
           <div>
             <h2 className="text-xl font-bold mb-4">{selectedTable}</h2>
             <TableData data={tableData} />
+            <button
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+              onClick={handleSave}
+            >
+              저장
+            </button>
           </div>
         )}
       </div>
