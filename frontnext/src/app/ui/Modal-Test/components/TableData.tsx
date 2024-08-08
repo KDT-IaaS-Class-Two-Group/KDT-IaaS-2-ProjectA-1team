@@ -5,23 +5,23 @@ interface TableDataProps {
 }
 
 const TableData: React.FC<TableDataProps> = ({ data }) => {
-  if (data.length === 0) {
-    return <div>데이터가 없습니다.</div>;
+  if (!data || data.length === 0) {
+    return <div className="text-gray-500">데이터가 없습니다.</div>;
   }
 
-  const columns = Object.keys(data[0]);
+  const headers = Object.keys(data[0]);
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border border-gray-200">
+      <table className="min-w-full bg-white">
         <thead>
           <tr>
-            {columns.map((column, index) => (
+            {headers.map((header) => (
               <th
-                key={index}
-                className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left"
+                key={header}
+                className="px-4 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600"
               >
-                {column}
+                {header}
               </th>
             ))}
           </tr>
@@ -29,12 +29,12 @@ const TableData: React.FC<TableDataProps> = ({ data }) => {
         <tbody>
           {data.map((row, rowIndex) => (
             <tr key={rowIndex} className="hover:bg-gray-100">
-              {columns.map((column, colIndex) => (
+              {headers.map((header) => (
                 <td
-                  key={colIndex}
-                  className="py-2 px-4 border-b border-gray-200"
+                  key={header}
+                  className="px-4 py-2 border-b border-gray-200 text-sm text-gray-700"
                 >
-                  {row[column]}
+                  {row[header]}
                 </td>
               ))}
             </tr>
