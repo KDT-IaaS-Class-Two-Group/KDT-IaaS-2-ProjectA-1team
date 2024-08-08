@@ -21,10 +21,6 @@ class VerifyRequest(BaseModel):
     id: str
     password: str
 
-class UpdateTableRequest(BaseModel):
-    table: str
-    data: List[dict]
-
 @app.post("/login")
 def verify_user(request: VerifyRequest):
     print('login')
@@ -37,52 +33,10 @@ def verify_user(request: VerifyRequest):
     )
     row = cursor.fetchone()
     conn.close()
-
     if row:
         return True
     else:
         return False
-
-@app.post("/updateTable")
-def update_table(request: UpdateTableRequest):
-    try:
-        conn = sqlite3.connect('정호연.db')
-        cursor = conn.cursor()
-
-        # 테이블 구조 변경
-        existing_columns = get_column_names(request.table)
-        new_columns = list(request.data[0].keys())
-        for column in new_columns:
-            if column not in existing_columns:
-                cursor.execute(f'ALTER TABLE "{request.table}" ADD COLUMN "{column}" TEXT')
-
-        # Clear existing data
-        cursor.execute(f'DELETE FROM "{request.table}"')
-
-        # Insert updated data
-        columns = ', '.join(new_columns)
-        placeholders = ', '.join(['?' for _ in new_columns])
-        for row in request.data:
-            values = tuple(row.values())
-            cursor.execute(f'INSERT INTO "{request.table}" ({columns}) VALUES ({placeholders})', values)
-
-        conn.commit()
-        conn.close()
-        return {"message": "테이블이 정상적으로 업데이트 되었습니다"}
-    except sqlite3.Error as e:
-        raise HTTPException(status_code=500, detail=f"테이블 업데이트 중 오류 발생: {str(e)}")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"알 수 없는 오류 발생: {str(e)}")
-
-def get_column_names(table: str) -> List[str]:
-    conn = sqlite3.connect('정호연.db')
-    try:
-        cursor = conn.cursor()
-        cursor.execute(f'PRAGMA table_info("{table}")')
-        columns = [col[1] for col in cursor.fetchall()]
-        return columns
-    finally:
-        conn.close()
 
 app.include_router(table_router)  # table_router를 추가한다.
 app.include_router(data_router)  # data_router를 추가한다.
@@ -96,10 +50,29 @@ class Recommend(BaseModel):
 def create_recommend(request: Recommend):
     print('createRecommend')
     copy_table_structure(request.table)
-
     print(bool(request.table))
-    # JSON 응답으로 반환
     return {"success": bool(request.table)}
+
+class DeleteColumnRequest(BaseModel):
+    table: str
+    column: str
+
+@app.post('/deleteColumn')
+def delete_column(request: DeleteColumnRequest):
+    try:
+        conn = sqlite3.connect('정호연.db')
+        cursor = conn.cursor()
+        cursor.execute(f'ALTER TABLE "{request.table}" DROP COLUMN "{request.column}"')
+        conn.commit()
+        conn.close()
+        print(f'Column {request.column} deleted from table {request.table}')
+        return {"success": True}
+    except sqlite3.Error as e:
+        print(f'SQLite error: {e}')
+        raise HTTPException(status_code=500, detail=f"Column deletion failed: {str(e)}")
+    except Exception as e:
+        print(f'Error: {e}')
+        raise HTTPException(status_code=500, detail=f"Column deletion failed: {str(e)}")
 
 if __name__ == "__dbServer__":
     import uvicorn

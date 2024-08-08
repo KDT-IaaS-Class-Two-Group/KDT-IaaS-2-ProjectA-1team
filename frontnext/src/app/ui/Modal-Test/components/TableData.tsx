@@ -6,6 +6,7 @@ interface TableDataProps {
   headers: string[];
   onHeaderChange: (index: number, value: string) => void;
   onDeleteRow: (rowIndex: number) => void;
+  onDeleteColumn: (colIndex: number) => void;
 }
 
 const TableData: React.FC<TableDataProps> = ({
@@ -14,8 +15,10 @@ const TableData: React.FC<TableDataProps> = ({
   headers,
   onHeaderChange,
   onDeleteRow,
+  onDeleteColumn,
 }) => {
   const [tableData, setTableData] = useState(data);
+  const [hoveredHeader, setHoveredHeader] = useState<number | null>(null);
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
 
   useEffect(() => {
@@ -45,7 +48,9 @@ const TableData: React.FC<TableDataProps> = ({
             {headers.map((header, index) => (
               <th
                 key={index}
-                className="px-4 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600"
+                className="relative px-4 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600"
+                onMouseEnter={() => setHoveredHeader(index)}
+                onMouseLeave={() => setHoveredHeader(null)}
               >
                 <input
                   type="text"
@@ -53,6 +58,15 @@ const TableData: React.FC<TableDataProps> = ({
                   className="w-full px-2 py-1 border rounded"
                   onChange={(e) => onHeaderChange(index, e.target.value)}
                 />
+                {hoveredHeader === index && (
+                  <button
+                    className="absolute top-0 right-0 transform -translate-y-1/2 mx-1 px-2 bg-red-500 text-white text-sm rounded"
+                    style={{ height: '0.8em', width: '0.8em' }}
+                    onClick={() => onDeleteColumn(index)}
+                  >
+                    -
+                  </button>
+                )}
               </th>
             ))}
           </tr>
