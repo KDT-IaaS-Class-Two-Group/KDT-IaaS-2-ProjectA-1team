@@ -4,6 +4,7 @@ interface TableDataProps {
   data: any[];
   onDataChange: (data: any[]) => void;
   headers: string[];
+  onHeaderChange: (index: number, value: string) => void;
   onDeleteRow: (rowIndex: number) => void;
 }
 
@@ -11,6 +12,7 @@ const TableData: React.FC<TableDataProps> = ({
   data,
   onDataChange,
   headers,
+  onHeaderChange,
   onDeleteRow,
 }) => {
   const [tableData, setTableData] = useState(data);
@@ -45,7 +47,12 @@ const TableData: React.FC<TableDataProps> = ({
                 key={index}
                 className="px-4 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600"
               >
-                {header}
+                <input
+                  type="text"
+                  value={header}
+                  className="w-full px-2 py-1 border rounded"
+                  onChange={(e) => onHeaderChange(index, e.target.value)}
+                />
               </th>
             ))}
           </tr>
@@ -74,6 +81,7 @@ const TableData: React.FC<TableDataProps> = ({
                   {hoveredRow === rowIndex && colIndex === 0 && (
                     <button
                       className="absolute left-0 top-1/2 transform -translate-y-1/2 mx-1 px-2 bg-red-500 text-white text-sm rounded"
+                      style={{ height: '0.8em', width: '0.8em' }}
                       onClick={() => onDeleteRow(rowIndex)}
                     >
                       -

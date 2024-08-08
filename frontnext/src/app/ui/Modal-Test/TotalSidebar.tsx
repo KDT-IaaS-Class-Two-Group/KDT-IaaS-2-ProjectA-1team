@@ -10,6 +10,7 @@ const TotalSidebar: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
   const [tableData, setTableData] = useState<any[]>([]);
+  const [headers, setHeaders] = useState<string[]>([]);
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -27,6 +28,7 @@ const TotalSidebar: React.FC = () => {
       });
       const data = await response.json();
       setTableData(data);
+      setHeaders(Object.keys(data[0] || {}));
       console.log(
         '테이블과 연동되지 않는 데이터를 받아와 프론트에 나타냈다:',
         data,
@@ -72,7 +74,30 @@ const TotalSidebar: React.FC = () => {
     setTableData([...tableData, newRow]);
   };
 
-  const headers = tableData.length > 0 ? Object.keys(tableData[0]) : [];
+  const handleAddColumn = () => {
+    const newColumnName = '';
+    const updatedHeaders = [...headers, newColumnName];
+    const updatedData = tableData.map((row) => ({
+      ...row,
+      [newColumnName]: '',
+    }));
+    setHeaders(updatedHeaders);
+    setTableData(updatedData);
+  };
+
+  const handleHeaderChange = (index: number, value: string) => {
+    const updatedHeaders = [...headers];
+    updatedHeaders[index] = value;
+    setHeaders(updatedHeaders);
+
+    const updatedData = tableData.map((row) => {
+      const newRow = { ...row, [value]: row[headers[index]] };
+      delete newRow[headers[index]];
+      return newRow;
+    });
+
+    setTableData(updatedData);
+  };
 
   return (
     <div className="flex">
@@ -89,6 +114,7 @@ const TotalSidebar: React.FC = () => {
               data={tableData}
               onDataChange={handleDataChange}
               headers={headers}
+              onHeaderChange={handleHeaderChange}
               onDeleteRow={(rowIndex: number) => {
                 const newData = [...tableData];
                 newData.splice(rowIndex, 1);
@@ -106,6 +132,12 @@ const TotalSidebar: React.FC = () => {
               onClick={handleAddRow}
             >
               행 추가
+            </button>
+            <button
+              className="mt-4 ml-2 px-4 py-2 bg-green-500 text-white rounded"
+              onClick={handleAddColumn}
+            >
+              열 추가
             </button>
           </div>
         )}
