@@ -27,7 +27,10 @@ const TotalSidebar: React.FC = () => {
       });
       const data = await response.json();
       setTableData(data);
-      console.log('데이터베이스와 연동되지 않은 데이터:', data); // 콘솔 로그 추가
+      console.log(
+        '테이블과 연동되지 않는 데이터를 받아와 프론트에 나타냈다:',
+        data,
+      ); // 콘솔 로그 추가
     } catch (error) {
       console.error('Error fetching table data:', error);
     }

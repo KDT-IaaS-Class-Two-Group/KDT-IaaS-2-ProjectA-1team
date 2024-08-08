@@ -34,7 +34,12 @@ const TableData: React.FC<TableDataProps> = ({ data }) => {
                   key={header}
                   className="px-4 py-2 border-b border-gray-200 text-sm text-gray-700"
                 >
-                  {row[header]}
+                  <input
+                    type="text"
+                    value={row[header]}
+                    className="w-full px-2 py-1 border rounded"
+                    readOnly
+                  />
                 </td>
               ))}
             </tr>
