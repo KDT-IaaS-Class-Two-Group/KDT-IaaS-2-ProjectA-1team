@@ -1,20 +1,20 @@
 import React from 'react';
+import TableModal from './CreateTableModal';
+import TableList from './TableList';
 import SidebarStyles from '../styles/SidebarStyles';
 
 interface SidebarProps {
-  toggleModal: () => void;
+  onTableClick: (tableName: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ toggleModal }) => {
+const Sidebar: React.FC<SidebarProps> = ({ onTableClick }) => {
   return (
-    <div className={SidebarStyles.sidebar}>
-      <button
-        className={`${SidebarStyles.button} ${SidebarStyles.createButton}`}
-        onClick={toggleModal}
-      >
-        테이블 생성
-      </button>
-    </div>
+    <>
+      <TableModal />
+      <div className={SidebarStyles.sidebar}>
+        <TableList onTableClick={onTableClick} />
+      </div>
+    </>
   );
 };
 

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Modal from '../ModalComponent';
 import { AddSets } from './AddSets';
+import SidebarStyles from '../styles/SidebarStyles';
 
 const TableModal: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -11,9 +12,9 @@ const TableModal: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className={SidebarStyles.sidebar}>
       <button
-        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+        className={`${SidebarStyles.button} ${SidebarStyles.createButton}`}
         onClick={toggleModal}
       >
         테이블 생성
