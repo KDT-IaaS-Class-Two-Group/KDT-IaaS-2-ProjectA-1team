@@ -3,22 +3,18 @@ import React, { useState, useEffect } from 'react';
 interface TableDataProps {
   data: any[];
   onDataChange: (data: any[]) => void;
-  initialDataLoaded: boolean;
+  headers: string[];
 }
 
 const TableData: React.FC<TableDataProps> = ({
   data,
   onDataChange,
-  initialDataLoaded,
+  headers,
 }) => {
   const [tableData, setTableData] = useState(data);
-  const [headers, setHeaders] = useState<string[]>([]);
 
   useEffect(() => {
     setTableData(data);
-    if (data.length > 0) {
-      setHeaders(Object.keys(data[0]));
-    }
   }, [data]);
 
   const handleInputChange = (
@@ -66,7 +62,6 @@ const TableData: React.FC<TableDataProps> = ({
                     onChange={(e) =>
                       handleInputChange(rowIndex, header, e.target.value)
                     }
-                    readOnly={!initialDataLoaded}
                   />
                 </td>
               ))}
