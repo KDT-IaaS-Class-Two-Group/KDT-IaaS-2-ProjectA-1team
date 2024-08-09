@@ -1,10 +1,10 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import ModalComponent from './ModalComponent';
 import { AddSets } from './components/AddSets';
 import TableData from './components/TableData';
+import SidebarStyles from './styles/SidebarStyles';
 
 const TotalSidebar: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -58,7 +58,7 @@ const TotalSidebar: React.FC = () => {
         const result = await response.json();
         if (response.ok) {
           console.log('테이블이 정상적으로 업데이트 되었습니다:', result);
-          setColumnToDelete(null); // Reset columnToDelete after successful update
+          setColumnToDelete(null);
         } else {
           console.error('테이블 업데이트 중 오류 발생:', result);
         }
@@ -119,23 +119,24 @@ const TotalSidebar: React.FC = () => {
   };
 
   return (
-    <div className="flex">
-      {/* 사이드바 영역 */}
-      <Sidebar onTableClick={handleTableClick} />
+    <div className={SidebarStyles.container}>
+      <Sidebar
+        onTableClick={handleTableClick}
+        onAddRow={handleAddRow}
+        onAddColumn={handleAddColumn}
+      />
 
-      {/* 테이블 생성 모달 */}
       <ModalComponent show={showModal} onClose={toggleModal}>
-        <div className="text-center">
+        <div className={SidebarStyles.modalOverlay}>
           <AddSets />
         </div>
       </ModalComponent>
 
-      {/* 메인 콘텐츠 영역 */}
-      <div className="flex-grow p-4">
-        <h1 className="text-2xl font-bold">Main Content</h1>
+      <div className={SidebarStyles.mainContent}>
+        <h1 className={SidebarStyles.mainTitle}>Main Content</h1>
         {selectedTable && (
           <div>
-            <h2 className="text-xl font-bold mb-4">{selectedTable}</h2>
+            <h2 className={SidebarStyles.tableTitle}>{selectedTable}</h2>
             <TableData
               data={tableData}
               onDataChange={handleDataChange}
@@ -148,23 +149,8 @@ const TotalSidebar: React.FC = () => {
               }}
               onDeleteColumn={handleDeleteColumn}
             />
-            <button
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-              onClick={handleSave}
-            >
+            <button className={SidebarStyles.saveButton} onClick={handleSave}>
               저장
-            </button>
-            <button
-              className="mt-4 ml-2 px-4 py-2 bg-green-500 text-white rounded"
-              onClick={handleAddRow}
-            >
-              행 추가
-            </button>
-            <button
-              className="mt-4 ml-2 px-4 py-2 bg-green-500 text-white rounded"
-              onClick={handleAddColumn}
-            >
-              열 추가
             </button>
           </div>
         )}
