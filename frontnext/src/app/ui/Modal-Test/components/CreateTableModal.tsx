@@ -1,8 +1,7 @@
-'use client';
 import React, { useState } from 'react';
-import Modal from '../ModalComponent';
+import Modal from '../modalComponent';
 import { AddSets } from './AddSets';
-import SidebarStyles from '../styles/SidebarStyles';
+import SidebarStyles from '../../Insert/styles/SidebarStyles';
 
 const TableModal: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -12,7 +11,7 @@ const TableModal: React.FC = () => {
   };
 
   return (
-    <div className={SidebarStyles.sidebar}>
+    <div>
       <button
         className={`${SidebarStyles.button} ${SidebarStyles.createButton}`}
         onClick={toggleModal}

@@ -1,14 +1,17 @@
-// modalStyle.ts
+// styles/ModalStyles.ts
 export const ModalStyles = {
   modalOverlay:
-    'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50',
+    'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50', // z-index를 추가하여 가장 위에 표시
   modalContent: 'bg-white p-6 rounded-lg relative max-w-lg w-full mx-4',
   closeButton: 'absolute top-2 right-2 text-gray-500 hover:text-gray-700',
+  button: 'px-4 py-2 rounded-lg text-white', // 버튼 스타일 추가
+  cancelButton: 'bg-gray-500 hover:bg-gray-600', // 취소 버튼 스타일
+  confirmButton: 'bg-blue-500 hover:bg-blue-600', // 확인 버튼 스타일
 };
 
 export const LoginCheckCardStyles = {
   cardContainer:
-    'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50',
+    'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50', // z-index 추가
   cardContent:
     'flex items-center justify-center flex-col bg-white p-6 rounded-lg relative max-w-lg w-full mx-4',
   cardHeader: 'text-lg font-semibold text-gray-900 mb-4',

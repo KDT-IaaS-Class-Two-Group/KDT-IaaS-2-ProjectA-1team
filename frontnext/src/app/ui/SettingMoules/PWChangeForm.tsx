@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { PwChangeModalStyles as styles } from '../ui/Modal/styles/PWcheangeModal';
+import { PwChangeModalStyles as styles } from '../styles/stylesKHR';
 
 interface PasswordCheck {
   current_password: string;
@@ -92,7 +92,7 @@ const PasswordChangeForm: React.FC = () => {
   }, [isModalOpen]);
 
   return (
-    <div className={styles.container}>
+    <div>
       <button
         type="button"
         onClick={openModal}
