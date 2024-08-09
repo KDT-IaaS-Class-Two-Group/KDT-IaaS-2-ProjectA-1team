@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import ModalComponent from './modalComponent';
 import ConfirmSaveModal from './components/ConfirmSaveModal';
-import ConfirmNavigateModal from './components/ConfirmNavigateModal'; // 추가된 모달 컴포넌트
+import ConfirmNavigateModal from './components/ConfirmNavigateModal';
 import { AddSets } from './components/AddSets';
 import TableData from './components/TableData';
 import SidebarStyles from './styles/SidebarStyles';
@@ -10,14 +10,15 @@ import SidebarStyles from './styles/SidebarStyles';
 const TotalSidebar: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [showNavigateModal, setShowNavigateModal] = useState(false); // 새로운 모달 상태 추가
+  const [showNavigateModal, setShowNavigateModal] = useState(false);
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
-  const [pendingTable, setPendingTable] = useState<string | null>(null); // 이동할 테이블 이름 저장
+  const [pendingTable, setPendingTable] = useState<string | null>(null);
   const [tableData, setTableData] = useState<any[]>([]);
   const [headers, setHeaders] = useState<string[]>([]);
   const [columnsToDelete, setColumnsToDelete] = useState<string[]>([]);
   const [editableHeaders, setEditableHeaders] = useState<string[]>([]);
-  const [isDataModified, setIsDataModified] = useState(false); // 데이터 변경 여부 추적
+  const [isDataModified, setIsDataModified] = useState(false);
+  const [headerErrors, setHeaderErrors] = useState<string[]>([]); // 열 제목의 오류 상태
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -26,7 +27,7 @@ const TotalSidebar: React.FC = () => {
   const handleTableClick = async (tableName: string) => {
     if (isDataModified) {
       setPendingTable(tableName);
-      setShowNavigateModal(true); // 모달창 표시
+      setShowNavigateModal(true);
     } else {
       await loadTableData(tableName);
     }
@@ -48,14 +49,24 @@ const TotalSidebar: React.FC = () => {
       setHeaders(initialHeaders);
       setEditableHeaders(initialHeaders);
       setColumnsToDelete([]);
-      setIsDataModified(false); // 테이블을 변경하면 수정 상태를 초기화
+      setIsDataModified(false);
+      setHeaderErrors([]); // 오류 초기화
     } catch (error) {
       console.error('Error fetching table data:', error);
     }
   };
 
-  const handleSave = async () => {
-    setShowConfirmModal(true);
+  const handleSave = () => {
+    const errors = editableHeaders.map((header) =>
+      header.trim() === '' ? '열 제목을 입력하세요.' : '',
+    );
+    setHeaderErrors(errors);
+
+    const hasErrors = errors.some((error) => error !== '');
+
+    if (!hasErrors) {
+      setShowConfirmModal(true);
+    }
   };
 
   const confirmSave = async () => {
@@ -78,7 +89,7 @@ const TotalSidebar: React.FC = () => {
         if (response.ok) {
           console.log('테이블이 정상적으로 업데이트 되었습니다:', result);
           setColumnsToDelete([]);
-          setIsDataModified(false); // 저장 후 수정 상태 초기화
+          setIsDataModified(false);
         } else {
           console.error('테이블 업데이트 중 오류 발생:', result);
         }
@@ -99,7 +110,7 @@ const TotalSidebar: React.FC = () => {
 
   const handleDataChange = (updatedData: any[]) => {
     setTableData(updatedData);
-    setIsDataModified(true); // 데이터 변경 시 수정 상태로 설정
+    setIsDataModified(true);
   };
 
   const handleAddRow = () => {
@@ -123,6 +134,7 @@ const TotalSidebar: React.FC = () => {
     setEditableHeaders(updatedEditableHeaders);
     setTableData(updatedData);
     setIsDataModified(true);
+    setHeaderErrors([...headerErrors, '']); // 새로운 열에 대한 오류 초기화
   };
 
   const handleHeaderChange = (index: number, value: string) => {
@@ -147,6 +159,10 @@ const TotalSidebar: React.FC = () => {
 
     setTableData(updatedData);
     setIsDataModified(true);
+
+    const updatedErrors = [...headerErrors];
+    updatedErrors[index] = value.trim() === '' ? '열 제목을 입력하세요.' : '';
+    setHeaderErrors(updatedErrors);
   };
 
   const handleDeleteColumn = (index: number) => {
@@ -165,6 +181,8 @@ const TotalSidebar: React.FC = () => {
     setEditableHeaders(updatedEditableHeaders);
     setTableData(updatedData);
     setIsDataModified(true);
+    const updatedErrors = headerErrors.filter((_, i) => i !== index);
+    setHeaderErrors(updatedErrors);
   };
 
   return (
@@ -212,6 +230,7 @@ const TotalSidebar: React.FC = () => {
                   setIsDataModified(true);
                 }}
                 onDeleteColumn={handleDeleteColumn}
+                headerErrors={headerErrors} // 오류 상태 전달
               />
             </div>
             <button className={SidebarStyles.saveButton} onClick={handleSave}>
