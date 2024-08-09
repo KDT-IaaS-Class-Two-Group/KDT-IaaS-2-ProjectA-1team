@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useLanguage } from './LanguageContext';
+import LanguageModal from './LanguageModal';
 import { SettingStyles } from '../styles/styles-ys';
 
 const InterfaceSettings = () => {
+  const { language } = useLanguage();
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const texts = {
+    ko: '인터페이스 설정',
+    en: 'Interface Settings',
+    jp: 'インターフェース設定',
+    cn: '界面设置',
+    vn: 'Cài đặt giao diện',
+    th: 'การตั้งค่าการเชื่อมต่อ',
+  };
+
   return (
     <div className={SettingStyles.contentStyle}>
-      <div className="flex flex-col space-y-4">
-        <button className={SettingStyles.button}>테마 변경 (다크 모드, 라이트 모드)</button>
-        <button className={SettingStyles.button}>인터페이스 언어 설정</button>
-      </div>
+      <h1>{texts[language]}</h1>
+      <button
+        onClick={() => setModalOpen(true)}
+        className={SettingStyles.button}
+      >
+        {language === 'ko' ? '언어 변경' : 'Change Language'}
+      </button>
+      {isModalOpen && <LanguageModal onClose={() => setModalOpen(false)} />}
     </div>
   );
 };
