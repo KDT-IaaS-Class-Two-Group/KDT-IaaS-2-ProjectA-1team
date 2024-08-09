@@ -1,5 +1,5 @@
 const SidebarStyles = {
-  // 기존 스타일 그대로 유지
+  // 기존 스타일 유지
   sidebar: 'w-64 bg-gray-800 text-white flex flex-col p-4 space-y-4',
   button: 'px-4 py-2 rounded-lg text-white hover:bg-gray-700',
   createButton: 'bg-blue-500 hover:bg-blue-600',
@@ -14,10 +14,13 @@ const SidebarStyles = {
   modalOverlay: 'text-center',
 
   // 메인 컨텐츠 영역 스타일
-  mainContent: 'flex-grow p-4 w-[calc(100%-16rem)] overflow-auto', // 메인 컨텐츠의 고정 너비와 스크롤 처리
-  tableWrapper: 'max-w-full overflow-x-auto', // 테이블 영역에만 가로 스크롤 처리
-  buttonContainer: 'space-y-2',
-  buttonSpacing: 'mt-2',
+  mainContent: 'flex-grow p-4 w-[calc(100%-16rem)] overflow-auto', // 고정된 너비와 스크롤 처리
+  tableWrapper: 'min-w-full overflow-x-auto', // 테이블 영역에 가로 스크롤 처리
+  input: 'w-full px-2 py-1 border rounded', // 기본 인풋 너비 설정
+  inputWide: 'w-32 px-2 py-1 border rounded', // 8개 이상일 때 적용할 넓은 인풋 너비
+
+  // buttonContainer 스타일 추가
+  buttonContainer: 'space-x-4 mt-4',
 };
 
 export default SidebarStyles;
