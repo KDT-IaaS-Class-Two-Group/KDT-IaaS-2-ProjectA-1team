@@ -8,7 +8,7 @@ interface AddRowButtonProps {
 const AddRowButton: React.FC<AddRowButtonProps> = ({ onAddRow }) => {
   return (
     <button
-      className={`${SidebarStyles.button} ${SidebarStyles.addRowButton}`}
+      className={`${SidebarStyles.button} ${SidebarStyles.addRowButton} ${SidebarStyles.buttonSpacing}`}
       onClick={onAddRow}
     >
       행 추가
