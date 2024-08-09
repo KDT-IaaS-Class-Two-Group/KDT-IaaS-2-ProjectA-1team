@@ -21,7 +21,7 @@ export const SettingStyles = {
     focus:ring-gray-500 
     transition-all 
     duration-200
-    cursor-pointer  /* 커서가 포인터로 변경되도록 설정 */
+    cursor-pointer
   `,
 
   containerStyle: `
@@ -36,8 +36,9 @@ export const SettingStyles = {
   `,
 
   toggleButton: `
-    absolute
-    top-1
+    fixed
+    right-4
+    top-15
     text-black
     p-2
     rounded
