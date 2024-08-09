@@ -11,7 +11,7 @@ const UserManagement = () => {
         <PasswordChangeForm />
         <button className={SettingStyles.button}>알림 설정</button>
         <button className={SettingStyles.button}>백업 및 복구</button>
-        <button className={SettingStyles.button}>세부 권한 설정</button>
+        
       </div>
     </div>
   );
