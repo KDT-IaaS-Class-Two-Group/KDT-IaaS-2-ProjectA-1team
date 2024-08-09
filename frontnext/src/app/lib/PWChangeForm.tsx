@@ -1,7 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { PwChangeModalStyles as styles } from '../ui/Modal-Test/styles/PWcheangeModal';
+=======
+import { PwChangeModalStyles as styles } from '../ui/styles/stylesKHR';
+>>>>>>> upstream/main
 
 interface PasswordCheck {
   current_password: string;
