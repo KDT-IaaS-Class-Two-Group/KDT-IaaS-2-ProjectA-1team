@@ -5,7 +5,7 @@ import HeaderTags from './headerComponent/createHeaderTag';
 import ConDiv from './headerComponent/createConDiv';
 import SpanTag from './headerComponent/createSpanTag';
 import ButtonClick from './headerComponent/createBtn';
-import styles from '@/app/header.module.css';
+import styles from '../styles/styles-header';
 import { useRouter } from 'next/navigation';
 import { TABMENUTEXTS, TABROUTES } from './headerComponent/RoutePath';
 
@@ -18,30 +18,30 @@ const HeaderSection: React.FC = () => {
 
   return (
     <HeaderTags className={styles.header}>
-      <ConDiv className={styles.header__left}>
+      <ConDiv className={styles.headerLeft}>
         <ButtonClick
           clickFunc={() => handleClick('TAB_ONE')}
-          className={styles.button}
+          className={`${styles.buttonFirst} ${styles.buttonHover}`}
           textNode={TABMENUTEXTS.TABMENUONE}
         />
         <ButtonClick
           clickFunc={() => handleClick('TAB_TWO')}
-          className={styles.button}
+          className={`${styles.button} ${styles.buttonHover}`}
           textNode={TABMENUTEXTS.TABMENUTWO}
         />
       </ConDiv>
-      <ConDiv className={styles.header__center}>
+      <ConDiv className={styles.headerCenter}>
         <ButtonClick
           clickFunc={() => handleClick('TAB_THREE')}
-          className={styles.button}
+          className={`${styles.button} ${styles.buttonHover}`}
           textNode={TABMENUTEXTS.TABMENUTHREE}
         />
       </ConDiv>
-      <ConDiv className={styles.header__right}>
+      <ConDiv className={styles.headerRight}>
         <SpanTag className={styles.span} textNode={`admin`} />
         <ButtonClick
           clickFunc={() => handleClick('TAB_FOUR')}
-          className={styles.button__logout}
+          className={styles.buttonLogout}
           textNode={TABMENUTEXTS.TABMENUFOUR}
         />
       </ConDiv>
