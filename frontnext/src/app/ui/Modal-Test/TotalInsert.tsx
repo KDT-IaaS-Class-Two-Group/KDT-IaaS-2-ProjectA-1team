@@ -133,6 +133,7 @@ const TotalSidebar: React.FC = () => {
       </ModalComponent>
 
       <div className={SidebarStyles.mainContent}>
+        <h1 className={SidebarStyles.mainTitle}>Main Content</h1>
         {selectedTable && (
           <div>
             <h2 className={SidebarStyles.tableTitle}>{selectedTable}</h2>
