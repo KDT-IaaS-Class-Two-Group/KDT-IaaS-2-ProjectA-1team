@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import TableStyles from '../styles/TableDataStyles'; // 스타일 객체 불러오기
+import TableStyles from '../../styles/TableDataStyles'; // 스타일 객체 불러오기
 
 interface TableDataProps {
   data: any[];
