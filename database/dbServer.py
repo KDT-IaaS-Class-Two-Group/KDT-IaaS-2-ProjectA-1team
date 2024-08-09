@@ -56,17 +56,21 @@ def create_recommend(request: Recommend):
 
 class DeleteColumnRequest(BaseModel):
     table: str
-    column: str
+    columns: List[str]  # 여러 열을 처리할 수 있도록 수정
 
 @app.post('/deleteColumn')
 def delete_column(request: DeleteColumnRequest):
     try:
         conn = sqlite3.connect('정호연.db')
         cursor = conn.cursor()
-        cursor.execute(f'ALTER TABLE "{request.table}" DROP COLUMN "{request.column}"')
+
+        # 여러 열을 삭제
+        for column in request.columns:
+            cursor.execute(f'ALTER TABLE "{request.table}" DROP COLUMN "{column}"')
+            print(f'Column {column} deleted from table {request.table}')
+
         conn.commit()
         conn.close()
-        print(f'Column {request.column} deleted from table {request.table}')
         return {"success": True}
     except sqlite3.Error as e:
         print(f'SQLite error: {e}')
@@ -74,7 +78,3 @@ def delete_column(request: DeleteColumnRequest):
     except Exception as e:
         print(f'Error: {e}')
         raise HTTPException(status_code=500, detail=f"Column deletion failed: {str(e)}")
-
-if __name__ == "__dbServer__":
-    import uvicorn
-    uvicorn.run("dbServer:app", host="0.0.0.0", port=8080, reload=True)
