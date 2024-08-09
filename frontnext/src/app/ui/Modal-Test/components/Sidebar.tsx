@@ -17,16 +17,19 @@ const Sidebar: React.FC<SidebarProps> = ({
   onAddColumn,
 }) => {
   return (
-    <>
+    <div className={SidebarStyles.sidebar}>
+      {/* 테이블 생성 버튼 및 모달 */}
       <TableModal />
-      <div className={SidebarStyles.sidebar}>
-        <TableList onTableClick={onTableClick} />
-        <div className={SidebarStyles.buttonContainer}>
-          <AddRowButton onAddRow={onAddRow} />
-          <AddColumnButton onAddColumn={onAddColumn} />
-        </div>
+
+      {/* 열 추가 및 행 추가 버튼 */}
+      <div className={SidebarStyles.buttonContainer}>
+        <AddColumnButton onAddColumn={onAddColumn} />
+        <AddRowButton onAddRow={onAddRow} />
       </div>
-    </>
+
+      {/* 테이블 목록 */}
+      <TableList onTableClick={onTableClick} />
+    </div>
   );
 };
 
