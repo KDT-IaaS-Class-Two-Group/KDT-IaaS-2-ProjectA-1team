@@ -76,14 +76,19 @@ const PasswordChangeForm: React.FC = () => {
       );
 
       const changeData = await changeResponse.json();
-      setChangeSuccess(changeData.message === 'Password changed successfully');
+      if (changeData.message === 'Password changed successfully') {
+        setChangeSuccess(true);
+        setTimeout(resetForm, 10000); // 10초 후에 폼 초기화
+      } else {
+        setChangeSuccess(false);
+      }
     } catch (error) {
       console.error('Error changing password:', error);
       setChangeSuccess(false);
     }
   };
 
-  const handleCancel = () => {
+  const resetForm = () => {
     setCurrentPassword('');
     setNewPassword('');
     setConfirmNewPassword('');
@@ -91,6 +96,10 @@ const PasswordChangeForm: React.FC = () => {
     setChangeSuccess(null);
     setEmptyPasswordError(false);
     setPasswordsMatchError(false);
+  };
+
+  const handleCancel = () => {
+    resetForm();
     setIsModalOpen(false);
   };
 
@@ -98,13 +107,7 @@ const PasswordChangeForm: React.FC = () => {
 
   useEffect(() => {
     if (!isModalOpen) {
-      setCurrentPassword('');
-      setNewPassword('');
-      setConfirmNewPassword('');
-      setPasswordMatch(null);
-      setChangeSuccess(null);
-      setEmptyPasswordError(false);
-      setPasswordsMatchError(false);
+      resetForm();
     }
   }, [isModalOpen]);
 
@@ -188,10 +191,7 @@ const PasswordChangeForm: React.FC = () => {
                 <p className="text-red-500"> 모두 입력 해주세요.</p>
               )}
               {passwordsMatchError && (
-                <p className="text-red-500">
-                  {' '}
-                  새 비밀번호가 일치하지 않습니다.
-                </p>
+                <p className="text-red-500">새 비밀번호가 일치하지 않습니다.</p>
               )}
               {passwordMatch === false && !emptyPasswordError && (
                 <p className="text-red-500">
