@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+// TotalSidebar.tsx
+import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import ModalComponent from './modalComponent';
+import ConfirmSaveModal from './components/ConfirmSaveModal';
 import { AddSets } from './components/AddSets';
 import TableData from './components/TableData';
 import SidebarStyles from './styles/SidebarStyles';
 
 const TotalSidebar: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false); // 저장 확인 모달 상태 추가
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
   const [tableData, setTableData] = useState<any[]>([]);
   const [headers, setHeaders] = useState<string[]>([]);
-  const [columnsToDelete, setColumnsToDelete] = useState<string[]>([]); // 여러 열을 삭제할 수 있도록 배열로 변경
+  const [columnsToDelete, setColumnsToDelete] = useState<string[]>([]);
   const [editableHeaders, setEditableHeaders] = useState<string[]>([]);
 
   const toggleModal = () => {
@@ -32,22 +35,22 @@ const TotalSidebar: React.FC = () => {
       setTableData(data);
       setHeaders(initialHeaders);
       setEditableHeaders(initialHeaders);
-      setColumnsToDelete([]); // 테이블을 다시 클릭할 때 삭제할 열 초기화
-      console.log(
-        '테이블과 연동되지 않는 데이터를 받아와 프론트에 나타냈다:',
-        data,
-      );
+      setColumnsToDelete([]);
     } catch (error) {
       console.error('Error fetching table data:', error);
     }
   };
 
   const handleSave = async () => {
+    setShowConfirmModal(true); // 저장 버튼 클릭 시 확인 모달 표시
+  };
+
+  const confirmSave = async () => {
     if (selectedTable) {
       const requestData = {
         table: selectedTable,
         data: tableData,
-        columnsToDelete, // 삭제할 열 배열 전송
+        columnsToDelete,
       };
       console.log('저장할 데이터:', requestData);
       try {
@@ -61,7 +64,7 @@ const TotalSidebar: React.FC = () => {
         const result = await response.json();
         if (response.ok) {
           console.log('테이블이 정상적으로 업데이트 되었습니다:', result);
-          setColumnsToDelete([]); // 성공적으로 저장된 후 삭제할 열 초기화
+          setColumnsToDelete([]);
         } else {
           console.error('테이블 업데이트 중 오류 발생:', result);
         }
@@ -69,6 +72,7 @@ const TotalSidebar: React.FC = () => {
         console.error('Error saving table data:', error);
       }
     }
+    setShowConfirmModal(false); // 저장 후 모달 닫기
   };
 
   const handleDataChange = (updatedData: any[]) => {
@@ -84,10 +88,9 @@ const TotalSidebar: React.FC = () => {
   };
 
   const handleAddColumn = () => {
-    const newColumnName = `column_${headers.length + 1}`; // 고유한 컬럼 이름 생성
+    const newColumnName = `column_${headers.length + 1}`;
     const updatedHeaders = [...headers, newColumnName];
     const updatedEditableHeaders = [...editableHeaders, ''];
-
     const updatedData = tableData.map((row) => ({
       ...row,
       [newColumnName]: '',
@@ -122,7 +125,7 @@ const TotalSidebar: React.FC = () => {
 
   const handleDeleteColumn = (index: number) => {
     const columnToDelete = headers[index];
-    setColumnsToDelete([...columnsToDelete, columnToDelete]); // 배열에 삭제할 열 추가
+    setColumnsToDelete([...columnsToDelete, columnToDelete]);
     const updatedHeaders = headers.filter((_, i) => i !== index);
     const updatedEditableHeaders = editableHeaders.filter(
       (_, i) => i !== index,
@@ -150,6 +153,12 @@ const TotalSidebar: React.FC = () => {
           <AddSets />
         </div>
       </ModalComponent>
+
+      <ConfirmSaveModal
+        show={showConfirmModal}
+        onConfirm={confirmSave}
+        onClose={() => setShowConfirmModal(false)}
+      />
 
       <div className={SidebarStyles.mainContent}>
         <h1 className={SidebarStyles.mainTitle}>Main Content</h1>
