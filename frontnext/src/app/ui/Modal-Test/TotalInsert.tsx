@@ -1,26 +1,38 @@
-// TotalSidebar.tsx
 import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import ModalComponent from './modalComponent';
 import ConfirmSaveModal from './components/ConfirmSaveModal';
+import ConfirmNavigateModal from './components/ConfirmNavigateModal'; // 추가된 모달 컴포넌트
 import { AddSets } from './components/AddSets';
 import TableData from './components/TableData';
 import SidebarStyles from './styles/SidebarStyles';
 
 const TotalSidebar: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
-  const [showConfirmModal, setShowConfirmModal] = useState(false); // 저장 확인 모달 상태 추가
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showNavigateModal, setShowNavigateModal] = useState(false); // 새로운 모달 상태 추가
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
+  const [pendingTable, setPendingTable] = useState<string | null>(null); // 이동할 테이블 이름 저장
   const [tableData, setTableData] = useState<any[]>([]);
   const [headers, setHeaders] = useState<string[]>([]);
   const [columnsToDelete, setColumnsToDelete] = useState<string[]>([]);
   const [editableHeaders, setEditableHeaders] = useState<string[]>([]);
+  const [isDataModified, setIsDataModified] = useState(false); // 데이터 변경 여부 추적
 
   const toggleModal = () => {
     setShowModal(!showModal);
   };
 
   const handleTableClick = async (tableName: string) => {
+    if (isDataModified) {
+      setPendingTable(tableName);
+      setShowNavigateModal(true); // 모달창 표시
+    } else {
+      await loadTableData(tableName);
+    }
+  };
+
+  const loadTableData = async (tableName: string) => {
     setSelectedTable(tableName);
     try {
       const response = await fetch('http://localhost:8080/data', {
@@ -36,13 +48,14 @@ const TotalSidebar: React.FC = () => {
       setHeaders(initialHeaders);
       setEditableHeaders(initialHeaders);
       setColumnsToDelete([]);
+      setIsDataModified(false); // 테이블을 변경하면 수정 상태를 초기화
     } catch (error) {
       console.error('Error fetching table data:', error);
     }
   };
 
   const handleSave = async () => {
-    setShowConfirmModal(true); // 저장 버튼 클릭 시 확인 모달 표시
+    setShowConfirmModal(true);
   };
 
   const confirmSave = async () => {
@@ -65,6 +78,7 @@ const TotalSidebar: React.FC = () => {
         if (response.ok) {
           console.log('테이블이 정상적으로 업데이트 되었습니다:', result);
           setColumnsToDelete([]);
+          setIsDataModified(false); // 저장 후 수정 상태 초기화
         } else {
           console.error('테이블 업데이트 중 오류 발생:', result);
         }
@@ -72,11 +86,20 @@ const TotalSidebar: React.FC = () => {
         console.error('Error saving table data:', error);
       }
     }
-    setShowConfirmModal(false); // 저장 후 모달 닫기
+    setShowConfirmModal(false);
+  };
+
+  const confirmNavigate = async () => {
+    if (pendingTable) {
+      await loadTableData(pendingTable);
+      setPendingTable(null);
+    }
+    setShowNavigateModal(false);
   };
 
   const handleDataChange = (updatedData: any[]) => {
     setTableData(updatedData);
+    setIsDataModified(true); // 데이터 변경 시 수정 상태로 설정
   };
 
   const handleAddRow = () => {
@@ -85,6 +108,7 @@ const TotalSidebar: React.FC = () => {
       {},
     );
     setTableData([...tableData, newRow]);
+    setIsDataModified(true);
   };
 
   const handleAddColumn = () => {
@@ -98,6 +122,7 @@ const TotalSidebar: React.FC = () => {
     setHeaders(updatedHeaders);
     setEditableHeaders(updatedEditableHeaders);
     setTableData(updatedData);
+    setIsDataModified(true);
   };
 
   const handleHeaderChange = (index: number, value: string) => {
@@ -121,6 +146,7 @@ const TotalSidebar: React.FC = () => {
     });
 
     setTableData(updatedData);
+    setIsDataModified(true);
   };
 
   const handleDeleteColumn = (index: number) => {
@@ -138,6 +164,7 @@ const TotalSidebar: React.FC = () => {
     setHeaders(updatedHeaders);
     setEditableHeaders(updatedEditableHeaders);
     setTableData(updatedData);
+    setIsDataModified(true);
   };
 
   return (
@@ -160,6 +187,12 @@ const TotalSidebar: React.FC = () => {
         onClose={() => setShowConfirmModal(false)}
       />
 
+      <ConfirmNavigateModal
+        show={showNavigateModal}
+        onConfirm={confirmNavigate}
+        onClose={() => setShowNavigateModal(false)}
+      />
+
       <div className={SidebarStyles.mainContent}>
         <h1 className={SidebarStyles.mainTitle}>Main Content</h1>
         {selectedTable && (
@@ -176,6 +209,7 @@ const TotalSidebar: React.FC = () => {
                   const newData = [...tableData];
                   newData.splice(rowIndex, 1);
                   setTableData(newData);
+                  setIsDataModified(true);
                 }}
                 onDeleteColumn={handleDeleteColumn}
               />
