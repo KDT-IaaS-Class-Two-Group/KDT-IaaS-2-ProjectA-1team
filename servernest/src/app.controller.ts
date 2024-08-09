@@ -46,7 +46,6 @@ export class AppController {
   @Post('/updateTable')
   async updateTable(@Body() body: any, @Res() res: Response) {
     const { table, data, columnToDelete } = body;
-    console.log(columnToDelete);
     console.log('업데이트할 데이터:', body);
     try {
       if (columnToDelete) {
@@ -59,12 +58,28 @@ export class AppController {
         });
         const result = await response.json();
         if (!response.ok) {
-          throw new Error(result.message);
+          throw new Error(result.message || '컬럼 삭제 실패');
         }
         console.log('컬럼 삭제 결과:', result);
       }
-      // Save the table data
-      // Add your logic here to save the updated data to your database
+
+      // 새로운 데이터를 데이터베이스 서버로 전송
+      const updateResponse = await fetch('http://localhost:8080/updateTable', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ table, data }),
+      });
+
+      if (!updateResponse.ok) {
+        const errorResponse = await updateResponse.json();
+        throw new Error(errorResponse.detail || '데이터베이스 업데이트 실패');
+      }
+
+      const updateResult = await updateResponse.json();
+      console.log('테이블 업데이트 결과:', updateResult);
+
       res
         .status(200)
         .send({ message: '테이블이 정상적으로 업데이트 되었습니다.' });

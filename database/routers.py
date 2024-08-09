@@ -62,10 +62,18 @@ async def update_table(request: UpdateTableRequest):
         conn = sqlite3.connect('정호연.db')
         cursor = conn.cursor()
 
-        # Clear existing data
-        cursor.execute(f'DELETE FROM "{request.table}"')
+        # 테이블에 존재하는 컬럼 가져오기
+        cursor.execute(f'PRAGMA table_info("{request.table}")')
+        existing_columns = {col[1] for col in cursor.fetchall()}
 
-        # Insert updated data
+        # 새로운 컬럼이 추가되었는지 확인하고, 추가된 컬럼이 있으면 테이블에 반영
+        for column in request.data[0].keys():
+            if column not in existing_columns:
+                cursor.execute(f'ALTER TABLE "{request.table}" ADD COLUMN "{column}" TEXT')
+                print(f'새로운 열 추가됨: {column}')
+
+        # 기존 데이터를 삭제하고 새로운 데이터를 삽입
+        cursor.execute(f'DELETE FROM "{request.table}"')
         columns = ', '.join(request.data[0].keys())
         placeholders = ', '.join(['?' for _ in request.data[0].keys()])
         for row in request.data:
