@@ -57,15 +57,43 @@ const TotalSidebar: React.FC = () => {
   };
 
   const handleSave = () => {
-    const errors = editableHeaders.map((header) =>
-      header.trim() === '' ? '열 제목을 입력하세요.' : '',
-    );
+    // 열 제목 중복 검사 및 오류 상태 업데이트
+    const errors = editableHeaders.map((header, index) => {
+      if (header.trim() === '') {
+        return '열 제목을 입력하세요.';
+      } else if (
+        headers.includes(header) &&
+        editableHeaders.indexOf(header) !== index
+      ) {
+        return '이미 존재하는 열 제목입니다.';
+      } else {
+        return '';
+      }
+    });
     setHeaderErrors(errors);
+
+    // 오류가 있는 열은 업데이트하지 않도록 필터링
+    const validHeaders = headers.filter((_, index) => errors[index] === '');
+    const validData = tableData.map((row) => {
+      const newRow = {};
+      validHeaders.forEach((header) => {
+        newRow[header] = row[header];
+      });
+      return newRow;
+    });
 
     const hasErrors = errors.some((error) => error !== '');
 
     if (!hasErrors) {
       setShowConfirmModal(true);
+    } else {
+      // 필요한 경우에만 데이터 전송
+      const requestData = {
+        table: selectedTable,
+        data: validData,
+        columnsToDelete,
+      };
+      console.log('저장할 데이터:', requestData);
     }
   };
 
@@ -145,23 +173,32 @@ const TotalSidebar: React.FC = () => {
     const updatedHeaders = [...headers];
     const oldHeader = headers[index];
 
-    updatedHeaders[index] = value || headers[index];
-    setHeaders(updatedHeaders);
+    // 중복 검사를 수행하여 중복되지 않은 경우에만 열 이름을 변경
+    if (!headers.includes(value) || headers.indexOf(value) === index) {
+      updatedHeaders[index] = value || headers[index];
+      setHeaders(updatedHeaders);
 
-    const updatedData = tableData.map((row) => {
-      const newRow = { ...row };
-      if (value) {
-        newRow[value] = newRow[oldHeader];
-        delete newRow[oldHeader];
-      }
-      return newRow;
-    });
+      const updatedData = tableData.map((row) => {
+        const newRow = { ...row };
+        if (value) {
+          newRow[value] = newRow[oldHeader];
+          delete newRow[oldHeader];
+        }
+        return newRow;
+      });
 
-    setTableData(updatedData);
-    setIsDataModified(true);
+      setTableData(updatedData);
+      setIsDataModified(true);
+    }
 
+    // 오류 메시지 업데이트
     const updatedErrors = [...headerErrors];
-    updatedErrors[index] = value.trim() === '' ? '열 제목을 입력하세요.' : '';
+    updatedErrors[index] =
+      value.trim() === ''
+        ? '열 제목을 입력하세요.'
+        : headers.includes(value) && editableHeaders.indexOf(value) !== index
+          ? '이미 존재하는 열 제목입니다.'
+          : '';
     setHeaderErrors(updatedErrors);
   };
 
