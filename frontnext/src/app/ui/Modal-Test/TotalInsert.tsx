@@ -12,6 +12,7 @@ const TotalSidebar: React.FC = () => {
   const [tableData, setTableData] = useState<any[]>([]);
   const [headers, setHeaders] = useState<string[]>([]);
   const [columnToDelete, setColumnToDelete] = useState<string | null>(null);
+  const [editableHeaders, setEditableHeaders] = useState<string[]>([]);
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -29,7 +30,9 @@ const TotalSidebar: React.FC = () => {
       });
       const data = await response.json();
       setTableData(data);
-      setHeaders(Object.keys(data[0] || {}));
+      const initialHeaders = Object.keys(data[0] || {});
+      setHeaders(initialHeaders);
+      setEditableHeaders(initialHeaders); // 기존 열 제목은 그대로 유지
       console.log(
         '테이블과 연동되지 않는 데이터를 받아와 프론트에 나타냈다:',
         data,
@@ -81,27 +84,34 @@ const TotalSidebar: React.FC = () => {
   };
 
   const handleAddColumn = () => {
-    const newColumnName = '';
+    const newColumnName = `column_${headers.length + 1}`; // 고유한 컬럼 이름 생성
     const updatedHeaders = [...headers, newColumnName];
+    const updatedEditableHeaders = [...editableHeaders, '']; // 새로 추가된 열의 제목을 비워둠
+
     const updatedData = tableData.map((row) => ({
       ...row,
-      [newColumnName]: '',
+      [newColumnName]: '', // 각 행에 대해 새로운 고유한 열 추가
     }));
     setHeaders(updatedHeaders);
+    setEditableHeaders(updatedEditableHeaders);
     setTableData(updatedData);
   };
 
   const handleHeaderChange = (index: number, value: string) => {
+    const updatedEditableHeaders = [...editableHeaders];
+    updatedEditableHeaders[index] = value;
+    setEditableHeaders(updatedEditableHeaders);
+
     const updatedHeaders = [...headers];
-    updatedHeaders[index] = value;
-    setHeaders(updatedHeaders);
+    updatedHeaders[index] = value || headers[index]; // 빈 값이면 기존 헤더를 유지
 
     const updatedData = tableData.map((row) => {
-      const newRow = { ...row, [value]: row[headers[index]] };
+      const newRow = { ...row, [updatedHeaders[index]]: row[headers[index]] };
       delete newRow[headers[index]];
       return newRow;
     });
 
+    setHeaders(updatedHeaders);
     setTableData(updatedData);
   };
 
@@ -109,12 +119,16 @@ const TotalSidebar: React.FC = () => {
     const columnToDelete = headers[index];
     setColumnToDelete(columnToDelete);
     const updatedHeaders = headers.filter((_, i) => i !== index);
+    const updatedEditableHeaders = editableHeaders.filter(
+      (_, i) => i !== index,
+    );
     const updatedData = tableData.map((row) => {
       const newRow = { ...row };
       delete newRow[columnToDelete];
       return newRow;
     });
     setHeaders(updatedHeaders);
+    setEditableHeaders(updatedEditableHeaders);
     setTableData(updatedData);
   };
 
@@ -142,6 +156,7 @@ const TotalSidebar: React.FC = () => {
                 data={tableData}
                 onDataChange={handleDataChange}
                 headers={headers}
+                editableHeaders={editableHeaders} // 표시용 헤더 전달
                 onHeaderChange={handleHeaderChange}
                 onDeleteRow={(rowIndex: number) => {
                   const newData = [...tableData];
