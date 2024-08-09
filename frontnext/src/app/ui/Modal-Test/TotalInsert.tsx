@@ -245,7 +245,7 @@ const TotalSidebar: React.FC = () => {
         {selectedTable && (
           <div>
             <h2 className={SidebarStyles.tableTitle}>{selectedTable}</h2>
-            <div className={SidebarStyles.tableWrapper}>
+            <div>
               <TableData
                 data={tableData}
                 onDataChange={handleDataChange}
