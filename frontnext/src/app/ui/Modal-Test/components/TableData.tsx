@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import TableStyles from '../styles/tableStyles'; // 스타일 객체 불러오기
 
 interface TableDataProps {
   data: any[];
@@ -41,27 +42,26 @@ const TableData: React.FC<TableDataProps> = ({
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full bg-white">
-        <thead>
+    <div className={TableStyles.tableContainer}>
+      <table className={TableStyles.table}>
+        <thead className={TableStyles.thead}>
           <tr>
             {headers.map((header, index) => (
               <th
                 key={index}
-                className="relative px-4 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600"
+                className={TableStyles.th}
                 onMouseEnter={() => setHoveredHeader(index)}
                 onMouseLeave={() => setHoveredHeader(null)}
               >
                 <input
                   type="text"
                   value={header}
-                  className="w-full px-2 py-1 border rounded"
+                  className={TableStyles.headerInput}
                   onChange={(e) => onHeaderChange(index, e.target.value)}
                 />
                 {hoveredHeader === index && (
                   <button
-                    className="absolute top-0 right-0 transform -translate-y-1/2 mx-1 px-2 bg-red-500 text-white text-sm rounded"
-                    style={{ height: '0.8em', width: '0.8em' }}
+                    className={TableStyles.deleteColumnButton}
                     onClick={() => onDeleteColumn(index)}
                   >
                     -
@@ -71,31 +71,27 @@ const TableData: React.FC<TableDataProps> = ({
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className={TableStyles.tbody}>
           {tableData.map((row, rowIndex) => (
             <tr
               key={rowIndex}
-              className="hover:bg-gray-100"
+              className={TableStyles.tr}
               onMouseEnter={() => setHoveredRow(rowIndex)}
               onMouseLeave={() => setHoveredRow(null)}
             >
               {headers.map((header, colIndex) => (
-                <td
-                  key={header}
-                  className="relative px-4 py-2 border-b border-gray-200 text-sm text-gray-700"
-                >
+                <td key={header} className={TableStyles.td}>
                   <input
                     type="text"
                     value={row[header] || ''}
-                    className="w-full px-2 py-1 border rounded"
+                    className={TableStyles.rowInput}
                     onChange={(e) =>
                       handleInputChange(rowIndex, header, e.target.value)
                     }
                   />
                   {hoveredRow === rowIndex && colIndex === 0 && (
                     <button
-                      className="absolute left-0 top-1/2 transform -translate-y-1/2 mx-1 px-2 bg-red-500 text-white text-sm rounded"
-                      style={{ height: '0.8em', width: '0.8em' }}
+                      className={TableStyles.deleteRowButton}
                       onClick={() => onDeleteRow(rowIndex)}
                     >
                       -
