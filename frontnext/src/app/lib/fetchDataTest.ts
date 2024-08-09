@@ -1,29 +1,14 @@
-export interface Credentials {
-  id: string;
-  password: string;
-}
-
-export const fetchData = async ({
-  id,
-  password,
-}: Credentials): Promise<boolean> => {
+// lib/fetchTables.ts
+export const fetchTables = async (): Promise<string[]> => {
   try {
-    const response = await fetch('http://localhost:8000/searchData/verify', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id, password }),
-    });
-
+    const response = await fetch('http://localhost:8080/tables');
     if (!response.ok) {
-      return false;
+      throw new Error('Network response was not ok');
     }
-
-    const result = await response.json();
-    return result === true;
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.error('Error fetching data:', error);
-    return false;
+    console.error('Error fetching tables:', error);
+    return [];
   }
 };
