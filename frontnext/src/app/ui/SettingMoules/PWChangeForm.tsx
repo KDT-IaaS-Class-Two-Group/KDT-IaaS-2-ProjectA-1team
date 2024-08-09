@@ -11,18 +11,31 @@ interface PasswordCheck {
 const PasswordChangeForm: React.FC = () => {
   const [currentPassword, setCurrentPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState<string>('');
   const [passwordMatch, setPasswordMatch] = useState<boolean | null>(null);
   const [changeSuccess, setChangeSuccess] = useState<boolean | null>(null);
   const [emptyPasswordError, setEmptyPasswordError] = useState<boolean>(false);
+  const [passwordsMatchError, setPasswordsMatchError] =
+    useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleChangePassword = async () => {
-    if (currentPassword.trim() === '' || newPassword.trim() === '') {
+    if (
+      currentPassword.trim() === '' ||
+      newPassword.trim() === '' ||
+      confirmNewPassword.trim() === ''
+    ) {
       setEmptyPasswordError(true);
       return;
     }
 
+    if (newPassword !== confirmNewPassword) {
+      setPasswordsMatchError(true);
+      return;
+    }
+
     setEmptyPasswordError(false);
+    setPasswordsMatchError(false);
 
     try {
       // 비밀번호 확인 요청
@@ -73,9 +86,11 @@ const PasswordChangeForm: React.FC = () => {
   const handleCancel = () => {
     setCurrentPassword('');
     setNewPassword('');
+    setConfirmNewPassword('');
     setPasswordMatch(null);
     setChangeSuccess(null);
     setEmptyPasswordError(false);
+    setPasswordsMatchError(false);
     setIsModalOpen(false);
   };
 
@@ -85,9 +100,11 @@ const PasswordChangeForm: React.FC = () => {
     if (!isModalOpen) {
       setCurrentPassword('');
       setNewPassword('');
+      setConfirmNewPassword('');
       setPasswordMatch(null);
       setChangeSuccess(null);
       setEmptyPasswordError(false);
+      setPasswordsMatchError(false);
     }
   }, [isModalOpen]);
 
@@ -140,7 +157,20 @@ const PasswordChangeForm: React.FC = () => {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   className={styles.input}
-                  aria-label="변경 할 비밀번호"
+                  aria-label="새 비밀번호"
+                />
+              </div>
+              <div className="mt-4">
+                <label htmlFor="confirm-new-password" className={styles.label}>
+                  변경 할 비밀번호 확인
+                </label>
+                <input
+                  id="confirm-new-password"
+                  type="password"
+                  value={confirmNewPassword}
+                  onChange={(e) => setConfirmNewPassword(e.target.value)}
+                  className={styles.input}
+                  aria-label="새 비밀번호 확인"
                 />
               </div>
               <button type="submit" className={styles.button}>
@@ -156,6 +186,12 @@ const PasswordChangeForm: React.FC = () => {
 
               {emptyPasswordError && (
                 <p className="text-red-500"> 모두 입력 해주세요.</p>
+              )}
+              {passwordsMatchError && (
+                <p className="text-red-500">
+                  {' '}
+                  새 비밀번호가 일치하지 않습니다.
+                </p>
               )}
               {passwordMatch === false && !emptyPasswordError && (
                 <p className="text-red-500">
