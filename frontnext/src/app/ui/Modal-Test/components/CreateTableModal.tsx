@@ -1,4 +1,3 @@
-'use client';
 import React, { useState } from 'react';
 import Modal from '../ModalComponent';
 import { AddSets } from './AddSets';
@@ -12,7 +11,7 @@ const TableModal: React.FC = () => {
   };
 
   return (
-    <div className={SidebarStyles.sidebar}>
+    <div>
       <button
         className={`${SidebarStyles.button} ${SidebarStyles.createButton}`}
         onClick={toggleModal}
