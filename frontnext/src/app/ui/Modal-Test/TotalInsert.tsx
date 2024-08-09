@@ -103,15 +103,22 @@ const TotalSidebar: React.FC = () => {
     setEditableHeaders(updatedEditableHeaders);
 
     const updatedHeaders = [...headers];
-    updatedHeaders[index] = value || headers[index]; // 빈 값이면 기존 헤더를 유지
+    const oldHeader = headers[index];
 
+    // 새로운 열 제목 설정
+    updatedHeaders[index] = value || headers[index];
+    setHeaders(updatedHeaders);
+
+    // 데이터 객체 업데이트
     const updatedData = tableData.map((row) => {
-      const newRow = { ...row, [updatedHeaders[index]]: row[headers[index]] };
-      delete newRow[headers[index]];
+      const newRow = { ...row };
+      if (value) {
+        newRow[value] = newRow[oldHeader]; // 새로운 열 이름으로 데이터 이동
+        delete newRow[oldHeader]; // 기존 열 이름 삭제
+      }
       return newRow;
     });
 
-    setHeaders(updatedHeaders);
     setTableData(updatedData);
   };
 
