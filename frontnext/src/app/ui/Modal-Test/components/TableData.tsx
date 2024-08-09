@@ -5,20 +5,22 @@ interface TableDataProps {
   data: any[];
   onDataChange: (data: any[]) => void;
   headers: string[];
-  editableHeaders: string[]; // 추가된 속성
+  editableHeaders: string[];
   onHeaderChange: (index: number, value: string) => void;
   onDeleteRow: (rowIndex: number) => void;
   onDeleteColumn: (colIndex: number) => void;
+  headerErrors: string[]; // 오류 메시지 상태
 }
 
 const TableData: React.FC<TableDataProps> = ({
   data,
   onDataChange,
   headers,
-  editableHeaders, // 추가된 속성
+  editableHeaders,
   onHeaderChange,
   onDeleteRow,
   onDeleteColumn,
+  headerErrors,
 }) => {
   const [tableData, setTableData] = useState(data);
   const [hoveredHeader, setHoveredHeader] = useState<number | null>(null);
@@ -57,12 +59,8 @@ const TableData: React.FC<TableDataProps> = ({
               >
                 <input
                   type="text"
-                  value={editableHeaders[index]} // 사용자에게 빈 인풋 표시
-                  className={
-                    headers.length >= 8
-                      ? TableStyles.headerInputWide
-                      : TableStyles.headerInput
-                  }
+                  value={editableHeaders[index]}
+                  className={TableStyles.headerInput}
                   onChange={(e) => onHeaderChange(index, e.target.value)}
                 />
                 {hoveredHeader === index && (
@@ -72,6 +70,11 @@ const TableData: React.FC<TableDataProps> = ({
                   >
                     -
                   </button>
+                )}
+                {headerErrors[index] && (
+                  <div className={TableStyles.errorText}>
+                    {headerErrors[index]}
+                  </div>
                 )}
               </th>
             ))}
@@ -90,11 +93,7 @@ const TableData: React.FC<TableDataProps> = ({
                   <input
                     type="text"
                     value={row[header] || ''}
-                    className={
-                      headers.length >= 8
-                        ? TableStyles.rowInputWide
-                        : TableStyles.rowInput
-                    }
+                    className={TableStyles.rowInput}
                     onChange={(e) =>
                       handleInputChange(rowIndex, header, e.target.value)
                     }
