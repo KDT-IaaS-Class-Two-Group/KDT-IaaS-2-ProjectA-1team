@@ -45,16 +45,17 @@ export class AppController {
 
   @Post('/updateTable')
   async updateTable(@Body() body: any, @Res() res: Response) {
-    const { table, data, columnToDelete } = body;
+    const { table, data, columnsToDelete } = body; // 변경된 부분
     console.log('업데이트할 데이터:', body);
     try {
-      if (columnToDelete) {
+      if (columnsToDelete && columnsToDelete.length > 0) {
+        // 빈 배열 확인 추가
         const response = await fetch('http://localhost:8080/deleteColumn', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ table, column: columnToDelete }),
+          body: JSON.stringify({ table, columns: columnsToDelete }), // 변경된 부분
         });
         const result = await response.json();
         if (!response.ok) {
