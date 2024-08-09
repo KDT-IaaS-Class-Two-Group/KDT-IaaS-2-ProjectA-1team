@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import ModalComponent from './modalComponent';
 import ConfirmSaveModal from './components/ConfirmSaveModal';
@@ -18,7 +18,22 @@ const TotalSidebar: React.FC = () => {
   const [columnsToDelete, setColumnsToDelete] = useState<string[]>([]);
   const [editableHeaders, setEditableHeaders] = useState<string[]>([]);
   const [isDataModified, setIsDataModified] = useState(false);
-  const [headerErrors, setHeaderErrors] = useState<string[]>([]); // 열 제목의 오류 상태
+  const [headerErrors, setHeaderErrors] = useState<string[]>([]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isDataModified) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isDataModified]);
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -50,14 +65,13 @@ const TotalSidebar: React.FC = () => {
       setEditableHeaders(initialHeaders);
       setColumnsToDelete([]);
       setIsDataModified(false);
-      setHeaderErrors([]); // 오류 초기화
+      setHeaderErrors([]);
     } catch (error) {
       console.error('Error fetching table data:', error);
     }
   };
 
   const handleSave = () => {
-    // 열 제목 중복 검사 및 오류 상태 업데이트
     const errors = editableHeaders.map((header, index) => {
       if (header.trim() === '') {
         return '열 제목을 입력하세요.';
@@ -72,28 +86,10 @@ const TotalSidebar: React.FC = () => {
     });
     setHeaderErrors(errors);
 
-    // 오류가 있는 열은 업데이트하지 않도록 필터링
-    const validHeaders = headers.filter((_, index) => errors[index] === '');
-    const validData = tableData.map((row) => {
-      const newRow = {};
-      validHeaders.forEach((header) => {
-        newRow[header] = row[header];
-      });
-      return newRow;
-    });
-
     const hasErrors = errors.some((error) => error !== '');
 
     if (!hasErrors) {
       setShowConfirmModal(true);
-    } else {
-      // 필요한 경우에만 데이터 전송
-      const requestData = {
-        table: selectedTable,
-        data: validData,
-        columnsToDelete,
-      };
-      console.log('저장할 데이터:', requestData);
     }
   };
 
@@ -162,7 +158,7 @@ const TotalSidebar: React.FC = () => {
     setEditableHeaders(updatedEditableHeaders);
     setTableData(updatedData);
     setIsDataModified(true);
-    setHeaderErrors([...headerErrors, '']); // 새로운 열에 대한 오류 초기화
+    setHeaderErrors([...headerErrors, '']);
   };
 
   const handleHeaderChange = (index: number, value: string) => {
@@ -173,27 +169,21 @@ const TotalSidebar: React.FC = () => {
     const updatedHeaders = [...headers];
     const oldHeader = headers[index];
 
-    // 중복되지 않은 경우에만 열 이름을 변경
-    if (!headers.includes(value) || headers.indexOf(value) === index) {
-      updatedHeaders[index] = value || headers[index];
-      setHeaders(updatedHeaders);
+    updatedHeaders[index] = value || headers[index];
+    setHeaders(updatedHeaders);
 
-      const updatedData = tableData.map((row) => {
-        const newRow = { ...row };
-        if (value) {
-          // 새로운 열 이름에 기존 값을 할당
-          newRow[value] =
-            newRow[oldHeader] !== undefined ? newRow[oldHeader] : '';
-          delete newRow[oldHeader];
-        }
-        return newRow;
-      });
+    const updatedData = tableData.map((row) => {
+      const newRow = { ...row };
+      if (value) {
+        newRow[value] = newRow[oldHeader];
+        delete newRow[oldHeader];
+      }
+      return newRow;
+    });
 
-      setTableData(updatedData);
-      setIsDataModified(true);
-    }
+    setTableData(updatedData);
+    setIsDataModified(true);
 
-    // 오류 메시지 업데이트
     const updatedErrors = [...headerErrors];
     updatedErrors[index] =
       value.trim() === ''
@@ -269,7 +259,7 @@ const TotalSidebar: React.FC = () => {
                   setIsDataModified(true);
                 }}
                 onDeleteColumn={handleDeleteColumn}
-                headerErrors={headerErrors} // 오류 상태 전달
+                headerErrors={headerErrors}
               />
             </div>
             <button className={SidebarStyles.saveButton} onClick={handleSave}>
