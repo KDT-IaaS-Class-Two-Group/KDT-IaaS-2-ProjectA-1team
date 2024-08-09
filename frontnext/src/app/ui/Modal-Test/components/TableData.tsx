@@ -5,6 +5,7 @@ interface TableDataProps {
   data: any[];
   onDataChange: (data: any[]) => void;
   headers: string[];
+  editableHeaders: string[]; // 추가된 속성
   onHeaderChange: (index: number, value: string) => void;
   onDeleteRow: (rowIndex: number) => void;
   onDeleteColumn: (colIndex: number) => void;
@@ -14,6 +15,7 @@ const TableData: React.FC<TableDataProps> = ({
   data,
   onDataChange,
   headers,
+  editableHeaders, // 추가된 속성
   onHeaderChange,
   onDeleteRow,
   onDeleteColumn,
@@ -55,7 +57,7 @@ const TableData: React.FC<TableDataProps> = ({
               >
                 <input
                   type="text"
-                  value={header}
+                  value={editableHeaders[index]} // 사용자에게 빈 인풋 표시
                   className={
                     headers.length >= 8
                       ? TableStyles.headerInputWide
