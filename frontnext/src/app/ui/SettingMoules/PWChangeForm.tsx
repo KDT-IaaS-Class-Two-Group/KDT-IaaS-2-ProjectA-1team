@@ -78,7 +78,11 @@ const PasswordChangeForm: React.FC = () => {
       const changeData = await changeResponse.json();
       if (changeData.message === 'Password changed successfully') {
         setChangeSuccess(true);
-        setTimeout(resetForm, 10000); // 10초 후에 폼 초기화
+        setTimeout(() => {
+          // (추가)
+          resetForm(); // (추가)
+          setIsModalOpen(false); // 비밀번호 변경 성공 시 모달을 닫음 (추가)
+        }, 2000); // 2초 후에 모달 창이 닫히도록 설정 (추가)
       } else {
         setChangeSuccess(false);
       }
