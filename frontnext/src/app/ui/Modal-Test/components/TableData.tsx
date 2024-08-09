@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import TableStyles from '../../styles/TableDataStyles'; // 스타일 객체 불러오기
+import TableStyles from '../../styles/TableDataStyles';
 
 interface TableDataProps {
   data: any[];
@@ -9,7 +9,7 @@ interface TableDataProps {
   onHeaderChange: (index: number, value: string) => void;
   onDeleteRow: (rowIndex: number) => void;
   onDeleteColumn: (colIndex: number) => void;
-  headerErrors: string[]; // 오류 메시지 상태
+  headerErrors: string[];
 }
 
 const TableData: React.FC<TableDataProps> = ({
@@ -38,7 +38,7 @@ const TableData: React.FC<TableDataProps> = ({
     const updatedData = [...tableData];
     updatedData[rowIndex] = { ...updatedData[rowIndex], [header]: value };
     setTableData(updatedData);
-    onDataChange(updatedData); // Notify parent component about data changes
+    onDataChange(updatedData);
   };
 
   if (!tableData || tableData.length === 0) {
