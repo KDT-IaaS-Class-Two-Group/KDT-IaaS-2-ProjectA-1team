@@ -1,19 +1,34 @@
 import React from 'react';
+import TableModal from './CreateTableModal';
+import TableList from './TableList';
+import AddRowButton from './AddRowButton';
+import AddColumnButton from './AddColumnButton';
 import SidebarStyles from '../styles/SidebarStyles';
 
 interface SidebarProps {
-  toggleModal: () => void;
+  onTableClick: (tableName: string) => void;
+  onAddRow: () => void;
+  onAddColumn: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ toggleModal }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  onTableClick,
+  onAddRow,
+  onAddColumn,
+}) => {
   return (
     <div className={SidebarStyles.sidebar}>
-      <button
-        className={`${SidebarStyles.button} ${SidebarStyles.createButton}`}
-        onClick={toggleModal}
-      >
-        테이블 생성
-      </button>
+      {/* 테이블 생성 버튼 및 모달 */}
+      <TableModal />
+
+      {/* 열 추가 및 행 추가 버튼 */}
+      <div className={SidebarStyles.buttonContainer}>
+        <AddColumnButton onAddColumn={onAddColumn} />
+        <AddRowButton onAddRow={onAddRow} />
+      </div>
+
+      {/* 테이블 목록 */}
+      <TableList onTableClick={onTableClick} />
     </div>
   );
 };

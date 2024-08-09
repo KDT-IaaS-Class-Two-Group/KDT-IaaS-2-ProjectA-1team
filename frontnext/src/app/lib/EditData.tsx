@@ -1,6 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import TableRendering from '../lib/TableRendering';
+import TableList from '../lib/TableList';
+import ColumnOperations from '../lib/ColumnOperations';
+import AddRow from '../lib/AddRow';
 
 interface Data {
   id: number;
@@ -11,14 +15,12 @@ interface Table {
   name: string;
 }
 
-const Tablerendering = () => {
+const Page = () => {
   const [data, setData] = useState<Data[]>([]);
   const [tables, setTables] = useState<Table[]>([]);
   const [selectedTable, setSelectedTable] = useState<string>('');
   const [editData, setEditData] = useState<{ [key: number]: Partial<Data> }>({});
-  const [newColumnName, setNewColumnName] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
-
   const inputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
 
   useEffect(() => {
@@ -124,79 +126,10 @@ const Tablerendering = () => {
     }
   };
 
-  const handleAddColumn = async () => {
-    const response = await fetch(`http://localhost:8080/${selectedTable}/add_column`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ column_name: newColumnName }),
-    });
-
-    if (response.ok) {
-      fetchTableData(selectedTable);
-      setNewColumnName('');
-    } else {
-      const result = await response.json();
-      setError(result.detail);
-    }
-  };
-
-  const handleDeleteColumn = async () => {
-    const response = await fetch(`http://localhost:8080/${selectedTable}/delete_column`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ column_name: newColumnName }),
-    });
-
-    if (response.ok) {
-      fetchTableData(selectedTable);
-      setNewColumnName('');
-    } else {
-      const result = await response.json();
-      setError(result.detail);
-    }
-  };
-
-  const renderTable = (data: any[], editData: { [key: number]: any }, handleEdit: any) => {
-    return (
-      <table>
-        <thead>
-          <tr>
-            {Object.keys(data[0] || {}).map(key => (
-              <th key={key}>{key}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(item => (
-            <tr key={item.id}>
-              {Object.keys(item).map(key => (
-                <td key={key}>
-                  {key === 'id' ? (
-                    item[key]
-                  ) : (
-                    <input
-                      ref={el => {
-                        if (key !== 'id') {
-                          inputRefs.current[item.id] = el;
-                        }
-                      }}
-                      type="text"
-                      value={editData[item.id]?.[key] !== undefined ? editData[item.id][key] : item[key] || ''}
-                      onChange={e => handleEdit(item.id, key, e.target.value)}
-                      onKeyPress={e => handleKeyPress(e, item.id, key)}
-                    />
-                  )}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+  const handleAddRow = () => {
+    const newRow = { id: data.length + 1, name: '', price: '' }; // 기본 빈 행 데이터
+    setData(prevData => [...prevData, newRow]);
+    setEditData(prevEditData => ({ ...prevEditData, [newRow.id]: newRow }));
   };
 
   if (error) {
@@ -206,35 +139,24 @@ const Tablerendering = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
       <div style={{ display: 'flex' }}>
-        <div style={{ width: '200px', padding: '10px', borderRight: '1px solid #ddd' }}>
-          <h3>Tables</h3>
-          <ul>
-            {tables.map((table, index) => (
-              <li key={index} onClick={() => setSelectedTable(table.name)} style={{ cursor: 'pointer' }}>
-                {table.name}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <TableList tables={tables} setSelectedTable={setSelectedTable} />
         <div style={{ padding: '10px', flexGrow: 1 }}>
           <h1>{selectedTable.charAt(0).toUpperCase() + selectedTable.slice(1)} List</h1>
-          {renderTable(data, editData, handleEdit)}
+          <TableRendering 
+            data={data} 
+            editData={editData} 
+            handleEdit={handleEdit} 
+            handleKeyPress={handleKeyPress}
+            inputRefs={inputRefs}
+          />
         </div>
       </div>
-      <div>
-        <input 
-          type="text" 
-          value={newColumnName} 
-          onChange={e => setNewColumnName(e.target.value)} 
-          placeholder="Column name" 
-        />
-        <button onClick={handleAddColumn}>
-          Add Column
-        </button>
-        <button onClick={handleDeleteColumn}>
-          Delete Column
-        </button>
-      </div>
+      <ColumnOperations 
+        selectedTable={selectedTable} 
+        fetchTableData={fetchTableData} 
+        setError={setError} 
+      />
+      <AddRow onAddRow={handleAddRow} />
       <div>
         <button onClick={handleSave} style={{ alignSelf: 'flex-end' }}>
           Save
@@ -244,4 +166,4 @@ const Tablerendering = () => {
   );
 }
 
-export default Tablerendering;
+export default Page;

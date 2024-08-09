@@ -2,7 +2,6 @@
 
 import React from 'react';
 import ButtonClick from '@/app/ui/Header/headerComponent/createBtn';
-import { callApi } from '@/app/lib/AJAX';
 
 interface RecommendProps {
   className?: string;
