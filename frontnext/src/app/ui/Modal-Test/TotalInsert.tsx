@@ -173,7 +173,7 @@ const TotalSidebar: React.FC = () => {
     const updatedHeaders = [...headers];
     const oldHeader = headers[index];
 
-    // 중복 검사를 수행하여 중복되지 않은 경우에만 열 이름을 변경
+    // 중복되지 않은 경우에만 열 이름을 변경
     if (!headers.includes(value) || headers.indexOf(value) === index) {
       updatedHeaders[index] = value || headers[index];
       setHeaders(updatedHeaders);
@@ -181,7 +181,9 @@ const TotalSidebar: React.FC = () => {
       const updatedData = tableData.map((row) => {
         const newRow = { ...row };
         if (value) {
-          newRow[value] = newRow[oldHeader];
+          // 새로운 열 이름에 기존 값을 할당
+          newRow[value] =
+            newRow[oldHeader] !== undefined ? newRow[oldHeader] : '';
           delete newRow[oldHeader];
         }
         return newRow;
