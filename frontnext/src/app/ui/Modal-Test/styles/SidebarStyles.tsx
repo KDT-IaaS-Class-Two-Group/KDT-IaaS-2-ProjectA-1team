@@ -15,9 +15,7 @@ const SidebarStyles = {
 
   // 메인 컨텐츠 영역 스타일
   mainContent: 'flex-grow p-4 w-[calc(100%-16rem)] overflow-auto', // 고정된 너비와 스크롤 처리
-  tableWrapper: 'min-w-full overflow-x-auto', // 테이블 영역에 가로 스크롤 처리
   input: 'w-full px-2 py-1 border rounded', // 기본 인풋 너비 설정
-  inputWide: 'w-32 px-2 py-1 border rounded', // 8개 이상일 때 적용할 넓은 인풋 너비
 
   // buttonContainer 스타일 추가
   buttonContainer: 'space-x-4 mt-4',
