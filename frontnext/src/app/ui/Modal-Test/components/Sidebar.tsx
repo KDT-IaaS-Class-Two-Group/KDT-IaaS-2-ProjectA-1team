@@ -17,7 +17,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onAddColumn,
 }) => {
   return (
-    <div className={SidebarStyles.sidebar}>
+    <div className={`${SidebarStyles.sidebar} ${SidebarStyles.sidebarHeight}`}>
       {/* 테이블 생성 버튼 및 모달 */}
       <TableModal />
 
