@@ -8,7 +8,7 @@ interface AddColumnButtonProps {
 const AddColumnButton: React.FC<AddColumnButtonProps> = ({ onAddColumn }) => {
   return (
     <button
-      className={`${SidebarStyles.button} ${SidebarStyles.addColumnButton}`}
+      className={`${SidebarStyles.button} ${SidebarStyles.addColumnButton} ${SidebarStyles.buttonSpacing}`}
       onClick={onAddColumn}
     >
       열 추가
