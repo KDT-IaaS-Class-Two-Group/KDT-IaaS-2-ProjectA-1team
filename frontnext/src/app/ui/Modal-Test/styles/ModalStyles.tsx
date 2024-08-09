@@ -1,14 +1,14 @@
 // modalStyle.ts
 export const ModalStyles = {
   modalOverlay:
-    'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50',
-  modalContent: 'bg-white p-6 rounded-lg relative max-w-lg w-full mx-4',
+    'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50', // z-index 추가
+  modalContent: 'bg-white p-6 rounded-lg relative max-w-lg w-full mx-4 z-50', // z-index 추가
   closeButton: 'absolute top-2 right-2 text-gray-500 hover:text-gray-700',
 };
 
 export const LoginCheckCardStyles = {
   cardContainer:
-    'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50',
+    'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50', // z-index 추가
   cardContent:
     'flex items-center justify-center flex-col bg-white p-6 rounded-lg relative max-w-lg w-full mx-4',
   cardHeader: 'text-lg font-semibold text-gray-900 mb-4',
