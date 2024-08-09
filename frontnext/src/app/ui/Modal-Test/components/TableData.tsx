@@ -56,7 +56,11 @@ const TableData: React.FC<TableDataProps> = ({
                 <input
                   type="text"
                   value={header}
-                  className={TableStyles.headerInput}
+                  className={
+                    headers.length >= 8
+                      ? TableStyles.headerInputWide
+                      : TableStyles.headerInput
+                  }
                   onChange={(e) => onHeaderChange(index, e.target.value)}
                 />
                 {hoveredHeader === index && (
@@ -84,7 +88,11 @@ const TableData: React.FC<TableDataProps> = ({
                   <input
                     type="text"
                     value={row[header] || ''}
-                    className={TableStyles.rowInput}
+                    className={
+                      headers.length >= 8
+                        ? TableStyles.rowInputWide
+                        : TableStyles.rowInput
+                    }
                     onChange={(e) =>
                       handleInputChange(rowIndex, header, e.target.value)
                     }
