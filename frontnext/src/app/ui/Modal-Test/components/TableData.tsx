@@ -65,88 +65,96 @@ const TableData: React.FC<TableDataProps> = ({
     }
   };
 
+  const getInputClassName = (index: number) => {
+    return headers.length >= 8
+      ? TableStyles.inputWide
+      : TableStyles.headerInput;
+  };
+
   if (!tableData || tableData.length === 0) {
     return <div className="text-gray-500">데이터가 없습니다.</div>;
   }
 
   return (
     <div className={TableStyles.tableContainer}>
-      <table className={TableStyles.table}>
-        <thead className={TableStyles.thead}>
-          <tr>
-            {headers.map((header, index) => (
-              <th
-                key={index}
-                className={TableStyles.th}
-                onMouseEnter={() => setHoveredHeader(index)}
-                onMouseLeave={() => setHoveredHeader(null)}
-              >
-                <input
-                  ref={(el) => (headerRefs.current[index] = el)}
-                  type="text"
-                  value={editableHeaders[index]}
-                  className={TableStyles.headerInput}
-                  onChange={(e) => onHeaderChange(index, e.target.value)}
-                  onKeyDown={(e) => handleKeyDown(e, 0, index, true)}
-                />
-                {hoveredHeader === index && (
-                  <button
-                    className={TableStyles.deleteColumnButton}
-                    onClick={() => onDeleteColumn(index)}
-                  >
-                    -
-                  </button>
-                )}
-                {headerErrors[index] && (
-                  <div className={TableStyles.errorText}>
-                    {headerErrors[index]}
-                  </div>
-                )}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className={TableStyles.tbody}>
-          {tableData.map((row, rowIndex) => (
-            <tr
-              key={rowIndex}
-              className={TableStyles.tr}
-              onMouseEnter={() => setHoveredRow(rowIndex)}
-              onMouseLeave={() => setHoveredRow(null)}
-            >
-              {headers.map((header, colIndex) => (
-                <td key={header} className={TableStyles.td}>
+      <div className={TableStyles.tableWrapper}>
+        <table className={TableStyles.table}>
+          <thead className={TableStyles.thead}>
+            <tr>
+              {headers.map((header, index) => (
+                <th
+                  key={index}
+                  className={TableStyles.th}
+                  onMouseEnter={() => setHoveredHeader(index)}
+                  onMouseLeave={() => setHoveredHeader(null)}
+                >
                   <input
-                    ref={(el) => {
-                      if (!inputRefs.current[rowIndex]) {
-                        inputRefs.current[rowIndex] = [];
-                      }
-                      inputRefs.current[rowIndex][colIndex] = el;
-                    }}
+                    ref={(el) => (headerRefs.current[index] = el)}
                     type="text"
-                    value={row[header] || ''}
-                    className={TableStyles.rowInput}
-                    onChange={(e) =>
-                      handleInputChange(rowIndex, header, e.target.value)
-                    }
-                    onKeyDown={(e) =>
-                      handleKeyDown(e, rowIndex, colIndex, false)
-                    }
+                    value={editableHeaders[index]}
+                    className={getInputClassName(index)}
+                    onChange={(e) => onHeaderChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(e, 0, index, true)}
                   />
-                  {hoveredRow === rowIndex && colIndex === 0 && (
+                  {hoveredHeader === index && (
                     <button
-                      className={TableStyles.deleteRowButton}
-                      onClick={() => onDeleteRow(rowIndex)}
+                      className={TableStyles.deleteColumnButton}
+                      onClick={() => onDeleteColumn(index)}
                     >
                       -
                     </button>
                   )}
-                </td>
+                  {headerErrors[index] && (
+                    <div className={TableStyles.errorText}>
+                      {headerErrors[index]}
+                    </div>
+                  )}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className={TableStyles.tbody}>
+            {tableData.map((row, rowIndex) => (
+              <tr
+                key={rowIndex}
+                className={TableStyles.tr}
+                onMouseEnter={() => setHoveredRow(rowIndex)}
+                onMouseLeave={() => setHoveredRow(null)}
+              >
+                {headers.map((header, colIndex) => (
+                  <td key={header} className={TableStyles.td}>
+                    <input
+                      ref={(el) => {
+                        if (!inputRefs.current[rowIndex]) {
+                          inputRefs.current[rowIndex] = [];
+                        }
+                        inputRefs.current[rowIndex][colIndex] = el;
+                      }}
+                      type="text"
+                      value={row[header] || ''}
+                      className={getInputClassName(colIndex)}
+                      onChange={(e) =>
+                        handleInputChange(rowIndex, header, e.target.value)
+                      }
+                      onKeyDown={(e) =>
+                        handleKeyDown(e, rowIndex, colIndex, false)
+                      }
+                    />
+                    {hoveredRow === rowIndex && colIndex === 0 && (
+                      <button
+                        className={TableStyles.deleteRowButton}
+                        onClick={() => onDeleteRow(rowIndex)}
+                      >
+                        -
+                      </button>
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
