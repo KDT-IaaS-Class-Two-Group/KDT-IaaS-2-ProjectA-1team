@@ -1,9 +1,9 @@
 import React from 'react';
-import TableModal from './CreateTableModal';
+import TableModal from '@/app/ui/Modal-Test/components/CreateTableModal';
 import TableList from './TableList';
 import AddRowButton from './AddRowButton';
 import AddColumnButton from './AddColumnButton';
-import SidebarStyles from '../styles/SidebarStyles';
+import SidebarStyles from '../../styles/SidebarStyles';
 
 interface SidebarProps {
   onTableClick: (tableName: string) => void;

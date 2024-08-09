@@ -1,24 +1,22 @@
-// components/ConfirmNavigateModal.tsx
+// components/ConfirmSaveModal.tsx
 import React from 'react';
-import Modal from '../modalComponent';
-import { ModalStyles } from '../styles/ModalStyles';
+import Modal from './modalComponent';
+import { ModalStyles } from '@/app/ui/Modal-Test/styles/ModalStyles';
 
-interface ConfirmNavigateModalProps {
+interface ConfirmSaveModalProps {
   show: boolean;
   onConfirm: () => void;
   onClose: () => void;
 }
 
-const ConfirmNavigateModal: React.FC<ConfirmNavigateModalProps> = ({
+const ConfirmSaveModal: React.FC<ConfirmSaveModalProps> = ({
   show,
   onConfirm,
   onClose,
 }) => {
   return (
     <Modal show={show} onClose={onClose}>
-      <h2 className="text-lg font-bold mb-4">
-        저장하지 않은 변경 사항이 있습니다. 저장하지 않고 나가시겠습니까?
-      </h2>
+      <h2 className="text-lg font-bold mb-4">정말로 저장하시겠습니까?</h2>
       <div className="flex justify-end space-x-4">
         <button
           className={`${ModalStyles.button} ${ModalStyles.cancelButton}`}
@@ -37,4 +35,4 @@ const ConfirmNavigateModal: React.FC<ConfirmNavigateModalProps> = ({
   );
 };
 
-export default ConfirmNavigateModal;
+export default ConfirmSaveModal;

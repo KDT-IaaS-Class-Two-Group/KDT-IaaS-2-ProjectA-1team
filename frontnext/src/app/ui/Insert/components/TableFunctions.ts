@@ -2,6 +2,9 @@
 import { useState, useEffect } from 'react';
 
 export function useTableDataManagement() {
+  const [showModal, setShowModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showNavigateModal, setShowNavigateModal] = useState(false);
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
   const [pendingTable, setPendingTable] = useState<string | null>(null);
   const [tableData, setTableData] = useState<any[]>([]);
@@ -10,9 +13,6 @@ export function useTableDataManagement() {
   const [editableHeaders, setEditableHeaders] = useState<string[]>([]);
   const [isDataModified, setIsDataModified] = useState(false);
   const [headerErrors, setHeaderErrors] = useState<string[]>([]);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [showNavigateModal, setShowNavigateModal] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -210,6 +210,8 @@ export function useTableDataManagement() {
 
   return {
     showModal,
+    setShowConfirmModal, // <- 추가됨
+    setShowNavigateModal, // <- 추가됨
     showConfirmModal,
     showNavigateModal,
     selectedTable,

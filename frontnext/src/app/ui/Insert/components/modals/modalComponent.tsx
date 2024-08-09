@@ -1,6 +1,6 @@
 // components/Modal.tsx
 import React from 'react';
-import { ModalStyles } from './styles/ModalStyles';
+import { ModalStyles } from '@/app/ui/Modal-Test/styles/ModalStyles';
 
 interface ModalProps {
   show: boolean;
