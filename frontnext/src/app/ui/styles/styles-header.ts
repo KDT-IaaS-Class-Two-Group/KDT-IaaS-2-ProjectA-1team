@@ -1,74 +1,19 @@
-/* @src/app/header.module.css */
-.header {
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #f8f9fa; /* 헤더 배경색 */
-  border-bottom: 1px solid #dee2e6; /* 하단 경계선 */
-  position: relative;
-}
+// styles-header.ts
 
-.header__left,
-.header__center,
-.header__right {
-  display: flex;
-  align-items: center;
-}
+const styles = {
+  header:
+    'h-16 flex items-center justify-between bg-gray-100 border-b border-t border-gray-300 relative',
+  headerLeft: 'flex items-center mr-4',
+  headerCenter: 'flex flex-grow justify-end',
+  headerRight: 'flex items-center ml-4 box-border pr-2.5',
+  button:
+    'px-4 py-2 w-36 h-16 bg-gray-100 text-gray-700 cursor-pointer border-r border -l border-gray-300 box-border transition duration-300',
+  buttonFirst:
+    'px-4 py-2 w-36 h-16 bg-gray-100 text-gray-700 cursor-pointer border -l border-gray-300 box-border transition duration-300',
+  buttonLogout:
+    'flex items-center justify-center text-sm font-bold bg-gray-100 text-gray-700 underline',
+  span: 'text-base font-bold text-gray-700 mr-4',
+  buttonHover: 'hover:bg-gray-200 hover:border-gray-400',
+};
 
-.header__left {
-  margin-right: 16px; /* 레프트와 다른 영역 간 간격 추가 */
-}
-
-.header__center {
-  flex-grow: 1;
-  justify-content: flex-end;
-  display: flex;
-}
-
-.header__right {
-  margin-left: 16px; /* 센터와 라이트 간의 간격 추가 */
-  box-sizing: border-box;
-  padding-right: 10px;
-}
-
-.button {
-  padding: 8px 16px;
-  width: 150px;
-  height: 60px;
-  background-color: #f8f9fa; /* 버튼 기본 배경색 */
-  color: #495057; /* 버튼 기본 텍스트 색상 */
-  cursor: pointer;
-  border: 1px solid #dee2e6; /* 버튼 경계선 */
-  box-sizing: border-box;
-  transition:
-    background-color 0.3s,
-    border-color 0.3s;
-}
-
-.button + .button {
-  border-left: none;
-}
-
-.button__logout {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: bold;
-  background-color: #f8f9fa; /* 버튼 기본 배경색 */
-  color: #495057; /* 버튼 기본 텍스트 색상 */
-  text-decoration: underline;
-}
-
-.button:hover {
-  background-color: #e9ecef; /* 버튼 마우스 오버 시 배경색 변화 */
-  border-color: #ced4da; /* 버튼 마우스 오버 시 경계선 색상 변화 */
-}
-
-.span {
-  font-size: 16px;
-  font-weight: bold;
-  color: #495057;
-  margin-right: 16px;
-}
+export default styles;
