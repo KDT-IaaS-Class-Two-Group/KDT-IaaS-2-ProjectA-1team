@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Modal from '../ModalComponent';
+import Modal from '../modalComponent';
 import { AddSets } from './AddSets';
 import SidebarStyles from '../styles/SidebarStyles';
 
