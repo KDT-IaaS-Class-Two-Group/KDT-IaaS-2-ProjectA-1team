@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
-import ModalComponent from './ModalComponent';
+import ModalComponent from './modalComponent';
 import { AddSets } from './components/AddSets';
 import TableData from './components/TableData';
 import SidebarStyles from './styles/SidebarStyles';
