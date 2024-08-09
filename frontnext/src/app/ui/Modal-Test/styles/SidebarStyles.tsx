@@ -1,6 +1,6 @@
 const SidebarStyles = {
   // 전체 사이드바 스타일
-  sidebar: 'w-64 bg-gray-800 text-white flex flex-col p-4 space-y-4', // 사이드바 내의 각 요소 간의 간격 추가
+  sidebar: 'w-64 bg-gray-800 text-white flex flex-col p-4 space-y-4 h-screen', // 높이를 전체 화면으로 설정
 
   // 버튼 스타일
   button: 'px-4 py-2 rounded-lg text-white hover:bg-gray-700',
@@ -13,7 +13,6 @@ const SidebarStyles = {
   addColumnButton: 'bg-orange-500 hover:bg-orange-600', // 열 추가 버튼은 주황색 계열
 
   // 제목 스타일
-  title: 'text-xl font-bold mb-4',
   mainTitle: 'text-2xl font-bold',
   tableTitle: 'text-xl font-bold mb-4',
 
@@ -30,7 +29,7 @@ const SidebarStyles = {
   mainContent: 'flex-grow p-4',
 
   // 버튼 컨테이너 스타일
-  buttonContainer: 'space-x-4', // 버튼 간의 간격만 유지
+  buttonContainer: 'space-x-2', // 버튼 간의 간격만 유지
   buttonSpacing: 'mt-2', // 버튼 사이 간격 추가
 };
 
