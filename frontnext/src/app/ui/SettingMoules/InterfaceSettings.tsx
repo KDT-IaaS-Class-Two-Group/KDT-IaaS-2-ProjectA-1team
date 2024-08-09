@@ -14,23 +14,23 @@ const InterfaceSettings = () => {
     },
     en: {
       themeChange: 'Change Theme (Dark Mode, Light Mode)',
-      languageSetting: 'Interface Language Settings',
+      languageSetting: '인터페이스 언어 설정',
     },
     jp: {
       themeChange: 'テーマの変更（ダークモード、ライトモード）',
-      languageSetting: 'インターフェースの言語設定',
+      languageSetting: '인터페이스 언어 설정',
     },
     cn: {
       themeChange: '更改主题（深色模式、浅色模式）',
-      languageSetting: '界面语言设置',
+      languageSetting: '인터페이스 언어 설정',
     },
     vn: {
       themeChange: 'Thay đổi giao diện (Chế độ tối, Chế độ sáng)',
-      languageSetting: 'Cài đặt ngôn ngữ giao diện',
+      languageSetting: '인터페이스 언어 설정',
     },
     th: {
       themeChange: 'เปลี่ยนธีม (โหมดมืด, โหมดสว่าง)',
-      languageSetting: 'การตั้งค่าภาษาอินเทอร์เฟซ',
+      languageSetting: '인터페이스 언어 설정',
     },
   };
 
