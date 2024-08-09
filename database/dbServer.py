@@ -33,7 +33,6 @@ def verify_user(request: VerifyRequest):
     )
     row = cursor.fetchone()
     conn.close()
-
     if row:
         return True
     else:
@@ -51,10 +50,29 @@ class Recommend(BaseModel):
 def create_recommend(request: Recommend):
     print('createRecommend')
     copy_table_structure(request.table)
-
     print(bool(request.table))
-    # JSON 응답으로 반환
     return {"success": bool(request.table)}
+
+class DeleteColumnRequest(BaseModel):
+    table: str
+    column: str
+
+@app.post('/deleteColumn')
+def delete_column(request: DeleteColumnRequest):
+    try:
+        conn = sqlite3.connect('정호연.db')
+        cursor = conn.cursor()
+        cursor.execute(f'ALTER TABLE "{request.table}" DROP COLUMN "{request.column}"')
+        conn.commit()
+        conn.close()
+        print(f'Column {request.column} deleted from table {request.table}')
+        return {"success": True}
+    except sqlite3.Error as e:
+        print(f'SQLite error: {e}')
+        raise HTTPException(status_code=500, detail=f"Column deletion failed: {str(e)}")
+    except Exception as e:
+        print(f'Error: {e}')
+        raise HTTPException(status_code=500, detail=f"Column deletion failed: {str(e)}")
 
 if __name__ == "__dbServer__":
     import uvicorn
