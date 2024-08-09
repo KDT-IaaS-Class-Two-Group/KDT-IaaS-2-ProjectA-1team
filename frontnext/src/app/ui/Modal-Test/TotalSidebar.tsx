@@ -123,6 +123,13 @@ const TotalSidebar: React.FC = () => {
       {/* 사이드바 영역 */}
       <Sidebar onTableClick={handleTableClick} />
 
+      {/* 테이블 생성 모달 */}
+      <ModalComponent show={showModal} onClose={toggleModal}>
+        <div className="text-center">
+          <AddSets />
+        </div>
+      </ModalComponent>
+
       {/* 메인 콘텐츠 영역 */}
       <div className="flex-grow p-4">
         <h1 className="text-2xl font-bold">Main Content</h1>
@@ -162,13 +169,6 @@ const TotalSidebar: React.FC = () => {
           </div>
         )}
       </div>
-
-      {/* 테이블 생성 모달 */}
-      <ModalComponent show={showModal} onClose={toggleModal}>
-        <div className="text-center">
-          <AddSets />
-        </div>
-      </ModalComponent>
     </div>
   );
 };
