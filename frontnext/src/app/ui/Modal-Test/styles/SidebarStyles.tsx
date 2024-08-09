@@ -21,6 +21,7 @@ const SidebarStyles = {
 
   // buttonContainer 스타일 추가
   buttonContainer: 'space-x-4 mt-4',
+  sidebarHeight: 'h-[calc(100vh-4rem)]',
 };
 
 export default SidebarStyles;
