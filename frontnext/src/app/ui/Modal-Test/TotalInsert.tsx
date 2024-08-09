@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import ModalComponent from './modalComponent';
@@ -10,7 +11,7 @@ const TotalSidebar: React.FC = () => {
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
   const [tableData, setTableData] = useState<any[]>([]);
   const [headers, setHeaders] = useState<string[]>([]);
-  const [columnsToDelete, setColumnsToDelete] = useState<string[]>([]); // 여러 열을 삭제할 수 있도록 배열로 변경
+  const [columnToDelete, setColumnToDelete] = useState<string | null>(null);
   const [editableHeaders, setEditableHeaders] = useState<string[]>([]);
 
   const toggleModal = () => {
@@ -28,11 +29,10 @@ const TotalSidebar: React.FC = () => {
         body: JSON.stringify({ table: tableName }),
       });
       const data = await response.json();
-      const initialHeaders = Object.keys(data[0] || {});
       setTableData(data);
+      const initialHeaders = Object.keys(data[0] || {});
       setHeaders(initialHeaders);
-      setEditableHeaders(initialHeaders);
-      setColumnsToDelete([]); // 테이블을 다시 클릭할 때 삭제할 열 초기화
+      setEditableHeaders(initialHeaders); // 기존 열 제목은 그대로 유지
       console.log(
         '테이블과 연동되지 않는 데이터를 받아와 프론트에 나타냈다:',
         data,
@@ -47,7 +47,7 @@ const TotalSidebar: React.FC = () => {
       const requestData = {
         table: selectedTable,
         data: tableData,
-        columnsToDelete, // 삭제할 열 배열 전송
+        columnToDelete,
       };
       console.log('저장할 데이터:', requestData);
       try {
@@ -61,7 +61,7 @@ const TotalSidebar: React.FC = () => {
         const result = await response.json();
         if (response.ok) {
           console.log('테이블이 정상적으로 업데이트 되었습니다:', result);
-          setColumnsToDelete([]); // 성공적으로 저장된 후 삭제할 열 초기화
+          setColumnToDelete(null);
         } else {
           console.error('테이블 업데이트 중 오류 발생:', result);
         }
@@ -86,11 +86,11 @@ const TotalSidebar: React.FC = () => {
   const handleAddColumn = () => {
     const newColumnName = `column_${headers.length + 1}`; // 고유한 컬럼 이름 생성
     const updatedHeaders = [...headers, newColumnName];
-    const updatedEditableHeaders = [...editableHeaders, ''];
+    const updatedEditableHeaders = [...editableHeaders, '']; // 새로 추가된 열의 제목을 비워둠
 
     const updatedData = tableData.map((row) => ({
       ...row,
-      [newColumnName]: '',
+      [newColumnName]: '', // 각 행에 대해 새로운 고유한 열 추가
     }));
     setHeaders(updatedHeaders);
     setEditableHeaders(updatedEditableHeaders);
@@ -105,14 +105,16 @@ const TotalSidebar: React.FC = () => {
     const updatedHeaders = [...headers];
     const oldHeader = headers[index];
 
+    // 새로운 열 제목 설정
     updatedHeaders[index] = value || headers[index];
     setHeaders(updatedHeaders);
 
+    // 데이터 객체 업데이트
     const updatedData = tableData.map((row) => {
       const newRow = { ...row };
       if (value) {
-        newRow[value] = newRow[oldHeader];
-        delete newRow[oldHeader];
+        newRow[value] = newRow[oldHeader]; // 새로운 열 이름으로 데이터 이동
+        delete newRow[oldHeader]; // 기존 열 이름 삭제
       }
       return newRow;
     });
@@ -122,7 +124,7 @@ const TotalSidebar: React.FC = () => {
 
   const handleDeleteColumn = (index: number) => {
     const columnToDelete = headers[index];
-    setColumnsToDelete([...columnsToDelete, columnToDelete]); // 배열에 삭제할 열 추가
+    setColumnToDelete(columnToDelete);
     const updatedHeaders = headers.filter((_, i) => i !== index);
     const updatedEditableHeaders = editableHeaders.filter(
       (_, i) => i !== index,
@@ -161,7 +163,7 @@ const TotalSidebar: React.FC = () => {
                 data={tableData}
                 onDataChange={handleDataChange}
                 headers={headers}
-                editableHeaders={editableHeaders}
+                editableHeaders={editableHeaders} // 표시용 헤더 전달
                 onHeaderChange={handleHeaderChange}
                 onDeleteRow={(rowIndex: number) => {
                   const newData = [...tableData];
