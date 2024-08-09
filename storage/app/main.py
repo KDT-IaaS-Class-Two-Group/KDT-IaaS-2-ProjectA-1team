@@ -13,7 +13,7 @@ def helloThere():
     try : 
         cursor = conn.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS eest (id INTEGER, name TEXT)")
-        cursor.execute("INSERT INTO test (id, name) VALUES (?, ?)",("1","TEST"))
+        cursor.execute("INSERT INTO eest (id, name) VALUES (?, ?)",(1,"TEST"))
         conn.commit()
     finally : 
         conn.close()
