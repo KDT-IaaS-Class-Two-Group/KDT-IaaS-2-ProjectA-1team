@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { PwChangeModalStyles as styles } from '../ui/Modal/styles/PWcheangeModal';
+import { PwChangeModalStyles as styles } from '../ui/Modal-Test/styles/PWcheangeModal';
 
 interface PasswordCheck {
   current_password: string;
