@@ -137,18 +137,20 @@ const TotalSidebar: React.FC = () => {
         {selectedTable && (
           <div>
             <h2 className={SidebarStyles.tableTitle}>{selectedTable}</h2>
-            <TableData
-              data={tableData}
-              onDataChange={handleDataChange}
-              headers={headers}
-              onHeaderChange={handleHeaderChange}
-              onDeleteRow={(rowIndex: number) => {
-                const newData = [...tableData];
-                newData.splice(rowIndex, 1);
-                setTableData(newData);
-              }}
-              onDeleteColumn={handleDeleteColumn}
-            />
+            <div className={SidebarStyles.tableWrapper}>
+              <TableData
+                data={tableData}
+                onDataChange={handleDataChange}
+                headers={headers}
+                onHeaderChange={handleHeaderChange}
+                onDeleteRow={(rowIndex: number) => {
+                  const newData = [...tableData];
+                  newData.splice(rowIndex, 1);
+                  setTableData(newData);
+                }}
+                onDeleteColumn={handleDeleteColumn}
+              />
+            </div>
             <button className={SidebarStyles.saveButton} onClick={handleSave}>
               저장
             </button>
