@@ -2,10 +2,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
-from routers import table_router, data_router, create_table_router, update_table_router
-from pwCheange import router as pwCheange_router  # pwCheange 라우터를 임포트
+from app.routers.routers import table_router, data_router, create_table_router, update_table_router
+from app.routers.pwChange import router as pwCheange_router  # pwCheange 라우터를 임포트
 from typing import List
-from createToCopy import copy_table_structure
+from app.db.createToCopy import copy_table_structure
 
 app = FastAPI()
 
