@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict
-from models import TableRequest, CreateTableRequest, UpdateTableRequest
-from database import get_table_names, search_data_by_table_and_value
+from app.models.models import TableRequest, CreateTableRequest, UpdateTableRequest
+from app.db.database import get_table_names, search_data_by_table_and_value
 import sqlite3
 
 table_router = APIRouter()
