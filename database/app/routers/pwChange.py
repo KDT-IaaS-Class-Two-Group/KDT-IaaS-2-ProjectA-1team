@@ -6,7 +6,7 @@ import sqlite3
 
 router = APIRouter()
 
-DATABASE = 'logIn.db'
+DATABASE = './data/logIn.db'
 
 class PasswordCheck(BaseModel):
     current_password: str

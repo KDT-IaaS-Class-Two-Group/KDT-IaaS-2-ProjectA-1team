@@ -3,11 +3,11 @@ import sqlite3
 def copy_table_structure(table_name):
     try:
         # A 데이터베이스 연결
-        a_conn = sqlite3.connect('recommendTable.db')
+        a_conn = sqlite3.connect('./data/recommendTable.db')
         a_cursor = a_conn.cursor()
         
         # B 데이터베이스 연결
-        b_conn = sqlite3.connect('testCopyTable.db')
+        b_conn = sqlite3.connect('./data/정호연.db')
         b_cursor = b_conn.cursor()
         
         # A 데이터베이스에서 테이블 구조 가져오기
