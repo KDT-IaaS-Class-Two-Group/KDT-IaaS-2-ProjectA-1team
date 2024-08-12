@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/styles';
+import TotalStyles from '../../styles/TotalStyles';
 
 interface FormProps {
   handleSubmit: (e: React.FormEvent) => void;
@@ -19,16 +19,16 @@ const Form: React.FC<FormProps> = ({
   tables,
 }) => {
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <div className={styles.formRow}>
-        <label htmlFor="table-select" className={styles.label}>
+    <form onSubmit={handleSubmit} className={TotalStyles.ToggleForm}>
+      <div className={TotalStyles.ToggleFormRow}>
+        <label htmlFor="table-select" className={TotalStyles.ToggleLabel}>
           Table
         </label>
         <select
           id="table-select"
           value={selectedTable}
           onChange={(e) => setSelectedTable(e.target.value)}
-          className={styles.select}
+          className={TotalStyles.ToggleSelect}
         >
           {tables.map((table) => (
             <option key={table} value={table}>
@@ -41,9 +41,9 @@ const Form: React.FC<FormProps> = ({
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Search"
-          className={styles.input}
+          className={TotalStyles.ToggleInput}
         />
-        <button type="submit" className={styles.button}>
+        <button type="submit" className={TotalStyles.ToggleToggleButton}>
           Submit
         </button>
       </div>
