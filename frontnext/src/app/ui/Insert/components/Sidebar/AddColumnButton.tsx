@@ -1,5 +1,5 @@
 import React from 'react';
-import SidebarStyles from '../../styles/SidebarStyles';
+import TotalStyles from '@/app/ui/styles/TotalStyles';
 
 interface AddColumnButtonProps {
   onAddColumn: () => void;
@@ -8,7 +8,7 @@ interface AddColumnButtonProps {
 const AddColumnButton: React.FC<AddColumnButtonProps> = ({ onAddColumn }) => {
   return (
     <button
-      className={`${SidebarStyles.button} ${SidebarStyles.addColumnButton}`}
+      className={`${TotalStyles.SidebarButton} ${TotalStyles.SidebarAddColumnButton}`}
       onClick={onAddColumn}
     >
       열 추가
