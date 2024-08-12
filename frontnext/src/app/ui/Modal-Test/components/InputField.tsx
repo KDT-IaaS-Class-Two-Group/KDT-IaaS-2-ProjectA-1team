@@ -30,14 +30,18 @@ export const InputField: React.FC<InputFieldProps> = ({
   containerRef,
   setCount,
 }) => (
-  <div key={id} id={`set-${id}`} className={TotalStyles.container}>
+  <div
+    key={id}
+    id={`set-${id}`}
+    className={TotalStyles.CreateTableModalContainer}
+  >
     <div className="flex items-center w-full">
       <input
         type="text"
         value={value}
         placeholder="항목을 입력하세요."
         id={`item-${id}`}
-        className={`${TotalStyles.input} ${error ? TotalStyles.inputError : ''}`}
+        className={`${TotalStyles.CreateTableModalInput} ${error ? TotalStyles.CreateTableModalInputError : ''}`}
         onKeyDown={(e) => onKeyDown(e, id)}
         onCompositionStart={onCompositionStart}
         onCompositionEnd={onCompositionEnd}
@@ -47,12 +51,12 @@ export const InputField: React.FC<InputFieldProps> = ({
       {handleDelete && containerRef && setCount && (
         <button
           onClick={() => handleDelete(id, containerRef, setCount)}
-          className={`${TotalStyles.button} bg-red-500 hover:bg-red-600`}
+          className={`${TotalStyles.CreateTableModalButton} bg-red-500 hover:bg-red-600`}
         >
           ⏤
         </button>
       )}
     </div>
-    {error && <p className={TotalStyles.errorText}>{error}</p>}
+    {error && <p className={TotalStyles.CreateTableModalErrorText}>{error}</p>}
   </div>
 );
