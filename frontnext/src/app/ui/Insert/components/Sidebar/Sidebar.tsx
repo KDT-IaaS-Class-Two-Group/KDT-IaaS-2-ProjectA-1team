@@ -1,9 +1,9 @@
 import React from 'react';
-import TableModal from './CreateTableModal';
+import TableModal from '@/app/ui/Modal-Test/components/CreateTableModal';
 import TableList from './TableList';
 import AddRowButton from './AddRowButton';
 import AddColumnButton from './AddColumnButton';
-import SidebarStyles from '../styles/SidebarStyles';
+import SidebarStyles from '../../styles/SidebarStyles';
 
 interface SidebarProps {
   onTableClick: (tableName: string) => void;
@@ -17,7 +17,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onAddColumn,
 }) => {
   return (
-    <div className={SidebarStyles.sidebar}>
+    <div className={`${SidebarStyles.sidebar} ${SidebarStyles.sidebarHeight}`}>
       {/* 테이블 생성 버튼 및 모달 */}
       <TableModal />
 
