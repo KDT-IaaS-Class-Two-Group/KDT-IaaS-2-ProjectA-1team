@@ -1,7 +1,7 @@
 // components/ConfirmNavigateModal.tsx
 import React from 'react';
 import Modal from '@/app/ui/Modal-Test/modalComponent';
-import { ModalStyles } from '@/app/ui/Modal-Test/styles/ModalStyles';
+import TotalStyles from '@/app/ui/styles/total-styles';
 
 interface ConfirmNavigateModalProps {
   show: boolean;
@@ -21,13 +21,13 @@ const ConfirmNavigateModal: React.FC<ConfirmNavigateModalProps> = ({
       </h2>
       <div className="flex justify-end space-x-4">
         <button
-          className={`${ModalStyles.button} ${ModalStyles.cancelButton}`}
+          className={`${TotalStyles.ModalButton} ${TotalStyles.ModalCancelButton}`}
           onClick={onClose}
         >
           취소
         </button>
         <button
-          className={`${ModalStyles.button} ${ModalStyles.confirmButton}`}
+          className={`${TotalStyles.ModalButton} ${TotalStyles.ModalConfirmButton}`}
           onClick={onConfirm}
         >
           확인
