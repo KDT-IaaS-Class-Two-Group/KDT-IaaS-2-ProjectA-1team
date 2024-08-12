@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { PwChangeModalStyles as styles } from '../styles/stylesKHR';
+import TotalStyles from '../styles/TotalStyles';
 
 interface PasswordCheck {
   current_password: string;
@@ -38,7 +38,6 @@ const PasswordChangeForm: React.FC = () => {
     setPasswordsMatchError(false);
 
     try {
-      // 비밀번호 확인 요청
       const checkResponse = await fetch(
         'http://localhost:8080/check-password',
         {
@@ -60,7 +59,6 @@ const PasswordChangeForm: React.FC = () => {
 
       setPasswordMatch(true);
 
-      // 비밀번호 변경 요청
       const changeResponse = await fetch(
         'http://localhost:8080/change-password',
         {
@@ -79,10 +77,9 @@ const PasswordChangeForm: React.FC = () => {
       if (changeData.message === 'Password changed successfully') {
         setChangeSuccess(true);
         setTimeout(() => {
-          // (추가)
-          resetForm(); // (추가)
-          setIsModalOpen(false); // 비밀번호 변경 성공 시 모달을 닫음 (추가)
-        }, 2000); // 2초 후에 모달 창이 닫히도록 설정 (추가)
+          resetForm();
+          setIsModalOpen(false);
+        }, 2000);
       } else {
         setChangeSuccess(false);
       }
@@ -115,7 +112,6 @@ const PasswordChangeForm: React.FC = () => {
     }
   }, [isModalOpen]);
 
-  // 메시지 초기화 핸들러
   const handleInputChange =
     (setter: React.Dispatch<React.SetStateAction<string>>) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -131,15 +127,15 @@ const PasswordChangeForm: React.FC = () => {
       <button
         type="button"
         onClick={openModal}
-        className="px-4 py-2 bg-green-500 text-white rounded hover:opacity-80"
+        className={TotalStyles.SettingButton}
       >
         비밀번호 변경
       </button>
 
       {isModalOpen && (
-        <div className={styles.modalOverlay}>
+        <div className={TotalStyles.ModalOverlay}>
           <form
-            className={styles.modalContent}
+            className={TotalStyles.ModalContent}
             onSubmit={(e) => {
               e.preventDefault();
               handleChangePassword();
@@ -148,15 +144,18 @@ const PasswordChangeForm: React.FC = () => {
             <button
               type="button"
               onClick={handleCancel}
-              className={styles.closeButton}
+              className={TotalStyles.ModalCloseButton}
             >
               &times;
             </button>
-            <h2 className="text-xl font-semibold text-center mb-4">
+            <h2 className={TotalStyles.PasswordSuccessText}>
               비밀번호 변경하기
             </h2>
             <div className="mt-4">
-              <label htmlFor="current-password" className={styles.label}>
+              <label
+                htmlFor="current-password"
+                className={TotalStyles.LoginLabel}
+              >
                 현재 비밀번호
               </label>
               <input
@@ -164,12 +163,12 @@ const PasswordChangeForm: React.FC = () => {
                 type="password"
                 value={currentPassword}
                 onChange={handleInputChange(setCurrentPassword)}
-                className={styles.input}
+                className={TotalStyles.LoginInput}
                 aria-label="현재 비밀번호"
               />
             </div>
             <div className="mt-4">
-              <label htmlFor="new-password" className={styles.label}>
+              <label htmlFor="new-password" className={TotalStyles.LoginLabel}>
                 새 비밀번호
               </label>
               <input
@@ -177,12 +176,15 @@ const PasswordChangeForm: React.FC = () => {
                 type="password"
                 value={newPassword}
                 onChange={handleInputChange(setNewPassword)}
-                className={styles.input}
+                className={TotalStyles.LoginInput}
                 aria-label="새 비밀번호"
               />
             </div>
             <div className="mt-4">
-              <label htmlFor="confirm-new-password" className={styles.label}>
+              <label
+                htmlFor="confirm-new-password"
+                className={TotalStyles.LoginLabel}
+              >
                 새 비밀번호 확인
               </label>
               <input
@@ -190,37 +192,45 @@ const PasswordChangeForm: React.FC = () => {
                 type="password"
                 value={confirmNewPassword}
                 onChange={handleInputChange(setConfirmNewPassword)}
-                className={styles.input}
+                className={TotalStyles.LoginInput}
                 aria-label="새 비밀번호 확인"
               />
             </div>
-            <button type="submit" className={styles.button}>
+            <button type="submit" className={TotalStyles.PasswordSubmitButton}>
               변경하기
             </button>
             <button
               type="button"
               onClick={handleCancel}
-              className={`${styles.button} mt-2 bg-red-500 hover:bg-red-600`}
+              className={TotalStyles.PasswordButton}
             >
               취소하기
             </button>
 
             {emptyPasswordError && (
-              <p className="text-red-500">모두 입력 해주세요.</p>
+              <p className={TotalStyles.PasswordFailureText}>
+                모두 입력 해주세요.
+              </p>
             )}
             {passwordsMatchError && (
-              <p className="text-red-500">새 비밀번호가 일치하지 않습니다.</p>
+              <p className={TotalStyles.PasswordFailureText}>
+                새 비밀번호가 일치하지 않습니다.
+              </p>
             )}
             {passwordMatch === false && !emptyPasswordError && (
-              <p className="text-red-500">현재 비밀번호가 일치하지 않습니다</p>
+              <p className={TotalStyles.PasswordFailureText}>
+                현재 비밀번호가 일치하지 않습니다
+              </p>
             )}
             {passwordMatch === true && changeSuccess === true && (
-              <p className="text-green-500">
+              <p className={TotalStyles.PasswordSuccessText}>
                 비밀번호가 성공적으로 변경되었습니다
               </p>
             )}
             {changeSuccess === false && !emptyPasswordError && (
-              <p className="text-red-500">비밀번호 변경에 실패했습니다</p>
+              <p className={TotalStyles.PasswordFailureText}>
+                비밀번호 변경에 실패했습니다
+              </p>
             )}
           </form>
         </div>
