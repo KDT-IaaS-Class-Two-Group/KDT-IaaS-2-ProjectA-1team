@@ -23,7 +23,7 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
             {data.map((item, index) => (
               <tr key={index}>
                 {Object.entries(item).map(([key, value]) => (
-                  <td key={key} className={TotalStyles.ToggleTableHeaderCell}>
+                  <td key={key} className={TotalStyles.ToggleTableDataCell}>
                     {value}
                   </td>
                 ))}
