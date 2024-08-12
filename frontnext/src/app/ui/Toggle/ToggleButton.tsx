@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/styles';
+import TotalStyles from '../styles/TotalStyles';
 
 interface ToggleButtonProps {
   isOpen: boolean;
@@ -8,7 +8,7 @@ interface ToggleButtonProps {
 
 const ToggleButton: React.FC<ToggleButtonProps> = ({ isOpen, onClick }) => {
   return (
-    <button onClick={onClick} className={styles.toggleButton}>
+    <button onClick={onClick} className={TotalStyles.ToggleButton}>
       {isOpen ? '▲' : '▼'}
     </button>
   );
