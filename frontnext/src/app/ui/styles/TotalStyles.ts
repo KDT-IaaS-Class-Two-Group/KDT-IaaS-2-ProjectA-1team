@@ -114,6 +114,30 @@ const TotalStyles = {
     'w-full py-2 px-4 rounded-lg bg-blue-500 text-white text-center hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 mt-4',
   PasswordSuccessText: 'text-green-500 text-xl font-semibold text-center mt-4',
   PasswordFailureText: 'text-red-500 text-xl font-semibold text-center mt-4',
+
+  // Toggle Styles
+  ToggleMainContainer:
+    'min-h-screen flex flex-col items-center justify-start bg-gray-100',
+  ToggleContent: 'bg-white p-5 w-full max-w-none flex flex-col items-center',
+  ToggleError: 'mt-4 text-center text-red-500',
+  ToggleForm: 'space-y-4 flex items-center w-full',
+  ToggleFormRow: 'flex items-center justify-center space-x-4 w-full',
+  ToggleLabel: 'text-sm font-medium text-gray-700',
+  ToggleInput:
+    'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
+  ToggleSubmit:
+    'bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300',
+  ToggleTableContainer: 'w-full max-w-4xl',
+  ToggleTable: 'min-w-full divide-y divide-gray-200',
+  ToggleTableHead: 'bg-gray-50',
+  ToggleTableHeaderCell:
+    'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
+  ToggleTableBody: 'bg-white divide-y divide-gray-200',
+  ToggleTableDataCell: 'px-6 py-4 whitespace-nowrap text-sm text-gray-500',
+  ToggleButton: 'self-end mt-4 text-gray-800 font-bold py-2 px-4 rounded',
+  ToggleSelect:
+    'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
+  ToggleSelectContainer: 'space-y-4', // selectContainer 속성을 추가합니다.
 };
 
 export default TotalStyles;
