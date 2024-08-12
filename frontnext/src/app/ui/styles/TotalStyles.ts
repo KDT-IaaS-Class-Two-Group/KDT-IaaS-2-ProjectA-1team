@@ -21,8 +21,6 @@ const TotalStyles = {
     'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 w-full mb-4',
 
   // Login Styles
-  LoginCardContainer:
-    'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50', // z-index 추가
   LoginCardContent:
     'flex items-center justify-center flex-col bg-white p-6 rounded-lg relative max-w-lg w-full mx-4',
   LoginCardHeader: 'text-lg font-semibold text-gray-900 mb-4',
@@ -45,18 +43,6 @@ const TotalStyles = {
   LoginLabelInputContainer: 'mb-4',
   LoginSuccessText: 'text-blue-500 text-4xl font-bold',
   LoginFailureText: 'text-red-500 text-4xl font-bold',
-
-  // Create Table Modal Styles
-  CreateTableModalContainer: 'flex flex-col items-start mb-2.5 w-full',
-  CreateTableModalInput: 'border rounded-lg p-2 w-full',
-  CreateTableModalErrorText: 'text-red-500 text-sm mt-1',
-  CreateTableModalButtonContainer: 'space-x-10',
-  CreateTableModalButton: 'px-4 py-2 text-white rounded-lg hover:bg-blue-600',
-  CreateTableModalAddButton: 'bg-blue-500',
-  CreateTableModalCreateButton: 'bg-green-500 hover:bg-green-600',
-  CreateTableModalInputError: 'border-red-500',
-  CreateTableModalRecommendButton:
-    'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 w-full mb-4',
 
   // Sidebar Styles
   sidebar: 'w-64 bg-gray-800 text-white flex flex-col p-4 space-y-4',
@@ -119,7 +105,15 @@ const TotalStyles = {
   SettingEmail: 'text-blue-500',
   SettingButtonContainer: 'flex flex-col space-y-4',
   SettingButton:
-    'px-4 py-2 rounded-lg hover:bg-gray-700 active:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-200 cursor-pointer',
+    'w-full px-4 py-2 rounded-lg hover:bg-gray-700 active:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-200 cursor-pointer text-center',
+
+  // Password Change Styles
+  PasswordButton:
+    'w-full py-2 px-4 rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-all duration-200 mt-2 bg-transparent border border-gray-800 hover:bg-red-500 hover:text-white hover:border-transparent',
+  PasswordSubmitButton:
+    'w-full py-2 px-4 rounded-lg bg-blue-500 text-white text-center hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 mt-4',
+  PasswordSuccessText: 'text-green-500 text-xl font-semibold text-center mt-4',
+  PasswordFailureText: 'text-red-500 text-xl font-semibold text-center mt-4',
 };
 
 export default TotalStyles;
