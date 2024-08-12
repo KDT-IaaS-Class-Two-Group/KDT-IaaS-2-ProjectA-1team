@@ -36,15 +36,15 @@ const TotalStyles = {
   LoginCardLink: 'text-blue-600 hover:text-blue-700 underline',
 
   // Create Table Modal Styles
-  container: 'flex flex-col items-start mb-2.5 w-full',
-  input: 'border rounded-lg p-2 w-full',
-  errorText: 'text-red-500 text-sm mt-1',
-  buttonContainer: 'space-x-10',
-  button: 'px-4 py-2 text-white rounded-lg hover:bg-blue-600',
-  addButton: 'bg-blue-500',
-  createButton: 'bg-green-500 hover:bg-green-600',
-  inputError: 'border-red-500',
-  recommendButton:
+  CreateTableModalContainer: 'flex flex-col items-start mb-2.5 w-full',
+  CreateTableModalInput: 'border rounded-lg p-2 w-full',
+  CreateTableModalErrorText: 'text-red-500 text-sm mt-1',
+  CreateTableModalButtonContainer: 'space-x-10',
+  CreateTableModalButton: 'px-4 py-2 text-white rounded-lg hover:bg-blue-600',
+  CreateTableModalAddButton: 'bg-blue-500',
+  CreateTableModalCreateButton: 'bg-green-500 hover:bg-green-600',
+  CreateTableModalInputError: 'border-red-500',
+  CreateTableModalRecommendButton:
     'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 w-full mb-4',
 };
 
