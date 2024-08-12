@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { createSetJSX } from '../utils/CreateSet';
-import TotalStyles from '../../styles/total-styles';
+import TotalStyles from '../../styles/TotalStyles';
 import RecommendTemp from '../../recommendTemp/recommendTemp';
 import { callApi } from '@/app/lib/AJAX';
 
