@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
-import Modal from '../components/modals/modalComponent';
+import Modal from '@/app/ui/Modal-Test/modalComponent';
 import ConfirmSaveModal from '../components/modals/ConfirmSaveModal';
 import ConfirmNavigateModal from '../components/modals/ConfirmNavigateModal';
 import TableData from '../components/TableData';
