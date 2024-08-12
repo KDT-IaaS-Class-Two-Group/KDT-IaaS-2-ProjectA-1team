@@ -19,6 +19,21 @@ const TotalStyles = {
   CreateTableInputError: 'border-red-500',
   CreateTableRecommendButton:
     'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 w-full mb-4',
+
+  // Login Card Styles
+  LoginCardContainer:
+    'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50', // z-index 추가
+  LoginCardContent:
+    'flex items-center justify-center flex-col bg-white p-6 rounded-lg relative max-w-lg w-full mx-4',
+  LoginCardHeader: 'text-lg font-semibold text-gray-900 mb-4',
+  LoginCardBody: 'text-gray-700 text-base mb-4',
+  LoginCardFooter: 'flex justify-end mt-4',
+  LoginCardButton:
+    'bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
+  LoginCardImage: 'w-full h-48 object-cover rounded-t-lg mb-4',
+  LoginCardTitle: 'text-xl font-bold text-gray-800',
+  LoginCardSubtitle: 'text-sm text-gray-500',
+  LoginCardLink: 'text-blue-600 hover:text-blue-700 underline',
 };
 
 export default TotalStyles;
