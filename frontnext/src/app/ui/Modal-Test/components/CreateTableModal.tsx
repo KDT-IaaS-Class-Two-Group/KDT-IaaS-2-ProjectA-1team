@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '../modalComponent';
 import { AddSets } from './AddSets';
-import SidebarStyles from '../../Insert/styles/SidebarStyles';
+import TotalStyles from '../../styles/TotalStyles';
 
 const TableModal: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -13,7 +13,7 @@ const TableModal: React.FC = () => {
   return (
     <div>
       <button
-        className={`${SidebarStyles.button} ${SidebarStyles.createButton}`}
+        className={`${TotalStyles.SidebarButton} ${TotalStyles.ModalConfirmButton}`}
         onClick={toggleModal}
       >
         테이블 생성
