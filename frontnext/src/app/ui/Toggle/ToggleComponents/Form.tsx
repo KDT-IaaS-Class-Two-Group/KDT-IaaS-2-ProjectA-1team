@@ -23,9 +23,9 @@ const Form: React.FC<FormProps> = ({
 
   const texts = {
     ko: {
-      tableLabel: '테이블',
+      tableLabel: '분류',
       searchPlaceholder: '검색',
-      submitButton: '제출',
+      submitButton: '조회',
     },
     en: {
       tableLabel: 'Table',
@@ -58,7 +58,6 @@ const Form: React.FC<FormProps> = ({
     <form onSubmit={handleSubmit} className={TotalStyles.ToggleForm}>
       <div className={TotalStyles.ToggleFormRow}>
         <label htmlFor="table-select" className={TotalStyles.ToggleLabel}>
-          분류
           {texts[language].tableLabel}
         </label>
         <select
