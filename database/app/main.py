@@ -2,10 +2,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
-from routers import table_router, data_router, create_table_router, update_table_router
-from pwCheange import router as pwCheange_router  # pwCheange 라우터를 임포트
+from routers.routers import table_router, data_router, create_table_router, update_table_router
+from routers.pwChange import router as pwCheange_router  # pwCheange 라우터를 임포트
 from typing import List
-from createToCopy import copy_table_structure
+from db.createToCopy import copy_table_structure
 
 app = FastAPI()
 
@@ -24,7 +24,7 @@ class VerifyRequest(BaseModel):
 @app.post("/login")
 def verify_user(request: VerifyRequest):
     print('login')
-    DATABASE = 'login.db'
+    DATABASE = './data/login.db'
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
     cursor.execute(
@@ -61,7 +61,7 @@ class DeleteColumnRequest(BaseModel):
 @app.post('/deleteColumn')
 def delete_column(request: DeleteColumnRequest):
     try:
-        conn = sqlite3.connect('정호연.db')
+        conn = sqlite3.connect('./data/정호연.db')
         cursor = conn.cursor()
 
         # 여러 열을 삭제

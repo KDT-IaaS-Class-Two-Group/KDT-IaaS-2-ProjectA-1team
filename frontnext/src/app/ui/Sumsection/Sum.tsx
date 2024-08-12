@@ -1,8 +1,7 @@
-// Sum.tsx
-
 import React, { useState, useEffect } from 'react';
 import { sumFromArray } from '@/app/lib/addIntAll';
-import sumTotalStyles from '../styles/TotalStyles';
+import TotalStyles from '../styles/TotalStyles';
+import { useLanguage } from '../SettingMoules/LanguageContext';
 
 interface Props {
   columns: string[];
@@ -10,8 +9,30 @@ interface Props {
 }
 
 const SumComponent = ({ columns, selectedTableData }: Props) => {
+  const { language } = useLanguage();
   const [selectedColumn, setSelectedColumn] = useState<string>('');
   const [sum, setSum] = useState<string>('');
+
+  const texts = {
+    ko: {
+      label: '합계',
+    },
+    en: {
+      label: 'Sum',
+    },
+    jp: {
+      label: '合計',
+    },
+    cn: {
+      label: '总和',
+    },
+    vn: {
+      label: 'Tổng',
+    },
+    th: {
+      label: 'รวม',
+    },
+  };
 
   useEffect(() => {
     if (selectedColumn) {
@@ -29,17 +50,17 @@ const SumComponent = ({ columns, selectedTableData }: Props) => {
   }, [selectedColumn, selectedTableData]);
 
   return (
-    <div className={sumTotalStyles.SumContainer}>
-      <hr className={sumTotalStyles.SumDivider} />
-      <div className={sumTotalStyles.SumInnerContainer}>
-        <label htmlFor="sumtable" className={sumTotalStyles.SumTextCommon}>
-          합계
+    <div className={TotalStyles.SumContainer}>
+      <hr className={TotalStyles.SumDivider} />
+      <div className={TotalStyles.SumInnerContainer}>
+        <label htmlFor="sumtable" className={TotalStyles.SumTextCommon}>
+          {texts[language].label}
         </label>
         <select
           id="sumtable"
           value={selectedColumn}
           onChange={(e) => setSelectedColumn(e.target.value)}
-          className={`${sumTotalStyles.SumTextCommon} ${sumTotalStyles.SumSelect}`}
+          className={`${TotalStyles.SumTextCommon} ${TotalStyles.SumSelect}`}
         >
           {columns.map((column, index) => (
             <option key={index} value={column}>
@@ -47,9 +68,7 @@ const SumComponent = ({ columns, selectedTableData }: Props) => {
             </option>
           ))}
         </select>
-        <span className={sumTotalStyles.SumTextCommon}>
-          {sum ? `${sum}` : ''}
-        </span>
+        <span className={TotalStyles.SumTextCommon}>{sum ? `${sum}` : ''}</span>
       </div>
     </div>
   );

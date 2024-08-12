@@ -1,5 +1,6 @@
 import React from 'react';
 import TotalStyles from '../../styles/TotalStyles';
+import { useLanguage } from '../../SettingMoules/LanguageContext';
 
 interface FormProps {
   handleSubmit: (e: React.FormEvent) => void;
@@ -18,11 +19,47 @@ const Form: React.FC<FormProps> = ({
   setSelectedTable,
   tables,
 }) => {
+  const { language } = useLanguage();
+
+  const texts = {
+    ko: {
+      tableLabel: '테이블',
+      searchPlaceholder: '검색',
+      submitButton: '제출',
+    },
+    en: {
+      tableLabel: 'Table',
+      searchPlaceholder: 'Search',
+      submitButton: 'Submit',
+    },
+    jp: {
+      tableLabel: 'テーブル',
+      searchPlaceholder: '検索',
+      submitButton: '提出する',
+    },
+    cn: {
+      tableLabel: '表',
+      searchPlaceholder: '搜索',
+      submitButton: '提交',
+    },
+    vn: {
+      tableLabel: 'Bảng',
+      searchPlaceholder: 'Tìm kiếm',
+      submitButton: 'Gửi',
+    },
+    th: {
+      tableLabel: 'ตาราง',
+      searchPlaceholder: 'ค้นหา',
+      submitButton: 'ส่ง',
+    },
+  };
+
   return (
     <form onSubmit={handleSubmit} className={TotalStyles.ToggleForm}>
       <div className={TotalStyles.ToggleFormRow}>
         <label htmlFor="table-select" className={TotalStyles.ToggleLabel}>
           분류
+          {texts[language].tableLabel}
         </label>
         <select
           id="table-select"
@@ -44,7 +81,7 @@ const Form: React.FC<FormProps> = ({
           className={TotalStyles.ToggleInput}
         />
         <button type="submit" className={TotalStyles.ToggleSubmit}>
-          조회
+          {texts[language].submitButton}
         </button>
       </div>
     </form>

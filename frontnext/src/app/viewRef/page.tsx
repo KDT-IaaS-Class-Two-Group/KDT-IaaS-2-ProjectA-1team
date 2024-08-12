@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import HeaderSection from '../ui/Header/headerSection';
 import ToggleSection from '../ui/Toggle/ToggleSection';
 import SumComponent from '../ui/Sumsection/Sum';
+import { LanguageProvider } from '../ui/SettingMoules/LanguageContext';
 
 export default function Home() {
   const [columns, setColumns] = useState<string[]>([]); // 컬럼 데이터 상태 관리
@@ -12,7 +13,7 @@ export default function Home() {
   >([]); // 선택된 테이블의 데이터 상태
 
   return (
-    <div>
+    <LanguageProvider>
       <HeaderSection />
       <main>
         <ToggleSection
@@ -21,6 +22,6 @@ export default function Home() {
         />
         <SumComponent columns={columns} selectedTableData={selectedTableData} />
       </main>
-    </div>
+    </LanguageProvider>
   );
 }
