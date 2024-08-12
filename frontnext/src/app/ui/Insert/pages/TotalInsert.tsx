@@ -6,12 +6,13 @@ import ConfirmNavigateModal from '../components/modals/ConfirmNavigateModal';
 import TableData from '../components/TableData';
 import SidebarStyles from '../styles/SidebarStyles';
 import { useTableDataManagement } from '../components/TableFunctions';
+import { useLanguage } from '../../SettingMoules/LanguageContext';
 
 const TotalSidebar: React.FC = () => {
   const {
     showModal,
-    setShowConfirmModal, // <- 추가됨
-    setShowNavigateModal, // <- 추가됨
+    setShowConfirmModal,
+    setShowNavigateModal,
     showConfirmModal,
     showNavigateModal,
     selectedTable,
@@ -31,6 +32,34 @@ const TotalSidebar: React.FC = () => {
     handleDeleteColumn,
   } = useTableDataManagement();
 
+  const { language } = useLanguage();
+  const texts = {
+    ko: {
+      mainContent: '메인 콘텐츠',
+      save: '저장',
+    },
+    en: {
+      mainContent: 'Main Content',
+      save: 'Save',
+    },
+    jp: {
+      mainContent: 'メインコンテンツ',
+      save: '保存',
+    },
+    cn: {
+      mainContent: '主要内容',
+      save: '保存',
+    },
+    vn: {
+      mainContent: 'Nội dung chính',
+      save: 'Lưu',
+    },
+    th: {
+      mainContent: 'เนื้อหาหลัก',
+      save: 'บันทึก',
+    },
+  };
+
   return (
     <div className={SidebarStyles.container}>
       <Sidebar
@@ -46,17 +75,19 @@ const TotalSidebar: React.FC = () => {
       <ConfirmSaveModal
         show={showConfirmModal}
         onConfirm={confirmSave}
-        onClose={() => setShowConfirmModal(false)} // <- 수정됨
+        onClose={() => setShowConfirmModal(false)}
       />
 
       <ConfirmNavigateModal
         show={showNavigateModal}
         onConfirm={confirmNavigate}
-        onClose={() => setShowNavigateModal(false)} // <- 수정됨
+        onClose={() => setShowNavigateModal(false)}
       />
 
       <div className={SidebarStyles.mainContent}>
-        <h1 className={SidebarStyles.mainTitle}>Main Content</h1>
+        <h1 className={SidebarStyles.mainTitle}>
+          {texts[language].mainContent}
+        </h1>
         {selectedTable && (
           <div>
             <h2 className={SidebarStyles.tableTitle}>{selectedTable}</h2>
@@ -77,7 +108,7 @@ const TotalSidebar: React.FC = () => {
               />
             </div>
             <button className={SidebarStyles.saveButton} onClick={handleSave}>
-              저장
+              {texts[language].save}
             </button>
           </div>
         )}

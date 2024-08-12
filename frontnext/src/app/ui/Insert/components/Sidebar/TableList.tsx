@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchTables } from '@/app/lib/fetchDataTest';
+import { useLanguage } from '../../../SettingMoules/LanguageContext';
 
 interface TableListProps {
   onTableClick: (tableName: string) => void;
@@ -7,6 +8,16 @@ interface TableListProps {
 
 const TableList: React.FC<TableListProps> = ({ onTableClick }) => {
   const [tables, setTables] = useState<string[]>([]);
+  const { language } = useLanguage();
+
+  const texts = {
+    ko: '테이블 목록',
+    en: 'Table List',
+    jp: 'テーブル一覧',
+    cn: '表格列表',
+    vn: 'Danh sách bảng',
+    th: 'รายการตาราง',
+  };
 
   useEffect(() => {
     const getTables = async () => {
@@ -19,7 +30,7 @@ const TableList: React.FC<TableListProps> = ({ onTableClick }) => {
 
   return (
     <div>
-      <div className="text-xl font-bold mb-4">테이블 목록</div>
+      <div className="text-xl font-bold mb-4">{texts[language]}</div>
       <ul>
         {tables.map((table, index) => (
           <li

@@ -8,13 +8,17 @@ import ButtonClick from './headerComponent/createBtn';
 import styles from '../styles/styles-header';
 import { useRouter } from 'next/navigation';
 import { TABMENUTEXTS, TABROUTES } from './headerComponent/RoutePath';
+import { useLanguage } from '../SettingMoules/LanguageContext';
 
 const HeaderSection: React.FC = () => {
   const router = useRouter();
+  const { language } = useLanguage();
 
   const handleClick = (route: keyof typeof TABROUTES) => {
     router.push(TABROUTES[route]);
   };
+
+  const localizedTexts = TABMENUTEXTS[language];
 
   return (
     <HeaderTags className={styles.header}>
@@ -22,27 +26,27 @@ const HeaderSection: React.FC = () => {
         <ButtonClick
           clickFunc={() => handleClick('TAB_ONE')}
           className={`${styles.buttonFirst} ${styles.buttonHover}`}
-          textNode={TABMENUTEXTS.TABMENUONE}
+          textNode={localizedTexts.TABMENUONE}
         />
         <ButtonClick
           clickFunc={() => handleClick('TAB_TWO')}
           className={`${styles.button} ${styles.buttonHover}`}
-          textNode={TABMENUTEXTS.TABMENUTWO}
+          textNode={localizedTexts.TABMENUTWO}
         />
       </ConDiv>
       <ConDiv className={styles.headerCenter}>
         <ButtonClick
           clickFunc={() => handleClick('TAB_THREE')}
           className={`${styles.button} ${styles.buttonHover}`}
-          textNode={TABMENUTEXTS.TABMENUTHREE}
+          textNode={localizedTexts.TABMENUTHREE}
         />
       </ConDiv>
       <ConDiv className={styles.headerRight}>
-        <SpanTag className={styles.span} textNode={`admin`} />
+        <SpanTag className={styles.span} textNode="admin" />
         <ButtonClick
           clickFunc={() => handleClick('TAB_FOUR')}
           className={styles.buttonLogout}
-          textNode={TABMENUTEXTS.TABMENUFOUR}
+          textNode={localizedTexts.TABMENUFOUR}
         />
       </ConDiv>
     </HeaderTags>

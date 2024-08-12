@@ -1,8 +1,7 @@
-// Sum.tsx
-
 import React, { useState, useEffect } from 'react';
 import { sumFromArray } from '@/app/lib/addIntAll';
 import sumstyles from '../styles/styles-seh';
+import { useLanguage } from '../SettingMoules/LanguageContext';
 
 interface Props {
   columns: string[];
@@ -10,8 +9,30 @@ interface Props {
 }
 
 const SumComponent = ({ columns, selectedTableData }: Props) => {
+  const { language } = useLanguage();
   const [selectedColumn, setSelectedColumn] = useState<string>('');
   const [sum, setSum] = useState<string>('');
+
+  const texts = {
+    ko: {
+      label: '합계',
+    },
+    en: {
+      label: 'Sum',
+    },
+    jp: {
+      label: '合計',
+    },
+    cn: {
+      label: '总和',
+    },
+    vn: {
+      label: 'Tổng',
+    },
+    th: {
+      label: 'รวม',
+    },
+  };
 
   useEffect(() => {
     if (selectedColumn) {
@@ -33,7 +54,7 @@ const SumComponent = ({ columns, selectedTableData }: Props) => {
       <hr className={sumstyles.divider} />
       <div className={sumstyles.innerContainer}>
         <label htmlFor="sumtable" className={sumstyles.textCommon}>
-          합계
+          {texts[language].label}
         </label>
         <select
           id="sumtable"
