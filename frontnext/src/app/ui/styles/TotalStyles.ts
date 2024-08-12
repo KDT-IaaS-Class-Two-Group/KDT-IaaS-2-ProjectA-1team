@@ -106,6 +106,20 @@ const TotalStyles = {
   HeaderButtonLogout:
     'flex items-center justify-center text-sm font-bold bg-gray-100 text-gray-700 underline',
   HeaderSpan: 'text-base font-bold text-gray-700 mr-4',
+
+  // Setting Styles
+  SettingSidebar:
+    'w-64 h-screen bg-gray-800 text-white flex flex-col p-4 relative',
+  SettingContainerStyle: 'flex h-screen relative',
+  SettingContentStyle: 'flex-grow p-6',
+  SettingToggleButton:
+    'fixed right-4 top-15 text-black p-2 rounded cursor-pointer z-50 transition-all duration-300 text-xl',
+  SettingToggleButtonOpen: 'right-[87.5rem]',
+  SettingToggleButtonClosed: 'right-[103.5rem]',
+  SettingEmail: 'text-blue-500',
+  SettingButtonContainer: 'flex flex-col space-y-4',
+  SettingButton:
+    'px-4 py-2 rounded-lg hover:bg-gray-700 active:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-200 cursor-pointer',
 };
 
 export default TotalStyles;
