@@ -22,7 +22,7 @@ const Form: React.FC<FormProps> = ({
     <form onSubmit={handleSubmit} className={TotalStyles.ToggleForm}>
       <div className={TotalStyles.ToggleFormRow}>
         <label htmlFor="table-select" className={TotalStyles.ToggleLabel}>
-          Table
+          분류
         </label>
         <select
           id="table-select"
@@ -44,7 +44,7 @@ const Form: React.FC<FormProps> = ({
           className={TotalStyles.ToggleInput}
         />
         <button type="submit" className={TotalStyles.ToggleSubmit}>
-          Submit
+          조회
         </button>
       </div>
     </form>
