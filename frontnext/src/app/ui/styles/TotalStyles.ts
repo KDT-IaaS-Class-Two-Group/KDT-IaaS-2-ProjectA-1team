@@ -81,14 +81,12 @@ const TotalStyles = {
   MainContentThead: '',
   MainContentTh:
     'relative px-4 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600',
-  MainContentHeaderInput: 'w-full px-2 py-1 border rounded', // ! SidebarInput 중복
   MainContentDeleteColumnButton:
     'absolute top-1/2 right-1 transform -translate-y-1/2 bg-red-500 text-white text-sm rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600',
   MainContentTbody: '',
   MainContentTr: 'hover:bg-gray-100',
   MainContentTd:
     'relative px-4 py-2 border-b border-gray-200 text-sm text-gray-700',
-  MainContentRowInput: 'w-full px-2 py-1 border rounded', // ! SidebarInput 중복
   MainContentDeleteRowButton:
     'absolute left-0 top-1/2 transform -translate-y-1/2 bg-red-500 text-white text-sm rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600',
   MainContentErrorText: 'text-red-500 text-xs mt-1',
