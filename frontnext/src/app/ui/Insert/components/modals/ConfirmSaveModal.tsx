@@ -1,6 +1,6 @@
 // components/ConfirmSaveModal.tsx
 import React from 'react';
-import Modal from './modalComponent';
+import Modal from '@/app/ui/Modal-Test/modalComponent';
 import { ModalStyles } from '@/app/ui/Modal-Test/styles/ModalStyles';
 
 interface ConfirmSaveModalProps {
