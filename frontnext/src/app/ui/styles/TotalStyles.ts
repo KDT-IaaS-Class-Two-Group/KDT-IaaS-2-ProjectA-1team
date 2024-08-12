@@ -34,6 +34,17 @@ const TotalStyles = {
   LoginCardTitle: 'text-xl font-bold text-gray-800',
   LoginCardSubtitle: 'text-sm text-gray-500',
   LoginCardLink: 'text-blue-600 hover:text-blue-700 underline',
+  LoginInput:
+    'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
+  LoginForm: 'bg-white p-6 rounded shadow-lg w-full max-w-sm',
+  LoginButton:
+    'w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
+  LoginContainer: 'flex items-center justify-center min-h-screen bg-gray-100',
+  LoginLabel: 'block text-sm font-medium text-gray-700',
+  LoginMessageContainer: 'text-center',
+  LoginLabelInputContainer: 'mb-4',
+  LoginSuccessText: 'text-blue-500 text-4xl font-bold',
+  LoginFailureText: 'text-red-500 text-4xl font-bold',
 
   // Create Table Modal Styles
   CreateTableModalContainer: 'flex flex-col items-start mb-2.5 w-full',
