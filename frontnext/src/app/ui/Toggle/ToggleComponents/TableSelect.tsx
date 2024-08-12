@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/styles';
+import TotalStyles from '../../styles/TotalStyles';
 
 interface TableSelectProps {
   selectedTable: string;
@@ -13,15 +13,15 @@ const TableSelect: React.FC<TableSelectProps> = ({
   tables,
 }) => {
   return (
-    <div className={styles.selectContainer}>
-      <label htmlFor="table-select" className={styles.label}>
+    <div className={TotalStyles.ToggleSelectContainer}>
+      <label htmlFor="table-select" className={TotalStyles.ToggleLabel}>
         Select a Table
       </label>
       <select
         id="table-select"
         value={selectedTable}
         onChange={(e) => setSelectedTable(e.target.value)}
-        className={styles.select}
+        className={TotalStyles.ToggleSelect}
       >
         {tables.map((table) => (
           <option key={table} value={table}>
