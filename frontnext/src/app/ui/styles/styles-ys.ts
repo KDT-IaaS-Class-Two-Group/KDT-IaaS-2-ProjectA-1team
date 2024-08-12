@@ -5,5 +5,7 @@ export const SettingStyles = {
   containerStyle: 'flex h-screen relative',
   contentStyle: 'flex-grow p-6',
   toggleButton:
-    'fixed right-4 top-15 text-black p-2 rounded cursor-pointer z-50 transition-all duration-300 text-xl',
+    'fixed text-black p-2 rounded cursor-pointer z-50 transition-all duration-300 text-xl',
+  toggleButtonOpen: 'right-[87.5rem]',
+  toggleButtonClosed: 'right-[103.5rem]',
 };
