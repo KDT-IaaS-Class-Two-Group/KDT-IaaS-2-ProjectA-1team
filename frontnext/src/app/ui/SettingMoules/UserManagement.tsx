@@ -5,7 +5,7 @@ import PasswordChangeForm from './PWChangeForm';
 const UserManagement = () => {
   return (
     <div className={TotalStyles.SettingContentStyle}>
-      <div className="flex flex-col space-y-4">
+      <div className={TotalStyles.SettingButtonContainer}>
         <button className={TotalStyles.SettingButton}>
           사용자 계정 생성 및 삭제
         </button>
