@@ -6,7 +6,7 @@ def backup_database(backup_data):
     try:
         # 데이터베이스 파일 이름 및 경로 설정
         db_name = datetime.now().strftime("%Y%m%d") + ".db"
-        db_path = os.path.join(os.path.dirname(__file__), "..", "backup")
+        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../backup")
         
         # backup 디렉토리 존재 여부 확인 및 생성
         if not os.path.exists(db_path):
