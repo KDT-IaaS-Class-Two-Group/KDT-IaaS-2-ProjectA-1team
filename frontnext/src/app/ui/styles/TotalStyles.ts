@@ -138,6 +138,13 @@ const TotalStyles = {
   ToggleSelect:
     'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
   ToggleSelectContainer: 'space-y-4', // selectContainer 속성을 추가합니다.
+
+  //Sum Styles
+  SumContainer: 'fixed bottom-0 left-0 right-0 p-4', // 배경색 제거
+  SumInnerContainer: 'flex justify-center items-center w-full gap-4',
+  SumTextCommon: 'text-md font-medium', // 크기를 'text-md'로 조정
+  SumSelect: 'px-3 py-2 border rounded focus:outline-none', // 셀렉트 박스 패딩 조정
+  SumDivider: 'w-full border-t border-gray-500 my-2', // 진한 색상으로 변경
 };
 
 export default TotalStyles;
