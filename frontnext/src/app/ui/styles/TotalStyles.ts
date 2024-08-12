@@ -20,7 +20,7 @@ const TotalStyles = {
   CreateTableRecommendButton:
     'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 w-full mb-4',
 
-  // Login Card Styles
+  // Login Styles
   LoginCardContainer:
     'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50', // z-index 추가
   LoginCardContent:
@@ -57,6 +57,23 @@ const TotalStyles = {
   CreateTableModalInputError: 'border-red-500',
   CreateTableModalRecommendButton:
     'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 w-full mb-4',
+
+  // Sidebar Styles
+  sidebar: 'w-64 bg-gray-800 text-white flex flex-col p-4 space-y-4',
+  SidebarButton: 'px-4 py-2 rounded-lg text-white hover:bg-gray-700',
+  SidebarAddColumnButton: 'bg-orange-500 hover:bg-orange-600',
+  SidebarTableItem: 'py-2 px-4 hover:bg-gray-700 cursor-pointer',
+  SidebarContainer: 'flex',
+  SidebarHeight: 'h-[calc(100vh-4rem)]',
+  SidebarButtonContainer: 'space-x-4 mt-4',
+
+  // 메인 컨텐츠 영역 스타일
+  SidebarMainContent: 'flex-grow p-4 w-[calc(100%-16rem)] overflow-auto', // 고정된 너비와 스크롤 처리
+  SidebarMainTitle: 'text-2xl font-bold',
+  SidebarTableTitle: 'text-xl font-bold mb-4',
+  SidebarInput: 'w-full px-2 py-1 border rounded', // 기본 인풋 너비 설정
+  SidebarSaveButton:
+    'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-lg text-white',
 };
 
 export default TotalStyles;
