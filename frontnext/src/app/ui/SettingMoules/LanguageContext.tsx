@@ -1,4 +1,12 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+'use client';
+
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
 
 type Language = 'ko' | 'en' | 'jp' | 'cn' | 'vn' | 'th';
 
@@ -20,7 +28,16 @@ export const useLanguage = () => {
 };
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('ko'); // 초기 언어 설정
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('language') as Language) || 'ko';
+    }
+    return 'ko';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('language', language);
+  }, [language]);
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage }}>
