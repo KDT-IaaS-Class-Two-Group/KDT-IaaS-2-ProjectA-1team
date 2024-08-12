@@ -1,7 +1,7 @@
 // components/ConfirmNavigateModal.tsx
 import React from 'react';
 import Modal from '@/app/ui/Modal-Test/modalComponent';
-import TotalStyles from '@/app/ui/styles/total-styles';
+import TotalStyles from '@/app/ui/styles/TotalStyles';
 
 interface ConfirmNavigateModalProps {
   show: boolean;
