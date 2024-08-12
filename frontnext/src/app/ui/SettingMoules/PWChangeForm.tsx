@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import TotalStyles from '../styles/TotalStyles';
+import { useLanguage } from '../SettingMoules/LanguageContext';
 
 interface PasswordCheck {
   current_password: string;
@@ -18,6 +19,89 @@ const PasswordChangeForm: React.FC = () => {
   const [passwordsMatchError, setPasswordsMatchError] =
     useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const { language } = useLanguage();
+
+  const texts = {
+    ko: {
+      changePassword: '비밀번호 변경',
+      currentPassword: '현재 비밀번호',
+      newPassword: '새 비밀번호',
+      confirmNewPassword: '새 비밀번호 확인',
+      submit: '변경하기',
+      cancel: '취소하기',
+      emptyPasswordError: '모두 입력 해주세요.',
+      passwordsMatchError: '새 비밀번호가 일치하지 않습니다.',
+      passwordMatchError: '현재 비밀번호가 일치하지 않습니다.',
+      success: '비밀번호가 성공적으로 변경되었습니다.',
+      failure: '비밀번호 변경에 실패했습니다.',
+    },
+    en: {
+      changePassword: 'Change Password',
+      currentPassword: 'Current Password',
+      newPassword: 'New Password',
+      confirmNewPassword: 'Confirm New Password',
+      submit: 'Submit',
+      cancel: 'Cancel',
+      emptyPasswordError: 'Please fill out all fields.',
+      passwordsMatchError: 'New passwords do not match.',
+      passwordMatchError: 'Current password does not match.',
+      success: 'Password changed successfully.',
+      failure: 'Failed to change password.',
+    },
+    jp: {
+      changePassword: 'パスワードを変更する',
+      currentPassword: '現在のパスワード',
+      newPassword: '新しいパスワード',
+      confirmNewPassword: '新しいパスワードを確認する',
+      submit: '変更する',
+      cancel: 'キャンセル',
+      emptyPasswordError: 'すべてのフィールドに入力してください。',
+      passwordsMatchError: '新しいパスワードが一致しません。',
+      passwordMatchError: '現在のパスワードが一致しません。',
+      success: 'パスワードが正常に変更されました。',
+      failure: 'パスワードの変更に失敗しました。',
+    },
+    cn: {
+      changePassword: '更改密码',
+      currentPassword: '当前密码',
+      newPassword: '新密码',
+      confirmNewPassword: '确认新密码',
+      submit: '更改',
+      cancel: '取消',
+      emptyPasswordError: '请填写所有字段。',
+      passwordsMatchError: '新密码不匹配。',
+      passwordMatchError: '当前密码不匹配。',
+      success: '密码更改成功。',
+      failure: '更改密码失败。',
+    },
+    vn: {
+      changePassword: 'Thay đổi mật khẩu',
+      currentPassword: 'Mật khẩu hiện tại',
+      newPassword: 'Mật khẩu mới',
+      confirmNewPassword: 'Xác nhận mật khẩu mới',
+      submit: 'Thay đổi',
+      cancel: 'Hủy bỏ',
+      emptyPasswordError: 'Vui lòng điền đầy đủ các trường.',
+      passwordsMatchError: 'Mật khẩu mới không khớp.',
+      passwordMatchError: 'Mật khẩu hiện tại không khớp.',
+      success: 'Đổi mật khẩu thành công.',
+      failure: 'Thay đổi mật khẩu thất bại.',
+    },
+    th: {
+      changePassword: 'เปลี่ยนรหัสผ่าน',
+      currentPassword: 'รหัสผ่านปัจจุบัน',
+      newPassword: 'รหัสผ่านใหม่',
+      confirmNewPassword: 'ยืนยันรหัสผ่านใหม่',
+      submit: 'เปลี่ยนรหัสผ่าน',
+      cancel: 'ยกเลิก',
+      emptyPasswordError: 'กรุณากรอกข้อมูลให้ครบทุกช่อง.',
+      passwordsMatchError: 'รหัสผ่านใหม่ไม่ตรงกัน.',
+      passwordMatchError: 'รหัสผ่านปัจจุบันไม่ตรงกัน.',
+      success: 'เปลี่ยนรหัสผ่านสำเร็จ.',
+      failure: 'การเปลี่ยนรหัสผ่านล้มเหลว.',
+    },
+  };
 
   const handleChangePassword = async () => {
     if (
@@ -129,7 +213,7 @@ const PasswordChangeForm: React.FC = () => {
         onClick={openModal}
         className={TotalStyles.SettingButton}
       >
-        비밀번호 변경
+        {texts[language].changePassword}
       </button>
 
       {isModalOpen && (
@@ -149,14 +233,14 @@ const PasswordChangeForm: React.FC = () => {
               &times;
             </button>
             <h2 className={TotalStyles.PasswordSuccessText}>
-              비밀번호 변경하기
+              {texts[language].changePassword}
             </h2>
             <div className="mt-4">
               <label
                 htmlFor="current-password"
                 className={TotalStyles.LoginLabel}
               >
-                현재 비밀번호
+                {texts[language].currentPassword}
               </label>
               <input
                 id="current-password"
@@ -164,12 +248,12 @@ const PasswordChangeForm: React.FC = () => {
                 value={currentPassword}
                 onChange={handleInputChange(setCurrentPassword)}
                 className={TotalStyles.LoginInput}
-                aria-label="현재 비밀번호"
+                aria-label={texts[language].currentPassword}
               />
             </div>
             <div className="mt-4">
               <label htmlFor="new-password" className={TotalStyles.LoginLabel}>
-                새 비밀번호
+                {texts[language].newPassword}
               </label>
               <input
                 id="new-password"
@@ -177,7 +261,7 @@ const PasswordChangeForm: React.FC = () => {
                 value={newPassword}
                 onChange={handleInputChange(setNewPassword)}
                 className={TotalStyles.LoginInput}
-                aria-label="새 비밀번호"
+                aria-label={texts[language].newPassword}
               />
             </div>
             <div className="mt-4">
@@ -185,7 +269,7 @@ const PasswordChangeForm: React.FC = () => {
                 htmlFor="confirm-new-password"
                 className={TotalStyles.LoginLabel}
               >
-                새 비밀번호 확인
+                {texts[language].confirmNewPassword}
               </label>
               <input
                 id="confirm-new-password"
@@ -193,43 +277,43 @@ const PasswordChangeForm: React.FC = () => {
                 value={confirmNewPassword}
                 onChange={handleInputChange(setConfirmNewPassword)}
                 className={TotalStyles.LoginInput}
-                aria-label="새 비밀번호 확인"
+                aria-label={texts[language].confirmNewPassword}
               />
             </div>
             <button type="submit" className={TotalStyles.PasswordSubmitButton}>
-              변경하기
+              {texts[language].submit}
             </button>
             <button
               type="button"
               onClick={handleCancel}
               className={TotalStyles.PasswordButton}
             >
-              취소하기
+              {texts[language].cancel}
             </button>
 
             {emptyPasswordError && (
               <p className={TotalStyles.PasswordFailureText}>
-                모두 입력 해주세요.
+                {texts[language].emptyPasswordError}
               </p>
             )}
             {passwordsMatchError && (
               <p className={TotalStyles.PasswordFailureText}>
-                새 비밀번호가 일치하지 않습니다.
+                {texts[language].passwordsMatchError}
               </p>
             )}
             {passwordMatch === false && !emptyPasswordError && (
               <p className={TotalStyles.PasswordFailureText}>
-                현재 비밀번호가 일치하지 않습니다
+                {texts[language].passwordMatchError}
               </p>
             )}
             {passwordMatch === true && changeSuccess === true && (
               <p className={TotalStyles.PasswordSuccessText}>
-                비밀번호가 성공적으로 변경되었습니다
+                {texts[language].success}
               </p>
             )}
             {changeSuccess === false && !emptyPasswordError && (
               <p className={TotalStyles.PasswordFailureText}>
-                비밀번호 변경에 실패했습니다
+                {texts[language].failure}
               </p>
             )}
           </form>

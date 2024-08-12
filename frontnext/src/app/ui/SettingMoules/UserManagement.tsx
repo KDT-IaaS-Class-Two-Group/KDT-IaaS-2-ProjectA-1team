@@ -55,7 +55,7 @@ const UserManagement = () => {
     <div className={TotalStyles.SettingContentStyle}>
       <div className={TotalStyles.SettingButtonContainer}>
         <button className={TotalStyles.SettingButton}>
-          {texts[language].createDeleteAccount}s
+          {texts[language].createDeleteAccount}
         </button>
         <button className={TotalStyles.SettingButton}>
           {texts[language].setPermissions}

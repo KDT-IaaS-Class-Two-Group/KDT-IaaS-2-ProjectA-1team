@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
-import ToggleButton from './ToggleButton';
 import { SettingStyles } from '../styles/styles-ys';
 import UserManagement from './UserManagement';
 import LogAct from './LogAct';
 import InterfaceSettings from './InterfaceSettings';
 import DataImportExport from './DataImportExport';
 import ReportSettings from './ReportSettings';
-import CustomerSupportSettings from './CustomerSupportSettings';  // CustomerSupportSettings 컴포넌트 불러오기
+import CustomerSupportSettings from './CustomerSupportSettings'; // CustomerSupportSettings 컴포넌트 불러오기
 
 const MainContent: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -30,19 +29,16 @@ const MainContent: React.FC = () => {
       case 'reportSettings':
         return <ReportSettings />;
       case 'customerSupportSettings':
-        return <CustomerSupportSettings />;  // 고객 지원 설정 선택 시 컴포넌트 렌더링
+        return <CustomerSupportSettings />; // 고객 지원 설정 선택 시 컴포넌트 렌더링
       default:
-        return 
+        return;
     }
   };
 
   return (
     <div className={SettingStyles.containerStyle}>
       <Sidebar isOpen={isSidebarOpen} setSelectedMenu={setSelectedMenu} />
-      <div className={SettingStyles.contentStyle}>
-        {renderContent()}
-      </div>
-      <ToggleButton isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <div className={SettingStyles.contentStyle}>{renderContent()}</div>
     </div>
   );
 };
