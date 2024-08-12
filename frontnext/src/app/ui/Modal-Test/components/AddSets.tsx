@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { handleDelete } from '../utils';
 import { createSetJSX } from '../utils/CreateSet';
-import CreateTableStyle from '../styles/ModalStyles';
+import TotalStyles from '../../styles/total-styles';
 import RecommendTemp from '../../recommendTemp/recommendTemp';
 import { callApi } from '@/app/lib/AJAX';
 
@@ -157,11 +156,11 @@ export const AddSets: React.FC = () => {
       {!isRecommend ? (
         <form onSubmit={handleCreate}>
           <div ref={containerRef}>
-            <div className={CreateTableStyle.container}>
+            <div className={TotalStyles.CreateTableContainer}>
               <input
                 type="text"
                 placeholder="테이블 이름을 입력하세요."
-                className={CreateTableStyle.input}
+                className={TotalStyles.CreateTableInput}
                 ref={tableNameInputRef}
                 onKeyDown={(e) => handleKeyDown(e, 0)}
                 onCompositionStart={handleCompositionStart}
@@ -171,7 +170,9 @@ export const AddSets: React.FC = () => {
                 autoComplete="off"
               />
               {tableName.error && (
-                <p className={CreateTableStyle.errorText}>{tableName.error}</p>
+                <p className={TotalStyles.CreateTableErrorText}>
+                  {tableName.error}
+                </p>
               )}
             </div>
             {sets.map((set) => (
@@ -195,22 +196,22 @@ export const AddSets: React.FC = () => {
             <button
               type="button"
               onClick={handleRecommend}
-              className={CreateTableStyle.recommendButton}
+              className={TotalStyles.CreateTableRecommendButton}
             >
               추천 템플릿
             </button>
           </div>
-          <div className={CreateTableStyle.buttonContainer}>
+          <div className={TotalStyles.CreateTableButtonContainer}>
             <button
               type="button"
               onClick={handleClick}
-              className={`${CreateTableStyle.button} ${CreateTableStyle.addButton}`}
+              className={`${TotalStyles.CreateTableButton} ${TotalStyles.CreateTableAddButton}`}
             >
               추가
             </button>
             <button
               type="submit"
-              className={`${CreateTableStyle.button} ${CreateTableStyle.createButton}`}
+              className={`${TotalStyles.CreateTableButton} ${TotalStyles.CreateTableCreateButton}`}
             >
               생성
             </button>
@@ -218,7 +219,7 @@ export const AddSets: React.FC = () => {
         </form>
       ) : (
         <RecommendTemp
-          className={CreateTableStyle.recommendButton}
+          className={TotalStyles.CreateTableRecommendButton}
           onClose={clickToCopyRecommend}
         />
       )}
