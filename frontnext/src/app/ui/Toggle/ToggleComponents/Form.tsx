@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/styles';
+import TotalStyles from '../../styles/TotalStyles';
 import { useLanguage } from '../../SettingMoules/LanguageContext';
 
 interface FormProps {
@@ -23,9 +23,9 @@ const Form: React.FC<FormProps> = ({
 
   const texts = {
     ko: {
-      tableLabel: '테이블',
+      tableLabel: '분류',
       searchPlaceholder: '검색',
-      submitButton: '제출',
+      submitButton: '조회',
     },
     en: {
       tableLabel: 'Table',
@@ -55,16 +55,16 @@ const Form: React.FC<FormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <div className={styles.formRow}>
-        <label htmlFor="table-select" className={styles.label}>
+    <form onSubmit={handleSubmit} className={TotalStyles.ToggleForm}>
+      <div className={TotalStyles.ToggleFormRow}>
+        <label htmlFor="table-select" className={TotalStyles.ToggleLabel}>
           {texts[language].tableLabel}
         </label>
         <select
           id="table-select"
           value={selectedTable}
           onChange={(e) => setSelectedTable(e.target.value)}
-          className={styles.select}
+          className={TotalStyles.ToggleSelect}
         >
           {tables.map((table) => (
             <option key={table} value={table}>
@@ -76,10 +76,10 @@ const Form: React.FC<FormProps> = ({
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder={texts[language].searchPlaceholder}
-          className={styles.input}
+          placeholder="Search"
+          className={TotalStyles.ToggleInput}
         />
-        <button type="submit" className={styles.button}>
+        <button type="submit" className={TotalStyles.ToggleSubmit}>
           {texts[language].submitButton}
         </button>
       </div>

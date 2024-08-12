@@ -1,6 +1,6 @@
 import React from 'react';
+import TotalStyles from '../styles/TotalStyles';
 import { useLanguage } from './LanguageContext';
-import { SettingStyles } from '../styles/styles-ys';
 
 const ReportSettings = () => {
   const { language } = useLanguage();
@@ -39,15 +39,15 @@ const ReportSettings = () => {
   };
 
   return (
-    <div className={SettingStyles.contentStyle}>
-      <div className="flex flex-col space-y-4">
-        <button className={SettingStyles.button}>
+    <div className={TotalStyles.SettingContentStyle}>
+      <div className={TotalStyles.SettingButtonContainer}>
+        <button className={TotalStyles.SettingButton}>
           {texts[language].reportFormat}
         </button>
-        <button className={SettingStyles.button}>
+        <button className={TotalStyles.SettingButton}>
           {texts[language].statsDisplay}
         </button>
-        <button className={SettingStyles.button}>
+        <button className={TotalStyles.SettingButton}>
           {texts[language].autoSchedule}
         </button>
       </div>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import DataTable from './ToggleComponents/DataTable';
 import Form from './ToggleComponents/Form';
 import ToggleButton from './ToggleButton';
-import styles from '../styles/styles';
+import TotalStyles from '../styles/TotalStyles';
 
 interface UserDTO {
   [key: string]: string | number;
@@ -77,9 +77,9 @@ export default function ToggleSection({
   };
 
   return (
-    <div className={styles.mainContainer}>
+    <div className={TotalStyles.ToggleMainContainer}>
       {isFormOpen && (
-        <div className={styles.content}>
+        <div className={TotalStyles.ToggleContent}>
           <Form
             handleSubmit={handleSubmit}
             name={name}
@@ -88,7 +88,7 @@ export default function ToggleSection({
             setSelectedTable={setSelectedTable}
             tables={tables}
           />
-          {error && <p className={styles.error}>{error}</p>}
+          {error && <p className={TotalStyles.ToggleError}>{error}</p>}
         </div>
       )}
       <ToggleButton isOpen={isFormOpen} onClick={toggleForm} />

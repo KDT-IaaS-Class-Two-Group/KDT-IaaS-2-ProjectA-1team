@@ -1,5 +1,5 @@
 import React from 'react';
-import SidebarStyles from '../../styles/SidebarStyles';
+import TotalStyles from '@/app/ui/styles/TotalStyles';
 import { useLanguage } from '../../../SettingMoules/LanguageContext';
 
 interface AddRowButtonProps {
@@ -19,7 +19,7 @@ const AddRowButton: React.FC<AddRowButtonProps> = ({ onAddRow }) => {
 
   return (
     <button
-      className={`${SidebarStyles.button} ${SidebarStyles.addRowButton}`}
+      className={`${TotalStyles.SidebarButton} ${TotalStyles.CreateTableCreateButton}`}
       onClick={onAddRow}
     >
       {texts[language]}

@@ -1,7 +1,7 @@
+import TotalStyles from '../styles/TotalStyles';
 import React, { useState } from 'react';
 import { useLanguage } from './LanguageContext';
 import LanguageModal from './LanguageModal';
-import { SettingStyles } from '../styles/styles-ys';
 
 const InterfaceSettings = () => {
   const { language } = useLanguage();
@@ -35,13 +35,13 @@ const InterfaceSettings = () => {
   };
 
   return (
-    <div className={SettingStyles.contentStyle}>
-      <div className="flex flex-col space-y-4">
-        <button className={SettingStyles.button}>
+    <div className={TotalStyles.SettingContentStyle}>
+      <div className={TotalStyles.SettingButtonContainer}>
+        <button className={TotalStyles.SettingButton}>
           {texts[language].themeChange}
         </button>
         <button
-          className={SettingStyles.button}
+          className={TotalStyles.SettingButton}
           onClick={() => setModalOpen(true)}
         >
           {texts[language].languageSetting}

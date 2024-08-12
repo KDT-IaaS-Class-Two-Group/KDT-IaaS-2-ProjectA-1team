@@ -1,6 +1,6 @@
 import React from 'react';
+import TotalStyles from '../styles/TotalStyles';
 import { useLanguage } from './LanguageContext';
-import { SettingStyles } from '../styles/styles-ys';
 import PasswordChangeForm from './PWChangeForm';
 
 const UserManagement = () => {
@@ -52,19 +52,19 @@ const UserManagement = () => {
   };
 
   return (
-    <div className={SettingStyles.contentStyle}>
-      <div className="flex flex-col space-y-4">
-        <button className={SettingStyles.button}>
-          {texts[language].createDeleteAccount}
+    <div className={TotalStyles.SettingContentStyle}>
+      <div className={TotalStyles.SettingButtonContainer}>
+        <button className={TotalStyles.SettingButton}>
+          {texts[language].createDeleteAccount}s
         </button>
-        <button className={SettingStyles.button}>
+        <button className={TotalStyles.SettingButton}>
           {texts[language].setPermissions}
         </button>
         <PasswordChangeForm />
-        <button className={SettingStyles.button}>
+        <button className={TotalStyles.SettingButton}>
           {texts[language].setNotifications}
         </button>
-        <button className={SettingStyles.button}>
+        <button className={TotalStyles.SettingButton}>
           {texts[language].backupRestore}
         </button>
       </div>

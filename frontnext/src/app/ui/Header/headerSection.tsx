@@ -5,7 +5,7 @@ import HeaderTags from './headerComponent/createHeaderTag';
 import ConDiv from './headerComponent/createConDiv';
 import SpanTag from './headerComponent/createSpanTag';
 import ButtonClick from './headerComponent/createBtn';
-import styles from '../styles/styles-header';
+import TotalStyles from '../styles/TotalStyles';
 import { useRouter } from 'next/navigation';
 import { TABMENUTEXTS, TABROUTES } from './headerComponent/RoutePath';
 import { useLanguage } from '../SettingMoules/LanguageContext';
@@ -21,31 +21,31 @@ const HeaderSection: React.FC = () => {
   const localizedTexts = TABMENUTEXTS[language];
 
   return (
-    <HeaderTags className={styles.header}>
-      <ConDiv className={styles.headerLeft}>
+    <HeaderTags className={TotalStyles.Header}>
+      <ConDiv className={TotalStyles.HeaderLeft}>
         <ButtonClick
           clickFunc={() => handleClick('TAB_ONE')}
-          className={`${styles.buttonFirst} ${styles.buttonHover}`}
+          className={`${TotalStyles.HeaderButtonFirst}`}
           textNode={localizedTexts.TABMENUONE}
         />
         <ButtonClick
           clickFunc={() => handleClick('TAB_TWO')}
-          className={`${styles.button} ${styles.buttonHover}`}
+          className={`${TotalStyles.HeaderButton}`}
           textNode={localizedTexts.TABMENUTWO}
         />
       </ConDiv>
-      <ConDiv className={styles.headerCenter}>
+      <ConDiv className={TotalStyles.HeaderCenter}>
         <ButtonClick
           clickFunc={() => handleClick('TAB_THREE')}
-          className={`${styles.button} ${styles.buttonHover}`}
+          className={`${TotalStyles.HeaderButton}`}
           textNode={localizedTexts.TABMENUTHREE}
         />
       </ConDiv>
-      <ConDiv className={styles.headerRight}>
-        <SpanTag className={styles.span} textNode="admin" />
+      <ConDiv className={TotalStyles.HeaderRight}>
+        <SpanTag className={TotalStyles.HeaderSpan} textNode={`admin`} />
         <ButtonClick
           clickFunc={() => handleClick('TAB_FOUR')}
-          className={styles.buttonLogout}
+          className={TotalStyles.HeaderButtonLogout}
           textNode={localizedTexts.TABMENUFOUR}
         />
       </ConDiv>

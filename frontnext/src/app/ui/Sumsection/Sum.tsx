@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { sumFromArray } from '@/app/lib/addIntAll';
-import sumstyles from '../styles/styles-seh';
+import TotalStyles from '../styles/TotalStyles';
 import { useLanguage } from '../SettingMoules/LanguageContext';
 
 interface Props {
@@ -50,17 +50,17 @@ const SumComponent = ({ columns, selectedTableData }: Props) => {
   }, [selectedColumn, selectedTableData]);
 
   return (
-    <div className={sumstyles.container}>
-      <hr className={sumstyles.divider} />
-      <div className={sumstyles.innerContainer}>
-        <label htmlFor="sumtable" className={sumstyles.textCommon}>
+    <div className={TotalStyles.SumContainer}>
+      <hr className={TotalStyles.SumDivider} />
+      <div className={TotalStyles.SumInnerContainer}>
+        <label htmlFor="sumtable" className={TotalStyles.SumTextCommon}>
           {texts[language].label}
         </label>
         <select
           id="sumtable"
           value={selectedColumn}
           onChange={(e) => setSelectedColumn(e.target.value)}
-          className={`${sumstyles.textCommon} ${sumstyles.select}`}
+          className={`${TotalStyles.SumTextCommon} ${TotalStyles.SumSelect}`}
         >
           {columns.map((column, index) => (
             <option key={index} value={column}>
@@ -68,7 +68,7 @@ const SumComponent = ({ columns, selectedTableData }: Props) => {
             </option>
           ))}
         </select>
-        <span className={sumstyles.textCommon}>{sum ? `${sum}` : ''}</span>
+        <span className={TotalStyles.SumTextCommon}>{sum ? `${sum}` : ''}</span>
       </div>
     </div>
   );

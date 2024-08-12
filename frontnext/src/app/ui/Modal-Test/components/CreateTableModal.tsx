@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '../modalComponent';
 import { AddSets } from './AddSets';
-import SidebarStyles from '../../Insert/styles/SidebarStyles';
+import TotalStyles from '../../styles/TotalStyles';
 import { useLanguage } from '../../SettingMoules/LanguageContext';
 
 const TableModal: React.FC = () => {
@@ -23,7 +23,7 @@ const TableModal: React.FC = () => {
   return (
     <div>
       <button
-        className={`${SidebarStyles.button} ${SidebarStyles.createButton}`}
+        className={`${TotalStyles.SidebarButton} ${TotalStyles.ModalConfirmButton}`}
         onClick={toggleModal}
       >
         {texts[language]}

@@ -1,6 +1,6 @@
 import React from 'react';
+import TotalStyles from '../styles/TotalStyles';
 import { useLanguage } from './LanguageContext';
-import { SettingStyles } from '../styles/styles-ys';
 
 const DataImportExport = () => {
   const { language } = useLanguage();
@@ -45,18 +45,18 @@ const DataImportExport = () => {
   };
 
   return (
-    <div className={SettingStyles.contentStyle}>
-      <div className="flex flex-col space-y-4">
-        <button className={SettingStyles.button}>
+    <div className={TotalStyles.SettingContentStyle}>
+      <div className={TotalStyles.SettingButtonContainer}>
+        <button className={TotalStyles.SettingButton}>
           {texts[language].importCsv}
         </button>
-        <button className={SettingStyles.button}>
+        <button className={TotalStyles.SettingButton}>
           {texts[language].exportCsv}
         </button>
-        <button className={SettingStyles.button}>
+        <button className={TotalStyles.SettingButton}>
           {texts[language].importExcel}
         </button>
-        <button className={SettingStyles.button}>
+        <button className={TotalStyles.SettingButton}>
           {texts[language].exportExcel}
         </button>
       </div>

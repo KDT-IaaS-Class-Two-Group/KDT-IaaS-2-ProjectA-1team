@@ -1,6 +1,6 @@
 import React from 'react';
+import TotalStyles from '../styles/TotalStyles';
 import { useLanguage } from './LanguageContext';
-import { SettingStyles } from '../styles/styles-ys';
 
 const Sidebar = ({
   isOpen,
@@ -67,40 +67,40 @@ const Sidebar = ({
   }
 
   return (
-    <div className={SettingStyles.sidebar}>
+    <div className={TotalStyles.SettingSidebar}>
       <ul>
         <li
-          className={SettingStyles.button}
+          className={TotalStyles.SettingButton}
           onClick={() => setSelectedMenu('userManagement')}
         >
           {texts[language].userManagement}
         </li>
         <li
-          className={SettingStyles.button}
+          className={TotalStyles.SettingButton}
           onClick={() => setSelectedMenu('logAct')}
         >
           {texts[language].logAct}
         </li>
         <li
-          className={SettingStyles.button}
+          className={TotalStyles.SettingButton}
           onClick={() => setSelectedMenu('interfaceSettings')}
         >
           {texts[language].interfaceSettings}
         </li>
         <li
-          className={SettingStyles.button}
+          className={TotalStyles.SettingButton}
           onClick={() => setSelectedMenu('dataImportExport')}
         >
           {texts[language].dataImportExport}
         </li>
         <li
-          className={SettingStyles.button}
+          className={TotalStyles.SettingButton}
           onClick={() => setSelectedMenu('reportSettings')}
         >
           {texts[language].reportSettings}
         </li>
         <li
-          className={SettingStyles.button}
+          className={TotalStyles.SettingButton}
           onClick={() => setSelectedMenu('customerSupportSettings')}
         >
           {texts[language].customerSupportSettings}

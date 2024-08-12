@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/styles';
+import TotalStyles from '../../styles/TotalStyles';
 
 interface DataTableProps {
   data: { [key: string]: string | number }[];
@@ -7,23 +7,23 @@ interface DataTableProps {
 
 const DataTable: React.FC<DataTableProps> = ({ data }) => {
   return (
-    <div className={styles.tableContainer}>
+    <div className={TotalStyles.ToggleTableContainer}>
       {data.length > 0 && (
-        <table className={styles.table}>
-          <thead className={styles.tableHead}>
+        <table className={TotalStyles.ToggleTable}>
+          <thead className={TotalStyles.ToggleTableHead}>
             <tr>
               {Object.keys(data[0]).map((key) => (
-                <th key={key} className={styles.tableHeaderCell}>
+                <th key={key} className={TotalStyles.ToggleTableHeaderCell}>
                   {key}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className={styles.tableBody}>
+          <tbody className={TotalStyles.ToggleTableBody}>
             {data.map((item, index) => (
               <tr key={index}>
                 {Object.entries(item).map(([key, value]) => (
-                  <td key={key} className={styles.tableDataCell}>
+                  <td key={key} className={TotalStyles.ToggleTableDataCell}>
                     {value}
                   </td>
                 ))}

@@ -1,6 +1,6 @@
 import React from 'react';
+import TotalStyles from '../styles/TotalStyles';
 import { useLanguage } from './LanguageContext';
-import { SettingStyles } from '../styles/styles-ys';
 
 const CustomerSupportSettings = () => {
   const { language } = useLanguage();
@@ -24,36 +24,51 @@ const CustomerSupportSettings = () => {
   };
 
   return (
-    <div className={SettingStyles.contentStyle}>
+    <div className={TotalStyles.SettingContentStyle}>
       <h1>{texts[language]}</h1>
       <div className="space-y-4">
         <p>
           {contacts[language]} 구하림 :{' '}
-          <a href="mailto:hrimkoo@gmail.com" className="text-blue-500">
-            hrimkoo@gmail.com
+          <a
+            href="mailto:hrimkoo@gmail.com"
+            className={TotalStyles.SettingEmail}
+          >
+            mailto:hrimkoo@gmail.com
           </a>
         </p>
         <p>
           {contacts[language]} 김정수 :{' '}
-          <a href="mailto:kjs20151240@gmail.com" className="text-blue-500">
-            kjs20151240@gmail.com
+          <a
+            href="mailto:kjs20151240@gmail.com"
+            className={TotalStyles.SettingEmail}
+          >
+            mailto:kjs20151240@gmail.com
           </a>
         </p>
         <p>
           {contacts[language]} 송이현 :{' '}
-          <a href="mailto:songehyun00@gmail.com" className="text-blue-500">
-            songehyun00@gmail.com
+          <a
+            href="mailto:songehyun00@gmail.com"
+            className={TotalStyles.SettingEmail}
+          >
+            mailto:songehyun00@gmail.com
           </a>
         </p>
         <p>
           {contacts[language]} 정호연 :{' '}
-          <a href="mailto:jea7730@gmail.com" className="text-blue-500">
-            jea7730@gmail.com
+          <a
+            href="mailto:jea7730@gmail.com"
+            className={TotalStyles.SettingEmail}
+          >
+            mailto:jea7730@gmail.com
           </a>
         </p>
         <p>
           {contacts[language]} 이연승 :{' '}
-          <a href="mailto:leeys951006@gmail.com" className="text-blue-500">
+          <a
+            href="mailto:leeys951006@gmail.com"
+            className={TotalStyles.SettingEmail}
+          >
             leeys951006@gmail.com
           </a>
         </p>

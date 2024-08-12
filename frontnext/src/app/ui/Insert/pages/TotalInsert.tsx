@@ -1,11 +1,11 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
-import Modal from '../components/modals/modalComponent';
+import Modal from '@/app/ui/Modal-Test/modalComponent';
 import ConfirmSaveModal from '../components/modals/ConfirmSaveModal';
 import ConfirmNavigateModal from '../components/modals/ConfirmNavigateModal';
 import TableData from '../components/TableData';
-import SidebarStyles from '../styles/SidebarStyles';
 import { useTableDataManagement } from '../components/TableFunctions';
+import TotalStyles from '../../styles/TotalStyles';
 import { useLanguage } from '../../SettingMoules/LanguageContext';
 
 const TotalSidebar: React.FC = () => {
@@ -61,7 +61,7 @@ const TotalSidebar: React.FC = () => {
   };
 
   return (
-    <div className={SidebarStyles.container}>
+    <div className={TotalStyles.SidebarContainer}>
       <Sidebar
         onTableClick={handleTableClick}
         onAddRow={handleAddRow}
@@ -69,7 +69,9 @@ const TotalSidebar: React.FC = () => {
       />
 
       <Modal show={showModal} onClose={toggleModal}>
-        <div className={SidebarStyles.modalOverlay}>{/* 모달 콘텐츠 */}</div>
+        <div className={TotalStyles.LoginMessageContainer}>
+          {/* 모달 콘텐츠 */}
+        </div>
       </Modal>
 
       <ConfirmSaveModal
@@ -84,13 +86,14 @@ const TotalSidebar: React.FC = () => {
         onClose={() => setShowNavigateModal(false)}
       />
 
-      <div className={SidebarStyles.mainContent}>
-        <h1 className={SidebarStyles.mainTitle}>
+      <div className={TotalStyles.SidebarMainContent}>
+        <h1 className={TotalStyles.SidebarMainTitle}>
           {texts[language].mainContent}
         </h1>
+
         {selectedTable && (
           <div>
-            <h2 className={SidebarStyles.tableTitle}>{selectedTable}</h2>
+            <h2 className={TotalStyles.SidebarTableTitle}>{selectedTable}</h2>
             <div>
               <TableData
                 data={tableData}
@@ -107,7 +110,10 @@ const TotalSidebar: React.FC = () => {
                 headerErrors={headerErrors}
               />
             </div>
-            <button className={SidebarStyles.saveButton} onClick={handleSave}>
+            <button
+              className={TotalStyles.SidebarSaveButton}
+              onClick={handleSave}
+            >
               {texts[language].save}
             </button>
           </div>

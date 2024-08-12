@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import TableStyles from '../../styles/TableDataStyles';
+import TotalStyles from '../../styles/TotalStyles';
 
 interface TableDataProps {
   data: any[];
@@ -67,8 +67,8 @@ const TableData: React.FC<TableDataProps> = ({
 
   const getInputClassName = (index: number) => {
     return headers.length >= 8
-      ? TableStyles.inputWide
-      : TableStyles.headerInput;
+      ? TotalStyles.MainContentInputWide
+      : TotalStyles.SidebarInput;
   };
 
   if (!tableData || tableData.length === 0) {
@@ -76,15 +76,15 @@ const TableData: React.FC<TableDataProps> = ({
   }
 
   return (
-    <div className={TableStyles.tableContainer}>
-      <div className={TableStyles.tableWrapper}>
-        <table className={TableStyles.table}>
-          <thead className={TableStyles.thead}>
+    <div className={TotalStyles.MainContentTableContainer}>
+      <div className={TotalStyles.MainContentTableWrapper}>
+        <table className={TotalStyles.MainContentTable}>
+          <thead className={TotalStyles.MainContentThead}>
             <tr>
               {headers.map((header, index) => (
                 <th
                   key={index}
-                  className={TableStyles.th}
+                  className={TotalStyles.MainContentTh}
                   onMouseEnter={() => setHoveredHeader(index)}
                   onMouseLeave={() => setHoveredHeader(null)}
                 >
@@ -98,14 +98,14 @@ const TableData: React.FC<TableDataProps> = ({
                   />
                   {hoveredHeader === index && (
                     <button
-                      className={TableStyles.deleteColumnButton}
+                      className={TotalStyles.MainContentDeleteColumnButton}
                       onClick={() => onDeleteColumn(index)}
                     >
                       -
                     </button>
                   )}
                   {headerErrors[index] && (
-                    <div className={TableStyles.errorText}>
+                    <div className={TotalStyles.MainContentErrorText}>
                       {headerErrors[index]}
                     </div>
                   )}
@@ -113,16 +113,16 @@ const TableData: React.FC<TableDataProps> = ({
               ))}
             </tr>
           </thead>
-          <tbody className={TableStyles.tbody}>
+          <tbody className={TotalStyles.MainContentTbody}>
             {tableData.map((row, rowIndex) => (
               <tr
                 key={rowIndex}
-                className={TableStyles.tr}
+                className={TotalStyles.MainContentTr}
                 onMouseEnter={() => setHoveredRow(rowIndex)}
                 onMouseLeave={() => setHoveredRow(null)}
               >
                 {headers.map((header, colIndex) => (
-                  <td key={header} className={TableStyles.td}>
+                  <td key={header} className={TotalStyles.MainContentTd}>
                     <input
                       ref={(el) => {
                         if (!inputRefs.current[rowIndex]) {
@@ -142,7 +142,7 @@ const TableData: React.FC<TableDataProps> = ({
                     />
                     {hoveredRow === rowIndex && colIndex === 0 && (
                       <button
-                        className={TableStyles.deleteRowButton}
+                        className={TotalStyles.MainContentDeleteRowButton}
                         onClick={() => onDeleteRow(rowIndex)}
                       >
                         -

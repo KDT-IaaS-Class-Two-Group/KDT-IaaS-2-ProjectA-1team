@@ -1,25 +1,15 @@
 'use client';
 
 import React, { FormEvent, useEffect, useState } from 'react';
-
 import { useRouter } from 'next/navigation';
-
 import { callApi } from '@/app/lib/AJAX';
-
 import ConDiv from '../Header/headerComponent/createConDiv';
-
 import LoginForm from './loginComponent/createLoginForm';
-
 import ButtonClick from '../Header/headerComponent/createBtn';
-
 import InputValueTag from './loginComponent/createInputTag';
-
 import LoginLabelTag from './loginComponent/createLabelTag';
-
-import { FormSectionstyles } from './loginComponent/loginFormStyles';
-
+import TotalStyles from '../styles/TotalStyles';
 import { LoginFormText } from './loginComponent/loginFormLiteral';
-
 import LoginCheckModal from '../Modal-Test/modalLoginCheck';
 
 const LoginFormSection = () => {
@@ -58,19 +48,19 @@ const LoginFormSection = () => {
 
   return (
     <>
-      <ConDiv className={FormSectionstyles.container}>
+      <ConDiv className={TotalStyles.LoginContainer}>
         <LoginForm
-          className={FormSectionstyles.form}
+          className={TotalStyles.LoginForm}
           onSubmitFunc={handleOnSubmit}
         >
-          <ConDiv className={FormSectionstyles.labelInputContainer}>
+          <ConDiv className={TotalStyles.LoginLabelInputContainer}>
             <LoginLabelTag
-              className={FormSectionstyles.label}
+              className={TotalStyles.LoginLabel}
               htmlFor={LoginFormText.form.nameI}
               value={LoginFormText.form.valueID}
             />
             <InputValueTag
-              className={FormSectionstyles.input}
+              className={TotalStyles.LoginInput}
               type={LoginFormText.form.inputTypeT}
               name={LoginFormText.form.nameI}
               value={id}
@@ -78,14 +68,14 @@ const LoginFormSection = () => {
               onChangeFunc={(e) => setId(e.target.value)}
             />
           </ConDiv>
-          <ConDiv className={FormSectionstyles.labelInputContainer}>
+          <ConDiv className={TotalStyles.LoginLabelInputContainer}>
             <LoginLabelTag
-              className={FormSectionstyles.label}
+              className={TotalStyles.LoginLabel}
               htmlFor={LoginFormText.form.password}
               value={LoginFormText.form.valuePassword}
             />
             <InputValueTag
-              className={FormSectionstyles.input}
+              className={TotalStyles.LoginInput}
               type={LoginFormText.form.inputTypeP}
               name={LoginFormText.form.password}
               value={password}
@@ -93,9 +83,9 @@ const LoginFormSection = () => {
               onChangeFunc={(e) => setPassword(e.target.value)}
             />
           </ConDiv>
-          <ConDiv className={FormSectionstyles.messageContainer}>
+          <ConDiv className={TotalStyles.LoginMessageContainer}>
             <ButtonClick
-              className={FormSectionstyles.button}
+              className={TotalStyles.LoginButton}
               type={LoginFormText.form.buttonType}
               textNode={LoginFormText.form.submitButton}
             />

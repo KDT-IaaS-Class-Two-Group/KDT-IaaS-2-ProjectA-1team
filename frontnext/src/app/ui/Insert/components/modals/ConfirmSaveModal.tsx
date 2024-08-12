@@ -1,7 +1,7 @@
 // components/ConfirmSaveModal.tsx
 import React from 'react';
-import Modal from './modalComponent';
-import { ModalStyles } from '@/app/ui/Modal-Test/styles/ModalStyles';
+import Modal from '@/app/ui/Modal-Test/modalComponent';
+import TotalStyles from '@/app/ui/styles/TotalStyles';
 
 interface ConfirmSaveModalProps {
   show: boolean;
@@ -19,13 +19,13 @@ const ConfirmSaveModal: React.FC<ConfirmSaveModalProps> = ({
       <h2 className="text-lg font-bold mb-4">정말로 저장하시겠습니까?</h2>
       <div className="flex justify-end space-x-4">
         <button
-          className={`${ModalStyles.button} ${ModalStyles.cancelButton}`}
+          className={`${TotalStyles.ModalButton} ${TotalStyles.ModalCancelButton}`}
           onClick={onClose}
         >
           취소
         </button>
         <button
-          className={`${ModalStyles.button} ${ModalStyles.confirmButton}`}
+          className={`${TotalStyles.ModalButton} ${TotalStyles.ModalConfirmButton}`}
           onClick={onConfirm}
         >
           확인
