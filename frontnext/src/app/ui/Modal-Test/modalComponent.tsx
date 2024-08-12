@@ -1,6 +1,6 @@
 // components/Modal.tsx
 import React from 'react';
-import { ModalStyles } from './styles/ModalStyles';
+import TotalStyles from '../styles/total-styles';
 
 interface ModalProps {
   show: boolean;
@@ -14,9 +14,9 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, children }) => {
   }
 
   return (
-    <div className={ModalStyles.modalOverlay}>
-      <div className={ModalStyles.modalContent}>
-        <button className={ModalStyles.closeButton} onClick={onClose}>
+    <div className={TotalStyles.modalOverlay}>
+      <div className={TotalStyles.modalContent}>
+        <button className={TotalStyles.closeButton} onClick={onClose}>
           ✕
         </button>
         {children}
