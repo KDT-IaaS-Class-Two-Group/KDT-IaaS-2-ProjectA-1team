@@ -25,7 +25,7 @@ const LoginCheckModal: React.FC<LoginCheckProps> = ({
 }) => {
   return (
     <>
-      <ConDiv className={TotalStyles.LoginCardContainer}>
+      <ConDiv className={TotalStyles.ModalOverlay}>
         <ConDiv className={TotalStyles.LoginCardContent}>
           <ModalPTag textNode={Message} className={TotalStyles.LoginCardBody} />
           <ButtonClick
