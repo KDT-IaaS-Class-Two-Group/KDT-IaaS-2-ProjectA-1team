@@ -43,7 +43,7 @@ const Form: React.FC<FormProps> = ({
           placeholder="Search"
           className={TotalStyles.ToggleInput}
         />
-        <button type="submit" className={TotalStyles.ToggleToggleButton}>
+        <button type="submit" className={TotalStyles.ToggleSubmit}>
           Submit
         </button>
       </div>
