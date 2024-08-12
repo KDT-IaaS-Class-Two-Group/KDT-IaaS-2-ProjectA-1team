@@ -1,5 +1,5 @@
 import React from 'react';
-import SidebarStyles from '../../styles/SidebarStyles';
+import TotalStyles from '@/app/ui/styles/TotalStyles';
 
 interface AddRowButtonProps {
   onAddRow: () => void;
@@ -8,7 +8,7 @@ interface AddRowButtonProps {
 const AddRowButton: React.FC<AddRowButtonProps> = ({ onAddRow }) => {
   return (
     <button
-      className={`${SidebarStyles.button} ${SidebarStyles.addRowButton}`}
+      className={`${TotalStyles.SidebarButton} ${TotalStyles.CreateTableModalCreateButton}`}
       onClick={onAddRow}
     >
       행 추가
