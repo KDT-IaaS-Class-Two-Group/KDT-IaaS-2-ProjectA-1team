@@ -4,6 +4,7 @@ import {
   Body,
   HttpException,
   HttpStatus,
+  Get,
 } from '@nestjs/common';
 
 import { SaveResponse, LoadResponse } from './back.interface';
@@ -12,6 +13,34 @@ import { SaveResponse, LoadResponse } from './back.interface';
 export class BackController {
   private readonly backPort = 8080;
   private readonly backupPort = 3300;
+
+  @Get('getDBName')
+  async getDBName(): Promise<string[]> {
+    try {
+      // 3300번 포트의 backup/getDBName으로 GET 요청을 보냅니다.
+      const responseFrom3300 = await fetch(
+        `http://localhost:${this.backupPort}/backup/getDBName`,
+      );
+
+      if (!responseFrom3300.ok) {
+        throw new HttpException(
+          'Failed to fetch from 3300',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+
+      const dataFrom3300: string[] = await responseFrom3300.json();
+
+      // 받은 데이터 리스트를 클라이언트에 반환합니다.
+      return dataFrom3300;
+    } catch (error) {
+      console.error('Error processing getDBName request:', error);
+      throw new HttpException(
+        'Error processing getDBName request',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 
   @Post('save')
   async save(): Promise<SaveResponse> {
