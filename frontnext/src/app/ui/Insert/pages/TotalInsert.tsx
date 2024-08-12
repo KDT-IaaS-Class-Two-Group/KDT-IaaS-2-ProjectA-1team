@@ -4,8 +4,8 @@ import Modal from '@/app/ui/Modal-Test/modalComponent';
 import ConfirmSaveModal from '../components/modals/ConfirmSaveModal';
 import ConfirmNavigateModal from '../components/modals/ConfirmNavigateModal';
 import TableData from '../components/TableData';
-import SidebarStyles from '../styles/SidebarStyles';
 import { useTableDataManagement } from '../components/TableFunctions';
+import TotalStyles from '../../styles/TotalStyles';
 
 const TotalSidebar: React.FC = () => {
   const {
@@ -32,7 +32,7 @@ const TotalSidebar: React.FC = () => {
   } = useTableDataManagement();
 
   return (
-    <div className={SidebarStyles.container}>
+    <div className={TotalStyles.SidebarContainer}>
       <Sidebar
         onTableClick={handleTableClick}
         onAddRow={handleAddRow}
@@ -40,7 +40,9 @@ const TotalSidebar: React.FC = () => {
       />
 
       <Modal show={showModal} onClose={toggleModal}>
-        <div className={SidebarStyles.modalOverlay}>{/* 모달 콘텐츠 */}</div>
+        <div className={TotalStyles.LoginMessageContainer}>
+          {/* 모달 콘텐츠 */}
+        </div>
       </Modal>
 
       <ConfirmSaveModal
@@ -55,11 +57,11 @@ const TotalSidebar: React.FC = () => {
         onClose={() => setShowNavigateModal(false)} // <- 수정됨
       />
 
-      <div className={SidebarStyles.mainContent}>
-        <h1 className={SidebarStyles.mainTitle}>Main Content</h1>
+      <div className={TotalStyles.SidebarMainContent}>
+        <h1 className={TotalStyles.SidebarMainTitle}>Main Content</h1>
         {selectedTable && (
           <div>
-            <h2 className={SidebarStyles.tableTitle}>{selectedTable}</h2>
+            <h2 className={TotalStyles.SidebarTableTitle}>{selectedTable}</h2>
             <div>
               <TableData
                 data={tableData}
@@ -76,7 +78,10 @@ const TotalSidebar: React.FC = () => {
                 headerErrors={headerErrors}
               />
             </div>
-            <button className={SidebarStyles.saveButton} onClick={handleSave}>
+            <button
+              className={TotalStyles.SidebarSaveButton}
+              onClick={handleSave}
+            >
               저장
             </button>
           </div>
