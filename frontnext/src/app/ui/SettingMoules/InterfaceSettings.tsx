@@ -40,7 +40,10 @@ const InterfaceSettings = () => {
         <button className={TotalStyles.SettingButton}>
           {texts[language].themeChange}
         </button>
-        <button className={TotalStyles.SettingButton}>
+        <button
+          className={TotalStyles.SettingButton}
+          onClick={() => setModalOpen(true)}
+        >
           {texts[language].languageSetting}
         </button>
       </div>
