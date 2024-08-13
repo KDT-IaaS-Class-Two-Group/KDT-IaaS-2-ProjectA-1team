@@ -26,8 +26,8 @@ export default function ToggleSection({
   const [selectedTable, setSelectedTable] = useState<string>('');
   const [isFormOpen, setIsFormOpen] = useState<boolean>(true);
   const [tableClass, setTableClass] = useState<string>(
-    TotalStyles.ToggleTableContainer,
-  ); // (수정)
+    `${TotalStyles.ToggleTableContainer} overflow-x-hidden`, // (수정 22)
+  );
 
   useEffect(() => {
     const fetchTables = async () => {
@@ -47,14 +47,12 @@ export default function ToggleSection({
   }, []);
 
   useEffect(() => {
-    if (data.length >= 10) {
-      // (수정)
-      setTableClass(`${TotalStyles.ToggleTableContainer} max-h-[32rem]`); // (수정)
+    if (data.length > 0 && Object.keys(data[0]).length >= 9) {
+      setTableClass(`${TotalStyles.ToggleTableContainer} overflow-x-auto`); // (수정 22)
     } else {
-      // (수정)
-      setTableClass(TotalStyles.ToggleTableContainer); // (수정)
+      setTableClass(`${TotalStyles.ToggleTableContainer} overflow-x-hidden`); // (수정 22)
     }
-  }, [data]); // (수정)
+  }, [data]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,6 +86,9 @@ export default function ToggleSection({
   const toggleForm = () => {
     setIsFormOpen(!isFormOpen);
   };
+  // (수정 40) 테이블 제목 행 수에 따라 가로 스크롤 클래스 적용
+  const tableHeaderRowCount = data.length > 0 ? Object.keys(data[0]).length : 0;
+  const isScrollable = tableHeaderRowCount >= 8;
 
   return (
     <div className={TotalStyles.ToggleMainContainer}>
@@ -105,9 +106,12 @@ export default function ToggleSection({
         </div>
       )}
       <ToggleButton isOpen={isFormOpen} onClick={toggleForm} />
-      {/* 수정 4: ToggleTableContainer 스타일을 적용 */}
-      <div className={tableClass}>
-        {' '}
+
+      <div
+        className={`${TotalStyles.ToggleTableContainer} ${
+          isScrollable ? TotalStyles.scrollable : ''
+        }`}
+      >
         <DataTable data={data} />
       </div>
     </div>
