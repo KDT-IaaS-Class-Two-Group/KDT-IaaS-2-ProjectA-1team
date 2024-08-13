@@ -120,7 +120,7 @@ const TotalStyles = {
 
   // Toggle Styles
   ToggleMainContainer:
-    'min-h-screen flex flex-col items-center justify-start bg-gray-100',
+    'flex flex-col items-center justify-start bg-gray-100 h-[calc(100vh-4rem)]', // 헤더 높이를 제외한 값
   ToggleContent: 'bg-white p-5 w-full max-w-none flex flex-col items-center',
   ToggleError: 'mt-4 text-center text-red-500',
   ToggleForm: 'space-y-4 flex items-center w-full',
