@@ -47,9 +47,9 @@ export const InputField: React.FC<InputFieldProps> = ({
       {handleDelete && containerRef && setCount && (
         <button
           onClick={() => handleDelete(id, containerRef, setCount)}
-          className={`${TotalStyles.CreateTableButton} bg-red-500 hover:bg-red-600`}
+          className={`${TotalStyles.CreateTableButton} ml-2 bg-red-500 hover:bg-red-600`}
         >
-          ⏤
+          ⎻
         </button>
       )}
     </div>
