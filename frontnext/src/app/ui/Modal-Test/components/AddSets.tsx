@@ -83,7 +83,7 @@ export const AddSets: React.FC = () => {
       try {
         const response = await callApi('8000/createRecommend', 'POST', useData);
         console.log(response);
-        setShowSuccessModal(true); // 테이블 생성 성공 시 모달 표시
+        alert('테이블이 생성되었습니다.');
       } catch (error) {
         console.error('API 호출 중 오류 발생:', error);
       } finally {
@@ -128,11 +128,10 @@ export const AddSets: React.FC = () => {
         });
 
         if (!response.ok) {
-          const result = await response.json();
-          throw new Error(result.detail || '테이블 생성 실패');
+          alert('중복된 테이블 이름입니다.');
+        } else {
+          setShowSuccessModal(true); // 성공 모달 표시
         }
-
-        setShowSuccessModal(true); // 테이블 생성 성공 시 모달 표시
 
         const result = await response.json();
         console.log('서버 응답:', result);
@@ -148,6 +147,11 @@ export const AddSets: React.FC = () => {
       setCount(newSets.length);
       return newSets;
     });
+  };
+
+  const handleModalClose = () => {
+    setShowSuccessModal(false);
+    window.location.reload(); // 페이지 새로 고침
   };
 
   useEffect(() => {
@@ -229,12 +233,13 @@ export const AddSets: React.FC = () => {
         />
       )}
 
-      <Modal show={showSuccessModal} onClose={() => setShowSuccessModal(false)}>
+      {/* 성공 모달 */}
+      <Modal show={showSuccessModal} onClose={handleModalClose}>
         <div className="text-center">
           <p className={TotalStyles.ModalText}>테이블이 생성되었습니다.</p>
           <button
             className={TotalStyles.ModalConfirmButton}
-            onClick={() => setShowSuccessModal(false)}
+            onClick={handleModalClose}
           >
             확인
           </button>
