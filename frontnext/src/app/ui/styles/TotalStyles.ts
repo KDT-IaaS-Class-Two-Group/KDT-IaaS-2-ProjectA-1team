@@ -130,13 +130,14 @@ const TotalStyles = {
     'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
   ToggleSubmit:
     'bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300',
-  ToggleTableContainer: 'w-full max-w-4xl',
+  ToggleTableContainer: 'w-[90%] mx-auto overflow-x-auto',
   ToggleTable: 'min-w-full divide-y divide-gray-200',
   ToggleTableHead: 'bg-gray-50',
   ToggleTableHeaderCell:
-    'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
+    'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider', // 열의 최소 너비 설정
   ToggleTableBody: 'bg-white divide-y divide-gray-200',
-  ToggleTableDataCell: 'px-6 py-4 whitespace-nowrap text-sm text-gray-500',
+  ToggleTableDataCell:
+    'px-6 py-4 whitespace-nowrap text-sm text-gray-500 min-w-[250px]', // 데이터 셀의 최소 너비 설정
   ToggleButton: 'self-end mt-4 text-gray-800 font-bold py-2 px-4 rounded',
   ToggleSelect:
     'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
