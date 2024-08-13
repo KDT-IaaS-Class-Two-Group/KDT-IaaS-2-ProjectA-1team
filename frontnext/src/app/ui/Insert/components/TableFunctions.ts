@@ -158,9 +158,12 @@ export function useTableDataManagement() {
     const updatedEditableHeaders = [...editableHeaders];
     const oldHeader = headers[index];
 
-    // 중복된 키가 존재하면 기존 값을 업데이트
+    // 중복된 키가 존재하면 기존 값을 업데이트하고 경고문 표시
     if (headers.includes(value) && value !== oldHeader) {
       console.warn(`중복된 컬럼 키: ${value}`);
+      const updatedErrors = [...headerErrors];
+      updatedErrors[index] = '이미 존재하는 열 제목입니다.';
+      setHeaderErrors(updatedErrors);
       return;
     }
 
@@ -184,12 +187,7 @@ export function useTableDataManagement() {
     setIsDataModified(true);
 
     const updatedErrors = [...headerErrors];
-    updatedErrors[index] =
-      value.trim() === ''
-        ? '열 제목을 입력하세요.'
-        : headers.includes(value) && editableHeaders.indexOf(value) !== index
-          ? '이미 존재하는 열 제목입니다.'
-          : '';
+    updatedErrors[index] = value.trim() === '' ? '열 제목을 입력하세요.' : '';
     setHeaderErrors(updatedErrors);
   };
 
