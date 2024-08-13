@@ -12,39 +12,45 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
   return (
     <div className={TotalStyles.ToggleTableContainer}>
       {data.length > 0 && (
-        <table
-          className={TotalStyles.ToggleTable}
-          style={isScrollable ? { minWidth: columnCount * 150 } : {}}
+        <div
+          className={
+            data.length > 15 ? TotalStyles.ToggleTableScrollWrapper : ''
+          }
         >
-          <thead className={TotalStyles.ToggleTableHead}>
-            <tr>
-              {Object.keys(data[0]).map((key) => (
-                <th
-                  key={key}
-                  className={TotalStyles.ToggleTableHeaderCell}
-                  style={isScrollable ? { minWidth: '200px' } : {}}
-                >
-                  {key}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className={TotalStyles.ToggleTableBody}>
-            {data.map((item, index) => (
-              <tr key={index}>
-                {Object.entries(item).map(([key, value]) => (
-                  <td
+          <table
+            className={TotalStyles.ToggleTable}
+            style={isScrollable ? { minWidth: columnCount * 150 } : {}}
+          >
+            <thead className={TotalStyles.ToggleTableHead}>
+              <tr>
+                {Object.keys(data[0]).map((key) => (
+                  <th
                     key={key}
-                    className={TotalStyles.ToggleTableDataCell}
-                    style={isScrollable ? { minWidth: '200px' } : {}}
+                    className={TotalStyles.ToggleTableHeaderCell}
+                    style={isScrollable ? { minWidth: '250px' } : {}}
                   >
-                    {value}
-                  </td>
+                    {key}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className={TotalStyles.ToggleTableBody}>
+              {data.map((item, index) => (
+                <tr key={index}>
+                  {Object.entries(item).map(([key, value]) => (
+                    <td
+                      key={key}
+                      className={TotalStyles.ToggleTableDataCell}
+                      style={isScrollable ? { minWidth: '250px' } : {}}
+                    >
+                      {value}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
