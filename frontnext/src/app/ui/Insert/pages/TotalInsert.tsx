@@ -87,10 +87,6 @@ const TotalSidebar: React.FC = () => {
       />
 
       <div className={TotalStyles.SidebarMainContent}>
-        <h1 className={TotalStyles.SidebarMainTitle}>
-          {texts[language].mainContent}
-        </h1>
-
         {selectedTable && (
           <div>
             <h2 className={TotalStyles.SidebarTableTitle}>{selectedTable}</h2>
