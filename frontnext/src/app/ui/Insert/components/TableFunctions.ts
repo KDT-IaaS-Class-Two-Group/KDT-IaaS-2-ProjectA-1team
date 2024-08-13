@@ -1,4 +1,3 @@
-// components/TableFunctions.ts
 import { useState, useEffect } from 'react';
 
 export function useTableDataManagement() {
@@ -157,13 +156,19 @@ export function useTableDataManagement() {
 
   const handleHeaderChange = (index: number, value: string) => {
     const updatedEditableHeaders = [...editableHeaders];
+    const oldHeader = headers[index];
+
+    // 중복된 키가 존재하면 기존 값을 업데이트
+    if (headers.includes(value) && value !== oldHeader) {
+      console.warn(`중복된 컬럼 키: ${value}`);
+      return;
+    }
+
     updatedEditableHeaders[index] = value;
     setEditableHeaders(updatedEditableHeaders);
 
     const updatedHeaders = [...headers];
-    const oldHeader = headers[index];
-
-    updatedHeaders[index] = value || headers[index];
+    updatedHeaders[index] = value || oldHeader;
     setHeaders(updatedHeaders);
 
     const updatedData = tableData.map((row) => {
@@ -210,8 +215,8 @@ export function useTableDataManagement() {
 
   return {
     showModal,
-    setShowConfirmModal, // <- 추가됨
-    setShowNavigateModal, // <- 추가됨
+    setShowConfirmModal,
+    setShowNavigateModal,
     showConfirmModal,
     showNavigateModal,
     selectedTable,
