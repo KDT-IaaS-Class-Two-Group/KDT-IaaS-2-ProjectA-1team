@@ -7,8 +7,8 @@ const TotalStyles = {
   ModalButton: 'px-4 py-2 rounded-lg text-white', // 버튼 스타일 추가
   ModalCancelButton: 'bg-gray-500 hover:bg-gray-600', // 취소 버튼 스타일
   ModalConfirmButton:
-    'bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4', // 추가된 스타일
-  ModalText: 'text-green-600', // 텍스트 색상을 검정색으로 설정
+    'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 mt-4',
+  ModalText: 'text-gray-800 text-lg', // 텍스트 색상과 크기를 설정
 
   // Create Table Styles
   CreateTableContainer: 'flex flex-col items-start mb-2.5 w-full',
