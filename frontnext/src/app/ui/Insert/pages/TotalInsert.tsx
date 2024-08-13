@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Modal from '@/app/ui/Modal-Test/modalComponent';
 import ConfirmSaveModal from '../components/modals/ConfirmSaveModal';
@@ -60,6 +60,23 @@ const TotalSidebar: React.FC = () => {
     },
   };
 
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // 성공 모달 상태 추가
+
+  const handleSaveAndShowModal = async () => {
+    await handleSave();
+    setShowSuccessModal(true); // 저장 후 성공 모달 표시
+  };
+
+  const handleConfirmAndSave = async () => {
+    await confirmSave(); // "정말로 저장하시겠습니까?" 확인 모달에서 확인을 누를 때 데이터 저장
+    setShowSuccessModal(true); // 저장 후 성공 모달 표시
+  };
+
+  const handleSuccessModalClose = () => {
+    setShowSuccessModal(false);
+    // 추가 동작이 필요하면 여기에 추가
+  };
+
   return (
     <div className={TotalStyles.SidebarContainer}>
       <Sidebar
@@ -76,7 +93,7 @@ const TotalSidebar: React.FC = () => {
 
       <ConfirmSaveModal
         show={showConfirmModal}
-        onConfirm={confirmSave}
+        onConfirm={handleConfirmAndSave} // 수정된 부분: 저장 후 성공 모달을 띄우는 핸들러로 연결
         onClose={() => setShowConfirmModal(false)}
       />
 
@@ -87,10 +104,14 @@ const TotalSidebar: React.FC = () => {
       />
 
       <div className={TotalStyles.SidebarMainContent}>
+        <h1 className={TotalStyles.SidebarMainTitle}>
+          {texts[language].mainContent}
+        </h1>
+
         {selectedTable && (
           <div>
             <h2 className={TotalStyles.SidebarTableTitle}>{selectedTable}</h2>
-            <div className={TotalStyles.MainContentTableScrollContainer}>
+            <div>
               <TableData
                 data={tableData}
                 onDataChange={handleDataChange}
@@ -108,13 +129,28 @@ const TotalSidebar: React.FC = () => {
             </div>
             <button
               className={TotalStyles.SidebarSaveButton}
-              onClick={handleSave}
+              onClick={() => setShowConfirmModal(true)} // 수정된 부분: 저장 확인 모달을 띄우는 핸들러 사용
             >
               {texts[language].save}
             </button>
           </div>
         )}
       </div>
+
+      {/* 성공 모달 */}
+      <Modal show={showSuccessModal} onClose={handleSuccessModalClose}>
+        <div className="text-center">
+          <p className={TotalStyles.ModalText}>
+            데이터가 성공적으로 업데이트되었습니다.
+          </p>
+          <button
+            className={TotalStyles.ModalConfirmButton}
+            onClick={handleSuccessModalClose}
+          >
+            확인
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };
