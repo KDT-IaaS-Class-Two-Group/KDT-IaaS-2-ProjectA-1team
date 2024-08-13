@@ -25,6 +25,9 @@ export default function ToggleSection({
   const [tables, setTables] = useState<string[]>([]);
   const [selectedTable, setSelectedTable] = useState<string>('');
   const [isFormOpen, setIsFormOpen] = useState<boolean>(true);
+  const [tableClass, setTableClass] = useState<string>(
+    TotalStyles.ToggleTableContainer,
+  ); // (수정)
 
   useEffect(() => {
     const fetchTables = async () => {
@@ -42,6 +45,16 @@ export default function ToggleSection({
     };
     fetchTables();
   }, []);
+
+  useEffect(() => {
+    if (data.length >= 10) {
+      // (수정)
+      setTableClass(`${TotalStyles.ToggleTableContainer} max-h-[32rem]`); // (수정)
+    } else {
+      // (수정)
+      setTableClass(TotalStyles.ToggleTableContainer); // (수정)
+    }
+  }, [data]); // (수정)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,7 +105,11 @@ export default function ToggleSection({
         </div>
       )}
       <ToggleButton isOpen={isFormOpen} onClick={toggleForm} />
-      <DataTable data={data} />
+      {/* 수정 4: ToggleTableContainer 스타일을 적용 */}
+      <div className={tableClass}>
+        {' '}
+        <DataTable data={data} />
+      </div>
     </div>
   );
 }
