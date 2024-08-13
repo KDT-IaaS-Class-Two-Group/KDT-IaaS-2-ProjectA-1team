@@ -1,4 +1,3 @@
-// components/TableFunctions.ts
 import { useState, useEffect } from 'react';
 
 export function useTableDataManagement() {
@@ -157,13 +156,22 @@ export function useTableDataManagement() {
 
   const handleHeaderChange = (index: number, value: string) => {
     const updatedEditableHeaders = [...editableHeaders];
+    const oldHeader = headers[index];
+
+    // 중복된 키가 존재하면 기존 값을 업데이트하고 경고문 표시
+    if (headers.includes(value) && value !== oldHeader) {
+      console.warn(`중복된 컬럼 키: ${value}`);
+      const updatedErrors = [...headerErrors];
+      updatedErrors[index] = '이미 존재하는 열 제목입니다.';
+      setHeaderErrors(updatedErrors);
+      return;
+    }
+
     updatedEditableHeaders[index] = value;
     setEditableHeaders(updatedEditableHeaders);
 
     const updatedHeaders = [...headers];
-    const oldHeader = headers[index];
-
-    updatedHeaders[index] = value || headers[index];
+    updatedHeaders[index] = value || oldHeader;
     setHeaders(updatedHeaders);
 
     const updatedData = tableData.map((row) => {
@@ -179,12 +187,7 @@ export function useTableDataManagement() {
     setIsDataModified(true);
 
     const updatedErrors = [...headerErrors];
-    updatedErrors[index] =
-      value.trim() === ''
-        ? '열 제목을 입력하세요.'
-        : headers.includes(value) && editableHeaders.indexOf(value) !== index
-          ? '이미 존재하는 열 제목입니다.'
-          : '';
+    updatedErrors[index] = value.trim() === '' ? '열 제목을 입력하세요.' : '';
     setHeaderErrors(updatedErrors);
   };
 
@@ -210,8 +213,8 @@ export function useTableDataManagement() {
 
   return {
     showModal,
-    setShowConfirmModal, // <- 추가됨
-    setShowNavigateModal, // <- 추가됨
+    setShowConfirmModal,
+    setShowNavigateModal,
     showConfirmModal,
     showNavigateModal,
     selectedTable,

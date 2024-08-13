@@ -41,8 +41,9 @@ async def create_table(request: CreateTableRequest):
         cursor.execute(create_table_sql)
         conn.commit()
 
-        # 테스트 데이터 삽입
-        insert_sql = f'INSERT INTO "{request.tableName}" ({", ".join(f'"{set_}"' for set_ in request.sets)}) VALUES ({", ".join(["?" for _ in request.sets])})'
+        # 테스트 데이터 삽입 - 빈 값은 공란으로 처리
+        values_placeholders = ', '.join(['?' for _ in request.sets])
+        insert_sql = f'INSERT INTO "{request.tableName}" ({columns}) VALUES ({values_placeholders})'
         cursor.execute(insert_sql, [''] * len(request.sets))
         conn.commit()
 
@@ -72,12 +73,12 @@ async def update_table(request: UpdateTableRequest):
                 cursor.execute(f'ALTER TABLE "{request.table}" ADD COLUMN "{column}" TEXT')
                 print(f'새로운 열 추가됨: {column}')
 
-        # 기존 데이터를 삭제하고 새로운 데이터를 삽입
+        # 기존 데이터를 삭제하고 새로운 데이터를 삽입 (빈 값은 공란으로 처리)
         cursor.execute(f'DELETE FROM "{request.table}"')
-        columns = ', '.join(request.data[0].keys())
+        columns = ', '.join([f'"{col}"' for col in request.data[0].keys()])
         placeholders = ', '.join(['?' for _ in request.data[0].keys()])
         for row in request.data:
-            values = tuple(row.values())
+            values = tuple('' if value is None else value for value in row.values())
             cursor.execute(f'INSERT INTO "{request.table}" ({columns}) VALUES ({placeholders})', values)
 
         conn.commit()
