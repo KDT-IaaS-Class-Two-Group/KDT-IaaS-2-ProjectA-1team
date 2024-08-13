@@ -22,7 +22,7 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
                 <th
                   key={key}
                   className={TotalStyles.ToggleTableHeaderCell}
-                  style={isScrollable ? { minWidth: '250px' } : {}}
+                  style={isScrollable ? { minWidth: '200px' } : {}}
                 >
                   {key}
                 </th>
@@ -36,7 +36,7 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
                   <td
                     key={key}
                     className={TotalStyles.ToggleTableDataCell}
-                    style={isScrollable ? { minWidth: '250px' } : {}}
+                    style={isScrollable ? { minWidth: '200px' } : {}}
                   >
                     {value}
                   </td>
