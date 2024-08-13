@@ -201,7 +201,7 @@ export const AddSets: React.FC = () => {
               </div>
             ))}
           </div>
-          <div>
+          <div className={TotalStyles.ButtonRow}>
             <button
               type="button"
               onClick={handleRecommend}
@@ -209,21 +209,21 @@ export const AddSets: React.FC = () => {
             >
               추천 템플릿
             </button>
-          </div>
-          <div className={TotalStyles.CreateTableButtonContainer}>
-            <button
-              type="button"
-              onClick={handleClick}
-              className={`${TotalStyles.CreateTableButton} ${TotalStyles.CreateTableAddButton}`}
-            >
-              추가
-            </button>
-            <button
-              type="submit"
-              className={`${TotalStyles.CreateTableButton} ${TotalStyles.CreateTableCreateButton}`}
-            >
-              생성
-            </button>
+            <div className={TotalStyles.CreateTableButtonGroup}>
+              <button
+                type="button"
+                onClick={handleClick}
+                className={`${TotalStyles.CreateTableButton} ${TotalStyles.CreateTableAddButton}`}
+              >
+                추가
+              </button>
+              <button
+                type="submit"
+                className={`${TotalStyles.CreateTableButton} ${TotalStyles.CreateTableCreateButton}`}
+              >
+                생성
+              </button>
+            </div>
           </div>
         </form>
       ) : (
