@@ -127,7 +127,7 @@ const TotalStyles = {
     'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
   ToggleSubmit:
     'bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300',
-  ToggleTableContainer: 'w-full max-w-4xl',
+  ToggleTableContainer: 'w-full max-w-8xl overflow-x-auto max-h-[31.5rem]', // 조히- 테이블 수정
   ToggleTable: 'min-w-full divide-y divide-gray-200',
   ToggleTableHead: 'bg-gray-50',
   ToggleTableHeaderCell:
