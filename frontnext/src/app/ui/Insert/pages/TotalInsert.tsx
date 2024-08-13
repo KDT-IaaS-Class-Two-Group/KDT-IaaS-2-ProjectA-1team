@@ -60,21 +60,21 @@ const TotalSidebar: React.FC = () => {
     },
   };
 
-  const [showSuccessModal, setShowSuccessModal] = useState(false); // 성공 모달 상태 추가
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleSaveAndShowModal = async () => {
     await handleSave();
-    setShowSuccessModal(true); // 저장 후 성공 모달 표시
+    setShowSuccessModal(true);
   };
 
   const handleConfirmAndSave = async () => {
-    await confirmSave(); // "정말로 저장하시겠습니까?" 확인 모달에서 확인을 누를 때 데이터 저장
-    setShowSuccessModal(true); // 저장 후 성공 모달 표시
+    await confirmSave();
+    setShowSuccessModal(true);
   };
 
   const handleSuccessModalClose = () => {
     setShowSuccessModal(false);
-    // 추가 동작이 필요하면 여기에 추가
+    window.location.reload(); // 페이지 새로 고침 추가
   };
 
   return (
@@ -93,7 +93,7 @@ const TotalSidebar: React.FC = () => {
 
       <ConfirmSaveModal
         show={showConfirmModal}
-        onConfirm={handleConfirmAndSave} // 수정된 부분: 저장 후 성공 모달을 띄우는 핸들러로 연결
+        onConfirm={handleConfirmAndSave}
         onClose={() => setShowConfirmModal(false)}
       />
 
@@ -129,7 +129,7 @@ const TotalSidebar: React.FC = () => {
             </div>
             <button
               className={TotalStyles.SidebarSaveButton}
-              onClick={() => setShowConfirmModal(true)} // 수정된 부분: 저장 확인 모달을 띄우는 핸들러 사용
+              onClick={() => setShowConfirmModal(true)}
             >
               {texts[language].save}
             </button>
@@ -137,7 +137,6 @@ const TotalSidebar: React.FC = () => {
         )}
       </div>
 
-      {/* 성공 모달 */}
       <Modal show={showSuccessModal} onClose={handleSuccessModalClose}>
         <div className="text-center">
           <p className={TotalStyles.ModalText}>
