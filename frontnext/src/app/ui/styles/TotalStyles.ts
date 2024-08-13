@@ -6,7 +6,9 @@ const TotalStyles = {
   ModalCloseButton: 'absolute top-2 right-2 text-gray-500 hover:text-gray-700',
   ModalButton: 'px-4 py-2 rounded-lg text-white', // 버튼 스타일 추가
   ModalCancelButton: 'bg-gray-500 hover:bg-gray-600', // 취소 버튼 스타일
-  ModalConfirmButton: 'bg-blue-500 hover:bg-blue-600', // 확인 버튼 스타일
+  ModalConfirmButton:
+    'bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4', // 추가된 스타일
+  ModalText: 'text-green-600', // 텍스트 색상을 검정색으로 설정
 
   // Create Table Styles
   CreateTableContainer: 'flex flex-col items-start mb-2.5 w-full',
