@@ -27,31 +27,31 @@ const LanguageModal = ({ onClose }: { onClose: () => void }) => {
             className={SettingStyles.button}
             onClick={() => handleLanguageChange('en')}
           >
-            영어
+            English
           </button>
           <button
             className={SettingStyles.button}
             onClick={() => handleLanguageChange('jp')}
           >
-            일본어
+            日本語
           </button>
           <button
             className={SettingStyles.button}
             onClick={() => handleLanguageChange('cn')}
           >
-            중국어
+            中國語
           </button>
           <button
             className={SettingStyles.button}
             onClick={() => handleLanguageChange('vn')}
           >
-            베트남어
+            tiếng Việt
           </button>
           <button
             className={SettingStyles.button}
             onClick={() => handleLanguageChange('th')}
           >
-            태국어
+            ภาษาไทย
           </button>
         </div>
       </div>
