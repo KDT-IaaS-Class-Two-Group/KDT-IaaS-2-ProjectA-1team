@@ -20,7 +20,10 @@ const TotalStyles = {
   CreateTableCreateButton: 'bg-green-500 hover:bg-green-600',
   CreateTableInputError: 'border-red-500',
   CreateTableRecommendButton:
-    'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 w-full mb-4',
+    'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600', // 추천 템플릿 버튼의 크기를 텍스트 크기에 맞추도록 수정
+  CreateTableButtonRow: 'flex justify-between items-center w-full mt-4', // 추천 템플릿 버튼과 추가/생성 버튼을 분리하여 배치하는 컨테이너 스타일
+  CreateTableButtonGroup: 'flex space-x-4', // 추가 및 생성 버튼을 묶어서 배치하는 그룹 스타일
+  CreateTableRecommendButtonContainer: 'flex flex-col space-y-2', // 추천 템플릿 안의 버튼들을 수직으로 정렬
 
   // Login Styles
   LoginCardContent:
