@@ -142,6 +142,7 @@ const TotalStyles = {
   ToggleSelect:
     'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
   ToggleSelectContainer: 'space-y-4', // selectContainer 속성을 추가합니다.
+  ToggleTableScrollWrapper: 'max-h-[670px] overflow-y-auto', // 테이블 컨테이너의 세로 스크롤 추가
 
   //Sum Styles
   SumContainer: 'fixed bottom-0 left-0 right-0 p-4', // 배경색 제거
