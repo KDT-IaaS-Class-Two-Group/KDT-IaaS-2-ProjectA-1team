@@ -94,7 +94,7 @@ const TotalSidebar: React.FC = () => {
         {selectedTable && (
           <div>
             <h2 className={TotalStyles.SidebarTableTitle}>{selectedTable}</h2>
-            <div>
+            <div className={TotalStyles.MainContentTableScrollContainer}>
               <TableData
                 data={tableData}
                 onDataChange={handleDataChange}
