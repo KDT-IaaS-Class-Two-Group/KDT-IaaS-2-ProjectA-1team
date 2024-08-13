@@ -10,7 +10,7 @@ const TotalStyles = {
 
   // Create Table Styles
   CreateTableContainer: 'flex flex-col items-start mb-2.5 w-full',
-  CreateTableInput: 'border rounded-lg p-2 w-full',
+  CreateTableInput: 'border rounded-lg p-2 w-full text-gray-700', // 텍스트 색상을 흰색에서 회색으로 변경
   CreateTableErrorText: 'text-red-500 text-sm mt-1',
   CreateTableButtonContainer: 'space-x-10',
   CreateTableButton: 'px-4 py-2 text-white rounded-lg hover:bg-blue-600',
