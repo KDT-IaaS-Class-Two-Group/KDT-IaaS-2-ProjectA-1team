@@ -127,8 +127,10 @@ const TotalStyles = {
     'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
   ToggleSubmit:
     'bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300',
-  ToggleTableContainer: 'w-full max-w-8xl overflow-x-auto max-h-[31.5rem]', // 조히- 테이블 수정
-  ToggleTable: 'min-w-full divide-y divide-gray-200',
+  ToggleTableContainer: 'w-full max-w-8xl overflow-x-auto  max-h-[32rem] ', // (수정 25)
+  ToggleTable: 'w-full  divide-y divide-gray-200', // (수정 25)
+  // (수정 40) 가로 스크롤을 위한 스타일 추가
+  scrollable: 'overflow-x-auto',
   ToggleTableHead: 'bg-gray-50',
   ToggleTableHeaderCell:
     'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
