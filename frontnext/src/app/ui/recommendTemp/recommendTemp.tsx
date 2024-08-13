@@ -11,7 +11,7 @@ interface RecommendProps {
 
 const RecommendTemp: React.FC<RecommendProps> = ({ className, onClose }) => {
   return (
-    <div className={TotalStyles.RecommendButtonContainer}>
+    <div className={TotalStyles.CreateTableRecommendButtonContainer}>
       <ButtonClick
         type="button"
         className={className}

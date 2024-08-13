@@ -201,7 +201,7 @@ export const AddSets: React.FC = () => {
               </div>
             ))}
           </div>
-          <div className={TotalStyles.ButtonRow}>
+          <div className={TotalStyles.CreateTableButtonRow}>
             <button
               type="button"
               onClick={handleRecommend}
