@@ -79,6 +79,9 @@ const TotalStyles = {
   MainContentTableWrapper: 'min-w-full overflow-x-auto',
   MainContentInputWide: 'w-32 px-2 py-1 border rounded',
 
+  // 추가된 스타일
+  MainContentTableScrollContainer: 'max-h-[700px] overflow-y-auto', // 높이를 제한하고, 스크롤바가 나타나도록 처리
+
   // Header Styles
   Header:
     'h-16 flex items-center justify-between bg-gray-100 border-b border-t border-gray-300 relative',
