@@ -83,7 +83,7 @@ export const AddSets: React.FC = () => {
       try {
         const response = await callApi('8000/createRecommend', 'POST', useData);
         console.log(response);
-        alert('테이블이 생성되었습니다.');
+        setShowSuccessModal(true); // alert 대신 모달 표시
       } catch (error) {
         console.error('API 호출 중 오류 발생:', error);
       } finally {
