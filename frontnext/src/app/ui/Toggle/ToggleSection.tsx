@@ -86,9 +86,6 @@ export default function ToggleSection({
   const toggleForm = () => {
     setIsFormOpen(!isFormOpen);
   };
-  // (수정 40) 테이블 제목 행 수에 따라 가로 스크롤 클래스 적용
-  const tableHeaderRowCount = data.length > 0 ? Object.keys(data[0]).length : 0;
-  const isScrollable = tableHeaderRowCount >= 8;
 
   return (
     <div className={TotalStyles.ToggleMainContainer}>
@@ -107,11 +104,7 @@ export default function ToggleSection({
       )}
       <ToggleButton isOpen={isFormOpen} onClick={toggleForm} />
 
-      <div
-        className={`${TotalStyles.ToggleTableContainer} ${
-          isScrollable ? TotalStyles.scrollable : ''
-        }`}
-      >
+      <div className={`${TotalStyles.ToggleTableContainer}`}>
         <DataTable data={data} />
       </div>
     </div>
