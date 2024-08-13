@@ -1,4 +1,5 @@
 import React from 'react';
+import TotalStyles from '../ui/styles/TotalStyles';
 
 interface Table {
   name: string;
@@ -11,11 +12,15 @@ interface TableListProps {
 
 const TableList: React.FC<TableListProps> = ({ tables, setSelectedTable }) => {
   return (
-    <div style={{ width: '200px', padding: '10px', borderRight: '1px solid #ddd' }}>
-      <h3>Tables</h3>
+    <div className={TotalStyles.TableListContainer}>
+      <h3 className={TotalStyles.TableListHeader}>Tables</h3>
       <ul>
         {tables.map((table, index) => (
-          <li key={index} onClick={() => setSelectedTable(table.name)} style={{ cursor: 'pointer' }}>
+          <li
+            key={index}
+            onClick={() => setSelectedTable(table.name)}
+            className={TotalStyles.TableListItem}
+          >
             {table.name}
           </li>
         ))}
