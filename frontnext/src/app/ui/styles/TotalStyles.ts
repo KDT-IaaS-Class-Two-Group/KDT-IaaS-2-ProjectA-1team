@@ -117,7 +117,7 @@ const TotalStyles = {
 
   // Toggle Styles
   ToggleMainContainer:
-    'min-h-screen flex flex-col items-center justify-start bg-gray-100',
+    'min-h-screen flex flex-col  justify-start bg-gray-100 overflow-x-auto',
   ToggleContent: 'bg-white p-5 w-full max-w-none flex flex-col items-center',
   ToggleError: 'mt-4 text-center text-red-500',
   ToggleForm: 'space-y-4 flex items-center w-full',
@@ -127,15 +127,17 @@ const TotalStyles = {
     'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
   ToggleSubmit:
     'bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300',
-  ToggleTableContainer: 'w-full max-w-8xl overflow-x-auto  max-h-[32rem] ', // (수정 25)
-  ToggleTable: 'w-full  divide-y divide-gray-200', // (수정 25)
+  ToggleTableContainer:
+    'items-start justify-start min-w-full overflow-x-auto  max-h-[32rem] ', // (수정 25)
+  ToggleTable: 'min-w-full   divide-y divide-gray-200 overflow-x-auto', // (수정 25)
   // (수정 40) 가로 스크롤을 위한 스타일 추가
   scrollable: 'overflow-x-auto',
   ToggleTableHead: 'bg-gray-50',
   ToggleTableHeaderCell:
-    'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
+    'min-w-32 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
   ToggleTableBody: 'bg-white divide-y divide-gray-200',
-  ToggleTableDataCell: 'px-6 py-4 whitespace-nowrap text-sm text-gray-500',
+  ToggleTableDataCell:
+    'min-w-32 px-6 py-4 whitespace-nowrap text-sm text-gray-500',
   ToggleButton: 'self-end mt-4 text-gray-800 font-bold py-2 px-4 rounded',
   ToggleSelect:
     'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
