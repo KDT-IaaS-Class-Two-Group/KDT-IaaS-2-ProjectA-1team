@@ -2,6 +2,7 @@
 
 import React from 'react';
 import ButtonClick from '@/app/ui/Header/headerComponent/createBtn';
+import TotalStyles from '../styles/TotalStyles';
 
 interface RecommendProps {
   className?: string;
@@ -10,7 +11,7 @@ interface RecommendProps {
 
 const RecommendTemp: React.FC<RecommendProps> = ({ className, onClose }) => {
   return (
-    <>
+    <div className={TotalStyles.RecommendButtonContainer}>
       <ButtonClick
         type="button"
         className={className}
@@ -29,7 +30,7 @@ const RecommendTemp: React.FC<RecommendProps> = ({ className, onClose }) => {
         textNode="돌아가기"
         clickFunc={onClose}
       />
-    </>
+    </div>
   );
 };
 
