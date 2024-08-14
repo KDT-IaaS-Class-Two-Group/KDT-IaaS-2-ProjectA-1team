@@ -1,6 +1,7 @@
 import React from 'react';
 import TotalStyles from '@/app/ui/styles/TotalStyles';
 import { useLanguage } from '../../../SettingMoules/LanguageContext';
+import { borderButton } from '@/app/ui/styles/ButtonStyles';
 
 interface AddRowButtonProps {
   onAddRow: () => void;
@@ -18,10 +19,7 @@ const AddRowButton: React.FC<AddRowButtonProps> = ({ onAddRow }) => {
   };
 
   return (
-    <button
-      className={`${TotalStyles.SidebarButton} ${TotalStyles.CreateTableCreateButton}`}
-      onClick={onAddRow}
-    >
+    <button className={borderButton} onClick={onAddRow}>
       {texts[language]}
     </button>
   );

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import TotalStyles from '../styles/TotalStyles';
 import { useLanguage } from '../SettingMoules/LanguageContext';
+import buttonStyles from '../styles/ButtonStyles';
 
 interface PasswordCheck {
   current_password: string;
@@ -228,7 +229,7 @@ const PasswordChangeForm: React.FC = () => {
             <button
               type="button"
               onClick={handleCancel}
-              className={TotalStyles.ModalCloseButton}
+              className={`${buttonStyles.ModalCloseButton} ${buttonStyles.absolute} ${buttonStyles.fontGray}`}
             >
               &times;
             </button>
