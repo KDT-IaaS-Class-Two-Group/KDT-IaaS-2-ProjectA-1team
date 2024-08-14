@@ -3,10 +3,6 @@ const TotalStyles = {
   ModalOverlay:
     'fixed inset-0 flex items-center justify-center bg-black z-50 bg-opacity-50 backdrop-blur-md',
   ModalContent: 'bg-white p-6 rounded-lg relative max-w-lg w-full mx-4',
-  ModalCloseButton: 'absolute top-2 right-2 text-gray-500 hover:text-gray-600',
-  ModalButton: 'px-4 py-2 rounded-lg text-center text-white', // 버튼의 세로 크기를 맞추기 위해 text-center 추가
-  ModalCancelButton: 'bg-gray-500 hover:bg-gray-600',
-  ModalConfirmButton: 'bg-blue-500 hover:bg-blue-600',
   ModalText: 'text-gray-800 text-lg', // 텍스트 색상과 크기를 설정
   ConfirmButton:
     'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-lg text-white',
@@ -51,9 +47,7 @@ const TotalStyles = {
   LoginFailureText: 'text-red-500 text-4xl font-bold',
 
   // Sidebar Styles
-  sidebar: 'w-72 bg-gray-800 text-white flex flex-col p-4 space-y-4',
-  SidebarButton: 'px-4 py-2 rounded-lg text-white hover:bg-blue-500',
-  SidebarAddColumnButton: 'bg-orange-500 hover:bg-orange-600',
+  sidebar: 'w-72 bg-gray-800 flex flex-col p-4 space-y-4',
   SidebarTableItem: 'py-2 px-4 hover:bg-gray-700 cursor-pointer',
   SidebarContainer: 'flex',
   SidebarHeight: 'h-[calc(100vh-4rem)]',
@@ -66,7 +60,7 @@ const TotalStyles = {
   SidebarTableTitle: 'text-xl font-bold mb-4',
   SidebarInput: 'w-full px-2 py-1 border rounded', // 기본 인풋 너비 설정
   SidebarSaveButton:
-    'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-full text-white',
+    'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-lg text-white',
 
   // Main Content Rendering Styles
   MainContentTableContainer: 'overflow-x-auto max-h-[780px] overflow-y-auto',
