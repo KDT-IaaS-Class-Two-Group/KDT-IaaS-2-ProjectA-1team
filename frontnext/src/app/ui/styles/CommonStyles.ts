@@ -8,6 +8,11 @@ const common = {
   absolute: 'absolute', // 절대 위치
   action: 'transition duration-300', // 애니메이션
 
+  // 테두리 스타일
+  border2px: 'border-2 border-gray-500 hover:bg-gray-600',
+  border4px: 'border-4 border-gray-500 hover:bg-gray-600',
+  border6px: 'border-6 border-gray-500 hover:bg-gray-600',
+
   // 여백 스타일
   px: 'px-4',
   py: 'py-2',
