@@ -3,25 +3,25 @@ const TotalStyles = {
   ModalOverlay:
     'fixed inset-0 flex items-center justify-center bg-black z-50 bg-opacity-50 backdrop-blur-md',
   ModalContent: 'bg-white p-6 rounded-lg relative max-w-lg w-full mx-4',
-  ModalCloseButton: 'absolute top-2 right-2 text-gray-500 hover:text-gray-700',
-  ModalButton: 'px-4 py-2 rounded-full text-center text-white', // 버튼의 세로 크기를 맞추기 위해 text-center 추가
+  ModalCloseButton: 'absolute top-2 right-2 text-gray-500 hover:text-gray-600',
+  ModalButton: 'px-4 py-2 rounded-lg text-center text-white', // 버튼의 세로 크기를 맞추기 위해 text-center 추가
   ModalCancelButton: 'bg-gray-500 hover:bg-gray-600',
   ModalConfirmButton: 'bg-blue-500 hover:bg-blue-600',
   ModalText: 'text-gray-800 text-lg', // 텍스트 색상과 크기를 설정
   ConfirmButton:
-    'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-full text-white',
+    'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-lg text-white',
 
   // Create Table Styles
   CreateTableContainer: 'flex flex-col items-start mb-2.5 w-full',
   CreateTableInput: 'border rounded-lg p-2 w-full text-gray-700', // 텍스트 색상을 흰색에서 회색으로 변경
   CreateTableErrorText: 'text-red-500 text-sm mt-1',
   CreateTableButtonContainer: 'space-x-10',
-  CreateTableButton: 'px-4 py-2 text-white rounded-full hover:bg-blue-600',
+  CreateTableButton: 'px-4 py-2 text-white rounded-lg hover:bg-blue-600',
   CreateTableAddButton: 'bg-gray-600 hover:bg-gray-500',
   CreateTableCreateButton: 'bg-blue-600 hover:bg-blue-500',
   CreateTableInputError: 'border-red-500',
   CreateTableRecommendButton:
-    'px-4 py-2 bg-gray-600 text-white rounded-full hover:bg-gray-500', // 추천 템플릿 버튼의 크기를 텍스트 크기에 맞추도록 수정
+    'px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500', // 추천 템플릿 버튼의 크기를 텍스트 크기에 맞추도록 수정
   CreateTableButtonRow: 'flex justify-between items-center w-full mt-4', // 추천 템플릿 버튼과 추가/생성 버튼을 분리하여 배치하는 컨테이너 스타일
   CreateTableButtonGroup: 'flex space-x-4', // 추가 및 생성 버튼을 묶어서 배치하는 그룹 스타일
   CreateTableRecommendButtonContainer: 'flex flex-col inline-flex space-y-2', // 추천 템플릿 안의 버튼들을 수직으로 정렬
@@ -52,7 +52,7 @@ const TotalStyles = {
 
   // Sidebar Styles
   sidebar: 'w-72 bg-gray-800 text-white flex flex-col p-4 space-y-4',
-  SidebarButton: 'px-4 py-2 rounded-full text-white hover:bg-gray-700',
+  SidebarButton: 'px-4 py-2 rounded-lg text-white hover:bg-blue-500',
   SidebarAddColumnButton: 'bg-orange-500 hover:bg-orange-600',
   SidebarTableItem: 'py-2 px-4 hover:bg-gray-700 cursor-pointer',
   SidebarContainer: 'flex',
