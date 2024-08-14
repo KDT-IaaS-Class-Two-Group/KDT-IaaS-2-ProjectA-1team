@@ -67,7 +67,7 @@ const TotalStyles = {
     'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-lg text-white',
 
   // Main Content Rendering Styles
-  MainContentTableContainer: 'overflow-x-auto',
+  MainContentTableContainer: 'overflow-x-auto max-h-[780px] overflow-y-auto',
   MainContentTable: 'min-w-full bg-white',
   MainContentThead: '',
   MainContentTh:
@@ -83,9 +83,6 @@ const TotalStyles = {
   MainContentErrorText: 'text-red-500 text-xs mt-1',
   MainContentTableWrapper: 'min-w-full overflow-x-auto',
   MainContentInputWide: 'w-32 px-2 py-1 border rounded',
-
-  // 추가된 스타일
-  MainContentTableScrollContainer: 'max-h-[700px] overflow-y-auto', // 높이를 제한하고, 스크롤바가 나타나도록 처리
 
   // Header Styles
   Header:
@@ -155,6 +152,11 @@ const TotalStyles = {
   SumTextCommon: 'text-md font-medium', // 크기를 'text-md'로 조정
   SumSelect: 'px-3 py-2 border rounded focus:outline-none', // 셀렉트 박스 패딩 조정
   SumDivider: 'w-full border-t border-gray-500 my-2', // 진한 색상으로 변경
+
+  // TableList Styles
+  TableListContainer: 'w-[200px] p-2.5 border-r border-gray-300', // width: 200px, padding: 10px, border-right: 1px solid #ddd
+  TableListHeader: 'text-lg font-semibold', // 기본적으로 h3 태그에 대한 스타일 추가 (크기와 두께)
+  TableListItem: 'cursor-pointer', // cursor: pointer
 };
 
 export default TotalStyles;
