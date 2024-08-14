@@ -105,14 +105,23 @@ export class AppController {
         body: JSON.stringify(createTableDto),
       });
       if (!response.ok) {
-        throw new Error('네트워크 응답이 정상이 아닙니다.');
+        const errorDetail = await response.json();
+        throw new Error(
+          errorDetail.detail || '네트워크 응답이 정상이 아닙니다.',
+        );
       }
       const result = await response.json();
       console.log('Python 서버 응답:', result);
       res.status(200).json(result);
     } catch (error) {
       console.error('Python 서버 요청 중 오류 발생:', error);
-      res.status(500).json({ message: 'Python 서버 요청 중 오류 발생' });
+      if (error.message.includes('이미 존재하는 테이블 이름입니다')) {
+        res.status(500).json({ message: '중복된 테이블 이름입니다.' });
+      } else {
+        res
+          .status(500)
+          .json({ message: 'Python 서버 요청 중 오류 발생: ' + error.message });
+      }
     }
   }
 

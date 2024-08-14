@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
-import { SettingStyles } from '../styles/styles-ys';
+import TotalStyles from '../styles/TotalStyles';
 import UserManagement from './UserManagement';
 import LogAct from './LogAct';
 import InterfaceSettings from './InterfaceSettings';
@@ -36,9 +36,9 @@ const MainContent: React.FC = () => {
   };
 
   return (
-    <div className={SettingStyles.containerStyle}>
+    <div className={TotalStyles.SettingContainerStyle}>
       <Sidebar isOpen={isSidebarOpen} setSelectedMenu={setSelectedMenu} />
-      <div className={SettingStyles.contentStyle}>{renderContent()}</div>
+      <div className={TotalStyles.SettingContentStyle}>{renderContent()}</div>
     </div>
   );
 };

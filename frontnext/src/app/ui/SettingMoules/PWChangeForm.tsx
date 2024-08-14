@@ -207,7 +207,7 @@ const PasswordChangeForm: React.FC = () => {
     };
 
   return (
-    <div>
+    <>
       <button
         type="button"
         onClick={openModal}
@@ -319,7 +319,7 @@ const PasswordChangeForm: React.FC = () => {
           </form>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

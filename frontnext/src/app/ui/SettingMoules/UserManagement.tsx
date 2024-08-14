@@ -53,7 +53,7 @@ const UserManagement = () => {
 
   return (
     <div className={TotalStyles.SettingContentStyle}>
-      <div className={TotalStyles.SettingButtonContainer}>
+      <div>
         <button className={TotalStyles.SettingButton}>
           {texts[language].createDeleteAccount}
         </button>

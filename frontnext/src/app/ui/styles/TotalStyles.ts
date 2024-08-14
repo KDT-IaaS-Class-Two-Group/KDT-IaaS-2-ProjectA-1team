@@ -1,24 +1,30 @@
 const TotalStyles = {
   // Modal Styles
   ModalOverlay:
-    'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50',
+    'fixed inset-0 flex items-center justify-center bg-black z-50 bg-opacity-50 backdrop-blur-md',
   ModalContent: 'bg-white p-6 rounded-lg relative max-w-lg w-full mx-4',
-  ModalCloseButton: 'absolute top-2 right-2 text-gray-500 hover:text-gray-700',
-  ModalButton: 'px-4 py-2 rounded-lg text-white', // 버튼 스타일 추가
-  ModalCancelButton: 'bg-gray-500 hover:bg-gray-600', // 취소 버튼 스타일
-  ModalConfirmButton: 'bg-blue-500 hover:bg-blue-600', // 확인 버튼 스타일
+  ModalCloseButton: 'absolute top-2 right-2 text-gray-500 hover:text-gray-600',
+  ModalButton: 'px-4 py-2 rounded-lg text-center text-white', // 버튼의 세로 크기를 맞추기 위해 text-center 추가
+  ModalCancelButton: 'bg-gray-500 hover:bg-gray-600',
+  ModalConfirmButton: 'bg-blue-500 hover:bg-blue-600',
+  ModalText: 'text-gray-800 text-lg', // 텍스트 색상과 크기를 설정
+  ConfirmButton:
+    'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-lg text-white',
 
   // Create Table Styles
   CreateTableContainer: 'flex flex-col items-start mb-2.5 w-full',
-  CreateTableInput: 'border rounded-lg p-2 w-full',
+  CreateTableInput: 'border rounded-lg p-2 w-full text-gray-700', // 텍스트 색상을 흰색에서 회색으로 변경
   CreateTableErrorText: 'text-red-500 text-sm mt-1',
   CreateTableButtonContainer: 'space-x-10',
   CreateTableButton: 'px-4 py-2 text-white rounded-lg hover:bg-blue-600',
-  CreateTableAddButton: 'bg-blue-500',
-  CreateTableCreateButton: 'bg-green-500 hover:bg-green-600',
+  CreateTableAddButton: 'bg-gray-600 hover:bg-gray-500',
+  CreateTableCreateButton: 'bg-blue-600 hover:bg-blue-500',
   CreateTableInputError: 'border-red-500',
   CreateTableRecommendButton:
-    'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 w-full mb-4',
+    'px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500', // 추천 템플릿 버튼의 크기를 텍스트 크기에 맞추도록 수정
+  CreateTableButtonRow: 'flex justify-between items-center w-full mt-4', // 추천 템플릿 버튼과 추가/생성 버튼을 분리하여 배치하는 컨테이너 스타일
+  CreateTableButtonGroup: 'flex space-x-4', // 추가 및 생성 버튼을 묶어서 배치하는 그룹 스타일
+  CreateTableRecommendButtonContainer: 'flex flex-col inline-flex space-y-2', // 추천 템플릿 안의 버튼들을 수직으로 정렬
 
   // Login Styles
   LoginCardContent:
@@ -45,8 +51,8 @@ const TotalStyles = {
   LoginFailureText: 'text-red-500 text-4xl font-bold',
 
   // Sidebar Styles
-  sidebar: 'w-64 bg-gray-800 text-white flex flex-col p-4 space-y-4',
-  SidebarButton: 'px-4 py-2 rounded-lg text-white hover:bg-gray-700',
+  sidebar: 'w-72 bg-gray-800 text-white flex flex-col p-4 space-y-4',
+  SidebarButton: 'px-4 py-2 rounded-lg text-white hover:bg-blue-500',
   SidebarAddColumnButton: 'bg-orange-500 hover:bg-orange-600',
   SidebarTableItem: 'py-2 px-4 hover:bg-gray-700 cursor-pointer',
   SidebarContainer: 'flex',
@@ -54,15 +60,16 @@ const TotalStyles = {
   SidebarButtonContainer: 'space-x-4 mt-4',
 
   // 메인 컨텐츠 영역 스타일
-  SidebarMainContent: 'flex-grow p-4 w-[calc(100%-16rem)] overflow-auto', // 고정된 너비와 스크롤 처리
+  SidebarMainContent:
+    'flex-grow p-4 w-[calc(100%-16rem)] overflow-auto bg-gray-100', // 고정된 너비와 스크롤 처리
   SidebarMainTitle: 'text-2xl font-bold',
   SidebarTableTitle: 'text-xl font-bold mb-4',
   SidebarInput: 'w-full px-2 py-1 border rounded', // 기본 인풋 너비 설정
   SidebarSaveButton:
-    'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-lg text-white',
+    'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-full text-white',
 
   // Main Content Rendering Styles
-  MainContentTableContainer: 'overflow-x-auto',
+  MainContentTableContainer: 'overflow-x-auto max-h-[780px] overflow-y-auto',
   MainContentTable: 'min-w-full bg-white',
   MainContentThead: '',
   MainContentTh:
@@ -81,23 +88,23 @@ const TotalStyles = {
 
   // Header Styles
   Header:
-    'h-16 flex items-center justify-between bg-gray-100 border-b border-t border-gray-300 relative',
+    'h-16 flex items-center justify-between bg-gray-100 relative shadow-lg',
   HeaderLeft: 'flex items-center mr-4',
   HeaderCenter: 'flex flex-grow justify-end',
-  HeaderRight: 'flex items-center ml-4 box-border pr-2.5',
+  HeaderRight: 'flex items-center ml-4 pr-2.5',
   HeaderButton:
-    'px-4 py-2 w-36 h-16 bg-gray-100 text-gray-700 cursor-pointer border-r border -l border-gray-300 box-border transition duration-300 hover:bg-gray-200 hover:border-gray-400',
+    'px-4 py-2 w-36 h-16 bg-gray-100 text-gray-700 cursor-pointer hover:bg-gray-200',
   HeaderButtonFirst:
-    'px-4 py-2 w-36 h-16 bg-gray-100 text-gray-700 cursor-pointer border -l border-gray-300 box-border transition duration-300 hover:bg-gray-200 hover:border-gray-400',
+    'px-4 py-2 w-36 h-16 bg-gray-100 text-gray-700 cursor-pointer hover:bg-gray-200',
   HeaderButtonLogout:
     'flex items-center justify-center text-sm font-bold bg-gray-100 text-gray-700 underline',
   HeaderSpan: 'text-base font-bold text-gray-700 mr-4',
 
   // Setting Styles
   SettingSidebar:
-    'w-64 h-screen bg-gray-800 text-white flex flex-col p-4 relative',
-  SettingContainerStyle: 'flex h-screen relative',
-  SettingContentStyle: 'flex-grow p-6',
+    'w-72 bg-gray-800 text-white flex flex-col p-4 relative h-[calc(100vh-4rem)]', // 헤더 높이 제외
+  SettingContainerStyle: 'flex relative h-[calc(100vh-4rem)] bg-gray-100', // 헤더 높이 제외
+  SettingContentStyle: 'flex-grow p-6 [calc(100vh-4rem)] bg-gray-100',
   SettingToggleButton:
     'fixed right-4 top-15 text-black p-2 rounded cursor-pointer z-50 transition-all duration-300 text-xl',
   SettingToggleButtonOpen: 'right-[87.5rem]',
@@ -105,7 +112,7 @@ const TotalStyles = {
   SettingEmail: 'text-blue-500',
   SettingButtonContainer: 'flex flex-col space-y-4',
   SettingButton:
-    'w-full px-4 py-2 rounded-lg hover:bg-gray-700 active:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-200 cursor-pointer text-center',
+    'w-full px-4 py-2 rounded-lg hover:bg-gray-700 active:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-200 cursor-pointer text-center mb-4',
 
   // Password Change Styles
   PasswordButton:
@@ -117,8 +124,9 @@ const TotalStyles = {
 
   // Toggle Styles
   ToggleMainContainer:
-    'min-h-screen flex flex-col items-center justify-start bg-gray-100',
-  ToggleContent: 'bg-white p-5 w-full max-w-none flex flex-col items-center',
+    'flex flex-col items-center justify-start bg-gray-100 h-[calc(100vh-4rem)]', // 헤더 높이를 제외한 값
+  ToggleContent:
+    'bg-white p-5 w-full max-w-none flex flex-col items-center shadow-md',
   ToggleError: 'mt-4 text-center text-red-500',
   ToggleForm: 'space-y-4 flex items-center w-full',
   ToggleFormRow: 'flex items-center justify-center space-x-4 w-full',
@@ -127,17 +135,19 @@ const TotalStyles = {
     'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
   ToggleSubmit:
     'bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300',
-  ToggleTableContainer: 'w-full max-w-4xl',
+  ToggleTableContainer: 'w-[90%] mx-auto overflow-x-auto h-[71%]',
   ToggleTable: 'min-w-full divide-y divide-gray-200',
   ToggleTableHead: 'bg-gray-50',
   ToggleTableHeaderCell:
-    'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
+    'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider', // 열의 최소 너비 설정
   ToggleTableBody: 'bg-white divide-y divide-gray-200',
-  ToggleTableDataCell: 'px-6 py-4 whitespace-nowrap text-sm text-gray-500',
+  ToggleTableDataCell:
+    'px-6 py-4 whitespace-nowrap text-sm text-gray-500 min-w-[250px]', // 데이터 셀의 최소 너비 설정
   ToggleButton: 'self-end mt-4 text-gray-800 font-bold py-2 px-4 rounded',
   ToggleSelect:
     'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
   ToggleSelectContainer: 'space-y-4', // selectContainer 속성을 추가합니다.
+  ToggleTableScrollWrapper: 'max-h-[670px] overflow-y-auto', // 테이블 컨테이너의 세로 스크롤 추가
 
   //Sum Styles
   SumContainer: 'fixed bottom-0 left-0 right-0 p-4', // 배경색 제거
@@ -145,6 +155,11 @@ const TotalStyles = {
   SumTextCommon: 'text-md font-medium', // 크기를 'text-md'로 조정
   SumSelect: 'px-3 py-2 border rounded focus:outline-none', // 셀렉트 박스 패딩 조정
   SumDivider: 'w-full border-t border-gray-500 my-2', // 진한 색상으로 변경
+
+  // TableList Styles
+  TableListContainer: 'w-[200px] p-2.5 border-r border-gray-300', // width: 200px, padding: 10px, border-right: 1px solid #ddd
+  TableListHeader: 'text-lg font-semibold', // 기본적으로 h3 태그에 대한 스타일 추가 (크기와 두께)
+  TableListItem: 'cursor-pointer', // cursor: pointer
 };
 
 export default TotalStyles;

@@ -3,6 +3,7 @@ import { createSetJSX } from '../utils/CreateSet';
 import TotalStyles from '../../styles/TotalStyles';
 import RecommendTemp from '../../recommendTemp/recommendTemp';
 import { callApi } from '@/app/lib/AJAX';
+import Modal from '../modalComponent';
 
 interface InputState {
   id: number;
@@ -21,6 +22,7 @@ export const AddSets: React.FC = () => {
     { id: 1, value: '', error: '' },
   ]);
   const [isRecommend, setIsRecommend] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // 성공 모달 상태 추가
   const containerRef = useRef<HTMLDivElement | null>(null);
   const tableNameInputRef = useRef<HTMLInputElement | null>(null);
   const isComposingRef = useRef(false);
@@ -81,7 +83,7 @@ export const AddSets: React.FC = () => {
       try {
         const response = await callApi('8000/createRecommend', 'POST', useData);
         console.log(response);
-        alert('테이블이 생성되었습니다.');
+        setShowSuccessModal(true); // alert 대신 모달 표시
       } catch (error) {
         console.error('API 호출 중 오류 발생:', error);
       } finally {
@@ -127,9 +129,11 @@ export const AddSets: React.FC = () => {
 
         if (!response.ok) {
           alert('중복된 테이블 이름입니다.');
+        } else {
+          setShowSuccessModal(true); // 성공 모달 표시
         }
-        const result = await response.json();
 
+        const result = await response.json();
         console.log('서버 응답:', result);
       } catch (error) {
         console.error('폼 제출 중 오류 발생:', error);
@@ -143,6 +147,11 @@ export const AddSets: React.FC = () => {
       setCount(newSets.length);
       return newSets;
     });
+  };
+
+  const handleModalClose = () => {
+    setShowSuccessModal(false);
+    window.location.reload(); // 페이지 새로 고침
   };
 
   useEffect(() => {
@@ -192,7 +201,7 @@ export const AddSets: React.FC = () => {
               </div>
             ))}
           </div>
-          <div>
+          <div className={TotalStyles.CreateTableButtonRow}>
             <button
               type="button"
               onClick={handleRecommend}
@@ -200,21 +209,21 @@ export const AddSets: React.FC = () => {
             >
               추천 템플릿
             </button>
-          </div>
-          <div className={TotalStyles.CreateTableButtonContainer}>
-            <button
-              type="button"
-              onClick={handleClick}
-              className={`${TotalStyles.CreateTableButton} ${TotalStyles.CreateTableAddButton}`}
-            >
-              추가
-            </button>
-            <button
-              type="submit"
-              className={`${TotalStyles.CreateTableButton} ${TotalStyles.CreateTableCreateButton}`}
-            >
-              생성
-            </button>
+            <div className={TotalStyles.CreateTableButtonGroup}>
+              <button
+                type="button"
+                onClick={handleClick}
+                className={`${TotalStyles.CreateTableButton} ${TotalStyles.CreateTableAddButton}`}
+              >
+                추가
+              </button>
+              <button
+                type="submit"
+                className={`${TotalStyles.CreateTableButton} ${TotalStyles.CreateTableCreateButton}`}
+              >
+                생성
+              </button>
+            </div>
           </div>
         </form>
       ) : (
@@ -223,6 +232,19 @@ export const AddSets: React.FC = () => {
           onClose={clickToCopyRecommend}
         />
       )}
+
+      {/* 성공 모달 */}
+      <Modal show={showSuccessModal} onClose={handleModalClose}>
+        <div className="text-center">
+          <p className={TotalStyles.ModalText}>테이블이 생성되었습니다.</p>
+          <button
+            className={TotalStyles.ConfirmButton}
+            onClick={handleModalClose}
+          >
+            확인
+          </button>
+        </div>
+      </Modal>
     </>
   );
 };

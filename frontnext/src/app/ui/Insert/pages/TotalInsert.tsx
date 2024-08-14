@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Modal from '@/app/ui/Modal-Test/modalComponent';
 import ConfirmSaveModal from '../components/modals/ConfirmSaveModal';
@@ -60,6 +60,23 @@ const TotalSidebar: React.FC = () => {
     },
   };
 
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  const handleSaveAndShowModal = async () => {
+    await handleSave();
+    setShowSuccessModal(true);
+  };
+
+  const handleConfirmAndSave = async () => {
+    await confirmSave();
+    setShowSuccessModal(true);
+  };
+
+  const handleSuccessModalClose = () => {
+    setShowSuccessModal(false);
+    window.location.reload(); // 페이지 새로 고침 추가
+  };
+
   return (
     <div className={TotalStyles.SidebarContainer}>
       <Sidebar
@@ -76,7 +93,7 @@ const TotalSidebar: React.FC = () => {
 
       <ConfirmSaveModal
         show={showConfirmModal}
-        onConfirm={confirmSave}
+        onConfirm={handleConfirmAndSave}
         onClose={() => setShowConfirmModal(false)}
       />
 
@@ -87,10 +104,6 @@ const TotalSidebar: React.FC = () => {
       />
 
       <div className={TotalStyles.SidebarMainContent}>
-        <h1 className={TotalStyles.SidebarMainTitle}>
-          {texts[language].mainContent}
-        </h1>
-
         {selectedTable && (
           <div>
             <h2 className={TotalStyles.SidebarTableTitle}>{selectedTable}</h2>
@@ -112,13 +125,27 @@ const TotalSidebar: React.FC = () => {
             </div>
             <button
               className={TotalStyles.SidebarSaveButton}
-              onClick={handleSave}
+              onClick={() => setShowConfirmModal(true)}
             >
               {texts[language].save}
             </button>
           </div>
         )}
       </div>
+
+      <Modal show={showSuccessModal} onClose={handleSuccessModalClose}>
+        <div className="text-center">
+          <p className={TotalStyles.ModalText}>
+            데이터가 성공적으로 업데이트되었습니다.
+          </p>
+          <button
+            className={TotalStyles.ConfirmButton}
+            onClick={handleSuccessModalClose}
+          >
+            확인
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };

@@ -33,17 +33,21 @@ async def create_table(request: CreateTableRequest):
     try:
         conn = sqlite3.connect('./data/정호연.db')
         cursor = conn.cursor()
-        
+
         # 테이블 생성 SQL 동적 생성
         columns = ', '.join([f'"{set_}" TEXT' for set_ in request.sets])
         create_table_sql = f'CREATE TABLE "{request.tableName}" ({columns})'
-        
+
+        print(f"Generated SQL: {create_table_sql}")  # 디버깅을 위한 SQL 출력
+
         cursor.execute(create_table_sql)
         conn.commit()
 
         # 테스트 데이터 삽입 - 빈 값은 공란으로 처리
+        columns_list = ', '.join([f'"{set_}"' for set_ in request.sets])
         values_placeholders = ', '.join(['?' for _ in request.sets])
-        insert_sql = f'INSERT INTO "{request.tableName}" ({columns}) VALUES ({values_placeholders})'
+        insert_sql = f'INSERT INTO "{request.tableName}" ({columns_list}) VALUES ({values_placeholders})'
+        
         cursor.execute(insert_sql, [''] * len(request.sets))
         conn.commit()
 
@@ -51,8 +55,10 @@ async def create_table(request: CreateTableRequest):
         
         return {"message": "테이블 생성 완료 및 테스트 데이터 삽입 완료"}
     except sqlite3.Error as e:
+        print(f'SQLite error: {e}')
         raise HTTPException(status_code=500, detail=f"테이블 생성 중 오류 발생: {str(e)}")
     except Exception as e:
+        print(f'Unknown error: {e}')
         raise HTTPException(status_code=500, detail=f"알 수 없는 오류 발생: {str(e)}")
 
 update_table_router = APIRouter()
