@@ -51,8 +51,8 @@ const TotalStyles = {
   LoginFailureText: 'text-red-500 text-4xl font-bold',
 
   // Sidebar Styles
-  sidebar: 'w-72 bg-gray-800 text-white flex flex-col p-4 space-y-4',
-  SidebarButton: 'px-4 py-2 rounded-lg text-white hover:bg-gray-700',
+  sidebar: 'w-72 bg-gray-800 text-white flex flex-col p-4 space-y-4 shadow-sm',
+  SidebarButton: 'px-4 py-2 rounded-2xl text-white hover:bg-gray-700',
   SidebarAddColumnButton: 'bg-orange-500 hover:bg-orange-600',
   SidebarTableItem: 'py-2 px-4 hover:bg-gray-700 cursor-pointer',
   SidebarContainer: 'flex',
@@ -111,7 +111,7 @@ const TotalStyles = {
   SettingEmail: 'text-blue-500',
   SettingButtonContainer: 'flex flex-col space-y-4',
   SettingButton:
-    'w-full px-4 py-2 rounded-lg hover:bg-gray-700 active:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-200 cursor-pointer text-center',
+    'w-full px-4 py-2 rounded-lg hover:bg-gray-700 active:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-200 cursor-pointer text-center mb-4',
 
   // Password Change Styles
   PasswordButton:
