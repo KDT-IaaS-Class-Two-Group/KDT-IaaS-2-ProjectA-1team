@@ -51,7 +51,7 @@ const TotalStyles = {
   LoginFailureText: 'text-red-500 text-4xl font-bold',
 
   // Sidebar Styles
-  sidebar: 'w-64 bg-gray-800 text-white flex flex-col p-4 space-y-4',
+  sidebar: 'w-72 bg-gray-800 text-white flex flex-col p-4 space-y-4',
   SidebarButton: 'px-4 py-2 rounded-lg text-white hover:bg-gray-700',
   SidebarAddColumnButton: 'bg-orange-500 hover:bg-orange-600',
   SidebarTableItem: 'py-2 px-4 hover:bg-gray-700 cursor-pointer',
