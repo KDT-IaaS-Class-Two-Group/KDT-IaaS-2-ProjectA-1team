@@ -1,5 +1,5 @@
 import React from 'react';
-import TotalStyles from '@/app/ui/styles/TotalStyles';
+import { borderButton } from '@/app/ui/styles/ButtonStyles';
 import { useLanguage } from '../../../SettingMoules/LanguageContext';
 
 interface AddColumnButtonProps {
@@ -18,10 +18,7 @@ const AddColumnButton: React.FC<AddColumnButtonProps> = ({ onAddColumn }) => {
   };
 
   return (
-    <button
-      className={`${TotalStyles.SidebarButton} ${TotalStyles.SidebarAddColumnButton}`}
-      onClick={onAddColumn}
-    >
+    <button className={borderButton} onClick={onAddColumn}>
       {texts[language]}
     </button>
   );
