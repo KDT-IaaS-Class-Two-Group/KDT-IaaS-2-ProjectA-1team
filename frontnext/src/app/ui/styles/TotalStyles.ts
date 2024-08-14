@@ -61,7 +61,7 @@ const TotalStyles = {
 
   // 메인 컨텐츠 영역 스타일
   SidebarMainContent:
-    'flex-grow p-4 w-[calc(100%-16rem)] overflow-auto bg-white', // 고정된 너비와 스크롤 처리
+    'flex-grow p-4 w-[calc(100%-16rem)] overflow-auto bg-gray-100', // 고정된 너비와 스크롤 처리
   SidebarMainTitle: 'text-2xl font-bold',
   SidebarTableTitle: 'text-xl font-bold mb-4',
   SidebarInput: 'w-full px-2 py-1 border rounded', // 기본 인풋 너비 설정
@@ -88,7 +88,7 @@ const TotalStyles = {
 
   // Header Styles
   Header:
-    'h-16 flex items-center justify-between bg-gray-100 border-b border-t border-gray-300 relative',
+    'h-16 flex items-center justify-between bg-gray-100 border-b border-t border-gray-300 relative shadow-lg',
   HeaderLeft: 'flex items-center mr-4',
   HeaderCenter: 'flex flex-grow justify-end',
   HeaderRight: 'flex items-center ml-4 box-border pr-2.5',
@@ -102,9 +102,9 @@ const TotalStyles = {
 
   // Setting Styles
   SettingSidebar:
-    'w-64 h-screen bg-gray-800 text-white flex flex-col p-4 relative',
-  SettingContainerStyle: 'flex h-screen relative',
-  SettingContentStyle: 'flex-grow p-6',
+    'w-72 bg-gray-800 text-white flex flex-col p-4 relative h-[calc(100vh-4rem)]', // 헤더 높이 제외
+  SettingContainerStyle: 'flex relative h-[calc(100vh-4rem)] bg-gray-100', // 헤더 높이 제외
+  SettingContentStyle: 'flex-grow p-6 [calc(100vh-4rem)] bg-gray-100',
   SettingToggleButton:
     'fixed right-4 top-15 text-black p-2 rounded cursor-pointer z-50 transition-all duration-300 text-xl',
   SettingToggleButtonOpen: 'right-[87.5rem]',
