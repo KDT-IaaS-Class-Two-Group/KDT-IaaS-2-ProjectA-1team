@@ -51,7 +51,7 @@ const TotalStyles = {
   LoginFailureText: 'text-red-500 text-4xl font-bold',
 
   // Sidebar Styles
-  sidebar: 'w-72 bg-gray-800 text-white flex flex-col p-4 space-y-4 shadow-sm',
+  sidebar: 'w-72 bg-gray-800 text-white flex flex-col p-4 space-y-4',
   SidebarButton: 'px-4 py-2 rounded-2xl text-white hover:bg-gray-700',
   SidebarAddColumnButton: 'bg-orange-500 hover:bg-orange-600',
   SidebarTableItem: 'py-2 px-4 hover:bg-gray-700 cursor-pointer',
@@ -60,7 +60,8 @@ const TotalStyles = {
   SidebarButtonContainer: 'space-x-4 mt-4',
 
   // 메인 컨텐츠 영역 스타일
-  SidebarMainContent: 'flex-grow p-4 w-[calc(100%-16rem)] overflow-auto', // 고정된 너비와 스크롤 처리
+  SidebarMainContent:
+    'flex-grow p-4 w-[calc(100%-16rem)] overflow-auto bg-white', // 고정된 너비와 스크롤 처리
   SidebarMainTitle: 'text-2xl font-bold',
   SidebarTableTitle: 'text-xl font-bold mb-4',
   SidebarInput: 'w-full px-2 py-1 border rounded', // 기본 인풋 너비 설정
@@ -124,7 +125,8 @@ const TotalStyles = {
   // Toggle Styles
   ToggleMainContainer:
     'flex flex-col items-center justify-start bg-gray-100 h-[calc(100vh-4rem)]', // 헤더 높이를 제외한 값
-  ToggleContent: 'bg-white p-5 w-full max-w-none flex flex-col items-center',
+  ToggleContent:
+    'bg-white p-5 w-full max-w-none flex flex-col items-center shadow-md',
   ToggleError: 'mt-4 text-center text-red-500',
   ToggleForm: 'space-y-4 flex items-center w-full',
   ToggleFormRow: 'flex items-center justify-center space-x-4 w-full',
