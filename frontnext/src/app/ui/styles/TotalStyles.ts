@@ -4,7 +4,7 @@ const TotalStyles = {
     'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50',
   ModalContent: 'bg-white p-6 rounded-lg relative max-w-lg w-full mx-4',
   ModalCloseButton: 'absolute top-2 right-2 text-gray-500 hover:text-gray-700',
-  ModalButton: 'px-4 py-2 rounded-lg text-center text-white', // 버튼의 세로 크기를 맞추기 위해 text-center 추가
+  ModalButton: 'px-4 py-2 rounded-full text-center text-white', // 버튼의 세로 크기를 맞추기 위해 text-center 추가
   ModalCancelButton: 'bg-gray-500 hover:bg-gray-600',
   ModalConfirmButton: 'bg-blue-500 hover:bg-blue-600',
   ModalText: 'text-gray-800 text-lg', // 텍스트 색상과 크기를 설정
@@ -52,7 +52,7 @@ const TotalStyles = {
 
   // Sidebar Styles
   sidebar: 'w-72 bg-gray-800 text-white flex flex-col p-4 space-y-4',
-  SidebarButton: 'px-4 py-2 rounded-2xl text-white hover:bg-gray-700',
+  SidebarButton: 'px-4 py-2 rounded-full text-white hover:bg-gray-700',
   SidebarAddColumnButton: 'bg-orange-500 hover:bg-orange-600',
   SidebarTableItem: 'py-2 px-4 hover:bg-gray-700 cursor-pointer',
   SidebarContainer: 'flex',
@@ -88,14 +88,14 @@ const TotalStyles = {
 
   // Header Styles
   Header:
-    'h-16 flex items-center justify-between bg-gray-100 border-b border-t border-gray-300 relative shadow-lg',
+    'h-16 flex items-center justify-between bg-gray-100 relative shadow-lg',
   HeaderLeft: 'flex items-center mr-4',
   HeaderCenter: 'flex flex-grow justify-end',
-  HeaderRight: 'flex items-center ml-4 box-border pr-2.5',
+  HeaderRight: 'flex items-center ml-4 pr-2.5',
   HeaderButton:
-    'px-4 py-2 w-36 h-16 bg-gray-100 text-gray-700 cursor-pointer border-r border -l border-gray-300 box-border transition duration-300 hover:bg-gray-200 hover:border-gray-400',
+    'px-4 py-2 w-36 h-16 bg-gray-100 text-gray-700 cursor-pointer hover:bg-gray-200',
   HeaderButtonFirst:
-    'px-4 py-2 w-36 h-16 bg-gray-100 text-gray-700 cursor-pointer border -l border-gray-300 box-border transition duration-300 hover:bg-gray-200 hover:border-gray-400',
+    'px-4 py-2 w-36 h-16 bg-gray-100 text-gray-700 cursor-pointer hover:bg-gray-200',
   HeaderButtonLogout:
     'flex items-center justify-center text-sm font-bold bg-gray-100 text-gray-700 underline',
   HeaderSpan: 'text-base font-bold text-gray-700 mr-4',
