@@ -16,15 +16,15 @@ const TotalStyles = {
   CreateTableInput: 'border rounded-lg p-2 w-full text-gray-700', // 텍스트 색상을 흰색에서 회색으로 변경
   CreateTableErrorText: 'text-red-500 text-sm mt-1',
   CreateTableButtonContainer: 'space-x-10',
-  CreateTableButton: 'px-4 py-2 text-white rounded-lg hover:bg-blue-600',
-  CreateTableAddButton: 'bg-blue-500',
-  CreateTableCreateButton: 'bg-green-500 hover:bg-green-600',
+  CreateTableButton: 'px-4 py-2 text-white rounded-full hover:bg-blue-600',
+  CreateTableAddButton: 'bg-gray-600 hover:bg-gray-500',
+  CreateTableCreateButton: 'bg-blue-600 hover:bg-blue-500',
   CreateTableInputError: 'border-red-500',
   CreateTableRecommendButton:
-    'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600', // 추천 템플릿 버튼의 크기를 텍스트 크기에 맞추도록 수정
+    'px-4 py-2 bg-gray-600 text-white rounded-full hover:bg-gray-500', // 추천 템플릿 버튼의 크기를 텍스트 크기에 맞추도록 수정
   CreateTableButtonRow: 'flex justify-between items-center w-full mt-4', // 추천 템플릿 버튼과 추가/생성 버튼을 분리하여 배치하는 컨테이너 스타일
   CreateTableButtonGroup: 'flex space-x-4', // 추가 및 생성 버튼을 묶어서 배치하는 그룹 스타일
-  CreateTableRecommendButtonContainer: 'flex flex-col space-y-2', // 추천 템플릿 안의 버튼들을 수직으로 정렬
+  CreateTableRecommendButtonContainer: 'flex flex-col inline-flex space-y-2', // 추천 템플릿 안의 버튼들을 수직으로 정렬
 
   // Login Styles
   LoginCardContent:
@@ -66,7 +66,7 @@ const TotalStyles = {
   SidebarTableTitle: 'text-xl font-bold mb-4',
   SidebarInput: 'w-full px-2 py-1 border rounded', // 기본 인풋 너비 설정
   SidebarSaveButton:
-    'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-lg text-white',
+    'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-full text-white',
 
   // Main Content Rendering Styles
   MainContentTableContainer: 'overflow-x-auto max-h-[780px] overflow-y-auto',
