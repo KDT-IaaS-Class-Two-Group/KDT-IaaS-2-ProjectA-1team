@@ -4,11 +4,12 @@ const TotalStyles = {
     'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50',
   ModalContent: 'bg-white p-6 rounded-lg relative max-w-lg w-full mx-4',
   ModalCloseButton: 'absolute top-2 right-2 text-gray-500 hover:text-gray-700',
-  ModalButton: 'px-4 py-2 rounded-lg text-white', // 버튼 스타일 추가
-  ModalCancelButton: 'bg-gray-500 hover:bg-gray-600', // 취소 버튼 스타일
-  ModalConfirmButton:
-    'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 mt-4',
+  ModalButton: 'px-4 py-2 rounded-lg text-center text-white', // 버튼의 세로 크기를 맞추기 위해 text-center 추가
+  ModalCancelButton: 'bg-gray-500 hover:bg-gray-600',
+  ModalConfirmButton: 'bg-blue-500 hover:bg-blue-600',
   ModalText: 'text-gray-800 text-lg', // 텍스트 색상과 크기를 설정
+  ConfirmButton:
+    'bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-lg text-white',
 
   // Create Table Styles
   CreateTableContainer: 'flex flex-col items-start mb-2.5 w-full',
@@ -132,7 +133,7 @@ const TotalStyles = {
     'px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
   ToggleSubmit:
     'bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300',
-  ToggleTableContainer: 'w-[90%] mx-auto overflow-x-auto',
+  ToggleTableContainer: 'w-[90%] mx-auto overflow-x-auto h-[71%]',
   ToggleTable: 'min-w-full divide-y divide-gray-200',
   ToggleTableHead: 'bg-gray-50',
   ToggleTableHeaderCell:
