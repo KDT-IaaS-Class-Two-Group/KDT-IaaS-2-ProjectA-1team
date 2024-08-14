@@ -1,7 +1,7 @@
 // components/ConfirmNavigateModal.tsx
 import React from 'react';
 import Modal from '@/app/ui/Modal-Test/modalComponent';
-import button from '@/app/ui/styles/ButtonStyles';
+import { closeButton, confirmButton } from '@/app/ui/styles/ButtonStyles';
 import common from '@/app/ui/styles/CommonStyles';
 
 interface ConfirmNavigateModalProps {
@@ -22,16 +22,10 @@ const ConfirmNavigateModal: React.FC<ConfirmNavigateModalProps> = ({
         저장하지 않고 나가시겠습니까?
       </h2>
       <div className="flex justify-end space-x-4">
-        <button
-          className={`${button.ModalButton} ${common.px} ${common.py} ${common.roundedLrage} ${common.textWhite} ${common.gray}`}
-          onClick={onClose}
-        >
+        <button className={closeButton} onClick={onClose}>
           취소
         </button>
-        <button
-          className={`${button.ModalButton} ${common.px} ${common.py} ${common.roundedLrage} ${common.textWhite} ${common.blue}`}
-          onClick={onConfirm}
-        >
+        <button className={confirmButton} onClick={onConfirm}>
           확인
         </button>
       </div>
