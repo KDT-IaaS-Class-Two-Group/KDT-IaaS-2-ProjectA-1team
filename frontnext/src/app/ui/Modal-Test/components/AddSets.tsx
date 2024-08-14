@@ -238,7 +238,7 @@ export const AddSets: React.FC = () => {
         <div className="text-center">
           <p className={TotalStyles.ModalText}>테이블이 생성되었습니다.</p>
           <button
-            className={TotalStyles.ModalConfirmButton}
+            className={TotalStyles.ConfirmButton}
             onClick={handleModalClose}
           >
             확인
