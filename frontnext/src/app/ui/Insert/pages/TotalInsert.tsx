@@ -139,7 +139,7 @@ const TotalSidebar: React.FC = () => {
             데이터가 성공적으로 업데이트되었습니다.
           </p>
           <button
-            className={TotalStyles.ModalConfirmButton}
+            className={TotalStyles.ConfirmButton}
             onClick={handleSuccessModalClose}
           >
             확인
