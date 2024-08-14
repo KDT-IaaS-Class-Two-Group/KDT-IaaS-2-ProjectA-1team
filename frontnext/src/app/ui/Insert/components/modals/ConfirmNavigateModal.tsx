@@ -2,7 +2,6 @@
 import React from 'react';
 import Modal from '@/app/ui/Modal-Test/modalComponent';
 import { closeButton, confirmButton } from '@/app/ui/styles/ButtonStyles';
-import common from '@/app/ui/styles/CommonStyles';
 
 interface ConfirmNavigateModalProps {
   show: boolean;
