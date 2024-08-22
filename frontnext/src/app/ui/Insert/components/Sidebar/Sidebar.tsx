@@ -23,8 +23,8 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       {/* 열 추가 및 행 추가 버튼 */}
       <div className={TotalStyles.SidebarButtonContainer}>
-        <AddColumnButton onAddColumn={onAddColumn} />
-        <AddRowButton onAddRow={onAddRow} />
+        <AddColumnButton onClick={onAddColumn} />
+        <AddRowButton onClick={onAddRow} />
       </div>
 
       {/* 테이블 목록 */}
