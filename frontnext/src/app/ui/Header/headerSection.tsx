@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import HeaderTags from './headerComponent/createHeaderTag';
-import ConDiv from './headerComponent/createConDiv';
-import SpanTag from './headerComponent/createSpanTag';
-import ButtonClick from './headerComponent/createBtn';
+import ButtonClick from './headerComponent/headerBtn';
+import SpanTag from './headerComponent/headerSpanTag';
+import ConDiv from './headerComponent/headerConDiv';
+import HeaderTags from './headerComponent/headerTag';
 import TotalStyles from '../styles/TotalStyles';
 import { useRouter } from 'next/navigation';
 import { TABMENUTEXTS, TABROUTES } from './headerComponent/RoutePath';
