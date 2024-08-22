@@ -3,14 +3,13 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { callApi } from '@/app/lib/AJAX';
-import ConDiv from '../Header/headerComponent/createConDiv';
-import LoginForm from './loginComponent/createLoginForm';
+import LoginForm from './loginComponent/loginFormTag';
 import ButtonClick from '../Header/headerComponent/createBtn';
-import InputValueTag from './loginComponent/createInputTag';
-import LoginLabelTag from './loginComponent/createLabelTag';
+import InputValueTag from './loginComponent/loginInputTag';
+import LoginLabelTag from './loginComponent/loginLabelTag';
 import TotalStyles from '../styles/TotalStyles';
 import { LoginFormText } from './loginComponent/loginFormLiteral';
-import LoginCheckModal from '../Modal-Test/modalLoginCheck';
+import LoginCheckModal from './loginCheckModal';
 
 const LoginFormSection = () => {
   const [id, setId] = useState('');
@@ -19,6 +18,13 @@ const LoginFormSection = () => {
   const [isLoginModal, setIsLoginModal] = useState(false);
   const router = useRouter();
 
+  /**
+   * * AJAX요청을 보내는 함수
+   * * 유저가 입력한 값을 useState로 받아온다.
+   * * callAPi는 lib에 있는 기능을 활용.
+   * * 모든 리터럴값은 loginFormLiteral.tsx파일에서 호출
+   * @param e // FormEvent
+   */
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const useData = { id, password };
@@ -36,10 +42,16 @@ const LoginFormSection = () => {
     }
   };
 
+  // * 확인 버튼을 클릭하면 Modal창이 사라지는 효과.
   const handleLoginModal = () => {
     setIsLoginModal(false);
   };
 
+  /**
+   * * AJAX 요청의 결과에 따라 처리되는 기능
+   * * true라면 useRouter의 기능으로, viewRef로 이동
+   * * 해당 Literal값은 loginFormLiteral에서 변경 가능.
+   */
   useEffect(() => {
     if (isResText) {
       router.push(LoginFormText.route);
@@ -48,12 +60,12 @@ const LoginFormSection = () => {
 
   return (
     <>
-      <ConDiv className={TotalStyles.LoginContainer}>
+      <div className={TotalStyles.LoginContainer}>
         <LoginForm
           className={TotalStyles.LoginForm}
           onSubmitFunc={handleOnSubmit}
         >
-          <ConDiv className={TotalStyles.LoginLabelInputContainer}>
+          <div className={TotalStyles.LoginLabelInputContainer}>
             <LoginLabelTag
               className={TotalStyles.LoginLabel}
               htmlFor={LoginFormText.form.nameI}
@@ -67,8 +79,8 @@ const LoginFormSection = () => {
               placeholder={LoginFormText.form.placeholders.id}
               onChangeFunc={(e) => setId(e.target.value)}
             />
-          </ConDiv>
-          <ConDiv className={TotalStyles.LoginLabelInputContainer}>
+          </div>
+          <div className={TotalStyles.LoginLabelInputContainer}>
             <LoginLabelTag
               className={TotalStyles.LoginLabel}
               htmlFor={LoginFormText.form.password}
@@ -82,14 +94,14 @@ const LoginFormSection = () => {
               placeholder={LoginFormText.form.placeholders.password}
               onChangeFunc={(e) => setPassword(e.target.value)}
             />
-          </ConDiv>
-          <ConDiv className={TotalStyles.LoginMessageContainer}>
+          </div>
+          <div className={TotalStyles.LoginMessageContainer}>
             <ButtonClick
               className={TotalStyles.LoginButton}
               type={LoginFormText.form.buttonType}
               textNode={LoginFormText.form.submitButton}
             />
-          </ConDiv>
+          </div>
         </LoginForm>
 
         {isLoginModal && (
@@ -100,7 +112,7 @@ const LoginFormSection = () => {
             Message={LoginFormText.modal.pMessage}
           />
         )}
-      </ConDiv>
+      </div>
     </>
   );
 };
