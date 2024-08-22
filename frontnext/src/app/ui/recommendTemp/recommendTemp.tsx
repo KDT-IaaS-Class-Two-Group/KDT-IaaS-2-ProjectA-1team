@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import ButtonClick from '@/app/ui/Header/headerComponent/createBtn';
+import ButtonClick from '../Header/headerComponent/headerBtn';
 import TotalStyles from '../styles/TotalStyles';
 
 interface RecommendProps {
