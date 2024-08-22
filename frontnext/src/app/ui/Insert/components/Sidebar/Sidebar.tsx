@@ -1,8 +1,8 @@
 import React from 'react';
 import TableModal from '@/app/ui/Modal-Test/components/CreateTableModal';
 import TableList from './TableList';
-import AddRowButton from './AddRowButton';
-import AddColumnButton from './AddColumnButton';
+import AddRowButton from './AddButton/Row';
+import AddColumnButton from './AddButton/Column';
 import TotalStyles from '@/app/ui/styles/TotalStyles';
 
 interface SidebarProps {
