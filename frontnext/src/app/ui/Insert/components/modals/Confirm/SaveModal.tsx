@@ -2,14 +2,9 @@
 import React from 'react';
 import Modal from '@/app/ui/Modal-Test/modalComponent';
 import { closeButton, confirmButton } from '@/app/ui/styles/ButtonStyles';
+import { ConfirmModalProps } from './components/ModalProps';
 
-interface ConfirmSaveModalProps {
-  show: boolean;
-  onConfirm: () => void;
-  onClose: () => void;
-}
-
-const ConfirmSaveModal: React.FC<ConfirmSaveModalProps> = ({
+const ConfirmSaveModal: React.FC<ConfirmModalProps> = ({
   show,
   onConfirm,
   onClose,
