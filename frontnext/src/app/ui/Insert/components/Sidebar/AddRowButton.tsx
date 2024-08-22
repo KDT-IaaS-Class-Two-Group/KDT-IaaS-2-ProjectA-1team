@@ -1,13 +1,9 @@
 import React from 'react';
-import TotalStyles from '@/app/ui/styles/TotalStyles';
 import { useLanguage } from '../../../SettingMoules/LanguageContext';
 import { borderButton } from '@/app/ui/styles/ButtonStyles';
+import { AddButtonProps } from './components/ButtonProps';
 
-interface AddRowButtonProps {
-  onAddRow: () => void;
-}
-
-const AddRowButton: React.FC<AddRowButtonProps> = ({ onAddRow }) => {
+const AddRowButton: React.FC<AddButtonProps> = ({ onClick: onAddRow }) => {
   const { language } = useLanguage();
   const texts = {
     ko: '행 추가',
