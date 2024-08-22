@@ -10,6 +10,10 @@ import { useRouter } from 'next/navigation';
 import { TABMENUTEXTS, TABROUTES } from './headerComponent/RoutePath';
 import { useLanguage } from '../SettingMoules/LanguageContext';
 
+/**
+ * * 리터럴값은 RouthPath.tsx에서 관리.
+ * @returns 
+ */
 const HeaderSection: React.FC = () => {
   const router = useRouter();
   const { language } = useLanguage();
