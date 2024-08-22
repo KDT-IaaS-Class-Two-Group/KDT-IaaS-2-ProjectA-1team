@@ -24,7 +24,7 @@ class VerifyRequest(BaseModel):
 @app.post("/login")
 def verify_user(request: VerifyRequest):
     print('login')
-    DATABASE = './data/login.db'
+    DATABASE = './data/logIn.db'
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
     cursor.execute(
