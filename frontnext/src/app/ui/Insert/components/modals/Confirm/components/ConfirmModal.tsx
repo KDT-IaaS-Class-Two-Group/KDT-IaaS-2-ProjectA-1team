@@ -1,25 +1,22 @@
-// components/ConfirmNavigateModal.tsx
+// components/ConfirmModal.tsx
 import React from 'react';
 import Modal from '@/app/ui/Modal-Test/modalComponent';
 import { closeButton, confirmButton } from '@/app/ui/styles/ButtonStyles';
+import { ConfirmModalProps } from './ModalProps';
 
-interface ConfirmNavigateModalProps {
-  show: boolean;
-  onConfirm: () => void;
-  onClose: () => void;
+interface ConfirmModalContentProps extends ConfirmModalProps {
+  message: React.ReactNode;
 }
 
-const ConfirmNavigateModal: React.FC<ConfirmNavigateModalProps> = ({
+const ConfirmModal: React.FC<ConfirmModalContentProps> = ({
   show,
   onConfirm,
   onClose,
+  message,
 }) => {
   return (
     <Modal show={show} onClose={onClose}>
-      <h2 className="text-lg font-bold mb-4">
-        저장하지 않은 변경 사항이 있습니다. <br />
-        저장하지 않고 나가시겠습니까?
-      </h2>
+      <h2 className="text-lg font-bold mb-4">{message}</h2>
       <div className="flex justify-end space-x-4">
         <button className={closeButton} onClick={onClose}>
           취소
@@ -32,4 +29,4 @@ const ConfirmNavigateModal: React.FC<ConfirmNavigateModalProps> = ({
   );
 };
 
-export default ConfirmNavigateModal;
+export default ConfirmModal;

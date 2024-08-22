@@ -1,12 +1,11 @@
 import React from 'react';
 import { borderButton } from '@/app/ui/styles/ButtonStyles';
 import { useLanguage } from '../../../SettingMoules/LanguageContext';
+import { AddButtonProps } from './components/ButtonProps';
 
-interface AddColumnButtonProps {
-  onAddColumn: () => void;
-}
-
-const AddColumnButton: React.FC<AddColumnButtonProps> = ({ onAddColumn }) => {
+const AddColumnButton: React.FC<AddButtonProps> = ({
+  onClick: onAddColumn,
+}) => {
   const { language } = useLanguage();
   const texts = {
     ko: '열 추가',

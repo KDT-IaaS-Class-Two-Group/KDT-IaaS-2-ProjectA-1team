@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Modal from '@/app/ui/Modal-Test/modalComponent';
-import ConfirmSaveModal from '../components/modals/ConfirmSaveModal';
-import ConfirmNavigateModal from '../components/modals/ConfirmNavigateModal';
+import ConfirmSaveModal from '../components/modals/Confirm/SaveModal';
+import ConfirmNavigateModal from '../components/modals/Confirm/NavigateModal';
 import TableData from '../components/TableData';
 import { useTableDataManagement } from '../components/TableFunctions';
 import TotalStyles from '../../styles/TotalStyles';
