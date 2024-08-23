@@ -19,8 +19,12 @@ const TableList: React.FC<TableListProps> = ({ onTableClick }) => {
 
   useEffect(() => {
     const getTables = async () => {
-      const tables = await fetchTables();
-      setTables(tables);
+      try {
+        const tables = await fetchTables();
+        setTables(tables);
+      } catch (error) {
+        console.error('Failed to fetch tables:', error);
+      }
     };
 
     getTables();
