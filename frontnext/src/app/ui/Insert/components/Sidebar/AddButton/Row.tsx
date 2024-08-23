@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '@/app/ui/SettingMoules/LanguageContext';
 import { borderButton } from '@/app/ui/styles/ButtonStyles';
-import { AddButtonProps } from '../components/ButtonProps';
+import { AddButtonProps } from '../components/SidebarProps';
 
 const AddRowButton: React.FC<AddButtonProps> = ({ onClick: onAddRow }) => {
   const { language } = useLanguage();

@@ -4,12 +4,7 @@ import TableList from './TableList';
 import AddRowButton from './AddButton/Row';
 import AddColumnButton from './AddButton/Column';
 import TotalStyles from '@/app/ui/styles/TotalStyles';
-
-interface SidebarProps {
-  onTableClick: (tableName: string) => void;
-  onAddRow: () => void;
-  onAddColumn: () => void;
-}
+import { SidebarProps } from './components/SidebarProps';
 
 const Sidebar: React.FC<SidebarProps> = ({
   onTableClick,
