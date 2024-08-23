@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { sumFromArray } from '@/app/lib/addIntAll';
 import TotalStyles from '../styles/TotalStyles';
-import { useLanguage } from '../../viewRef/Language/SumLanguageContext';
+import { useLanguage } from '../../ui/SettingMoules/LanguageContext';
 
 interface Props {
   columns: string[];
