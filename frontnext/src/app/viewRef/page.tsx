@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import HeaderSection from '../ui/Header/headerSection';
 import ToggleSection from '../ui/Toggle/ToggleSection';
 import SumComponent from '../ui/Sumsection/Sum';
-import { LanguageProvider } from './Language/viewRefLanguageContext';
+import { LanguageProvider } from '../ui/SettingMoules/LanguageContext';
 
 export default function Home() {
   const [columns, setColumns] = useState<string[]>([]); // 컬럼 데이터 상태 관리
