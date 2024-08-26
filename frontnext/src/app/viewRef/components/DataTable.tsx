@@ -1,5 +1,5 @@
 import React from 'react';
-import TotalStyles from '../../styles/TotalStyles';
+import TotalStyles from '../../ui/styles/TotalStyles';
 
 interface DataTableProps {
   data: { [key: string]: string | number }[];
