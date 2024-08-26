@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import HeaderSection from '../ui/Header/headerSection';
 import ToggleSection from '../ui/Toggle/ToggleSection';
-import SumComponent from '../ui/Sumsection/Sum';
+import SumComponent from './components/Sum';
 import { LanguageProvider } from '../ui/SettingMoules/LanguageContext';
 
 export default function Home() {
