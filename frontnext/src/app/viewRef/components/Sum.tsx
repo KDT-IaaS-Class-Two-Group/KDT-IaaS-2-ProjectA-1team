@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { sumFromArray } from '@/app/lib/addIntAll';
-import TotalStyles from '../styles/TotalStyles';
+import TotalStyles from '../../ui/styles/TotalStyles';
 import { useLanguage } from '../../ui/SettingMoules/LanguageContext';
 
 interface Props {
