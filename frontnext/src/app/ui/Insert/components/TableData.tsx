@@ -89,7 +89,7 @@ const TableData: React.FC<TableDataProps> = ({
                   onMouseLeave={() => setHoveredHeader(null)}
                 >
                   <input
-                    ref={(el) => (headerRefs.current[index] = el)}
+                    ref={(el) => {(headerRefs.current[index] = el)}}
                     type="text"
                     value={editableHeaders[index]}
                     className={getInputClassName(index)}

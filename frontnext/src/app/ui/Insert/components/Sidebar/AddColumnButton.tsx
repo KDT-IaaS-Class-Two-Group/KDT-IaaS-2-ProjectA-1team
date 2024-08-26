@@ -4,7 +4,7 @@ import { useLanguage } from '../../../SettingMoules/LanguageContext';
 import { AddButtonProps } from './components/ButtonProps';
 
 const AddColumnButton: React.FC<AddButtonProps> = ({
-  onClick: onAddColumn,
+  onClick
 }) => {
   const { language } = useLanguage();
   const texts = {
@@ -17,7 +17,7 @@ const AddColumnButton: React.FC<AddButtonProps> = ({
   };
 
   return (
-    <button className={borderButton} onClick={onAddColumn}>
+    <button className={borderButton} onClick={onClick}>
       {texts[language]}
     </button>
   );

@@ -3,7 +3,7 @@ import { useLanguage } from '../../../SettingMoules/LanguageContext';
 import { borderButton } from '@/app/ui/styles/ButtonStyles';
 import { AddButtonProps } from './components/ButtonProps';
 
-const AddRowButton: React.FC<AddButtonProps> = ({ onClick: onAddRow }) => {
+const AddRowButton: React.FC<AddButtonProps> = ({ onClick }) => {
   const { language } = useLanguage();
   const texts = {
     ko: '행 추가',
@@ -15,7 +15,7 @@ const AddRowButton: React.FC<AddButtonProps> = ({ onClick: onAddRow }) => {
   };
 
   return (
-    <button className={borderButton} onClick={onAddRow}>
+    <button className={borderButton} onClick={onClick}>
       {texts[language]}
     </button>
   );
