@@ -1,6 +1,6 @@
 import React from 'react';
-import TotalStyles from '../../styles/TotalStyles';
-import { useLanguage } from '../../SettingMoules/LanguageContext';
+import TotalStyles from '../../ui/styles/TotalStyles';
+import { useLanguage } from '../../ui/SettingMoules/LanguageContext';
 
 interface FormProps {
   handleSubmit: (e: React.FormEvent) => void;
