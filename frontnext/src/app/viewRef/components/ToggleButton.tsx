@@ -1,5 +1,6 @@
 import React from 'react';
 import TotalStyles from '../../ui/styles/TotalStyles';
+import ButtonIcon from '../components/ToggleButton/ButtonIcon';
 
 interface ToggleButtonProps {
   isOpen: boolean;
@@ -9,7 +10,7 @@ interface ToggleButtonProps {
 const ToggleButton: React.FC<ToggleButtonProps> = ({ isOpen, onClick }) => {
   return (
     <button onClick={onClick} className={TotalStyles.ToggleButton}>
-      {isOpen ? '▲' : '▼'}
+      <ButtonIcon isOpen={isOpen} />
     </button>
   );
 };
