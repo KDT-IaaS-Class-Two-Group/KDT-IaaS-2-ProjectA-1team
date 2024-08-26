@@ -1,5 +1,5 @@
 import React from 'react';
-import TotalStyles from '../../ui/styles/TotalStyles';
+import TotalStyles from '../../../ui/styles/TotalStyles';
 
 interface SumContainerProps {
   children: React.ReactNode;
