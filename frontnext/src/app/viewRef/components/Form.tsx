@@ -1,6 +1,11 @@
 import React from 'react';
 import TotalStyles from '../../ui/styles/TotalStyles';
 import { useLanguage } from '../../ui/SettingMoules/LanguageContext';
+import Label from '../components/Form/Label';
+import Select from '../components/Form/Select';
+import Input from '../components/Form/Input';
+import Button from '../components/Form/Button';
+import FormRow from '../components/Form/FormRow';
 
 interface FormProps {
   handleSubmit: (e: React.FormEvent) => void;
@@ -56,33 +61,21 @@ const Form: React.FC<FormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className={TotalStyles.ToggleForm}>
-      <div className={TotalStyles.ToggleFormRow}>
-        <label htmlFor="table-select" className={TotalStyles.ToggleLabel}>
-          {texts[language].tableLabel}
-        </label>
-        <select
+      <FormRow>
+        <Label htmlFor="table-select" text={texts[language].tableLabel} />
+        <Select
           id="table-select"
           value={selectedTable}
           onChange={(e) => setSelectedTable(e.target.value)}
-          className={TotalStyles.ToggleSelect}
-        >
-          {tables.map((table) => (
-            <option key={table} value={table}>
-              {table}
-            </option>
-          ))}
-        </select>
-        <input
-          type="text"
+          options={tables}
+        />
+        <Input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Search"
-          className={TotalStyles.ToggleInput}
+          placeholder={texts[language].searchPlaceholder}
         />
-        <button type="submit" className={TotalStyles.ToggleSubmit}>
-          {texts[language].submitButton}
-        </button>
-      </div>
+        <Button text={texts[language].submitButton} />
+      </FormRow>
     </form>
   );
 };
