@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import TableDataReturn from './TableDataReturn';
-import TotalStyles from '../../styles/TotalStyles';
+import TotalStyles from '@/app/ui/styles/TotalStyles';
 
 interface TableDataProps {
   data: any[];
@@ -26,8 +25,8 @@ const TableData: React.FC<TableDataProps> = ({
   const [tableData, setTableData] = useState(data);
   const [hoveredHeader, setHoveredHeader] = useState<number | null>(null);
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
-  const headerRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const inputRefs = useRef<(HTMLInputElement | null)[][]>([]);
+  const headerRefs = useRef<Array<HTMLInputElement | null>>([]);
+  const inputRefs = useRef<Array<Array<HTMLInputElement | null>>>([]);
 
   useEffect(() => {
     setTableData(data);
@@ -57,10 +56,7 @@ const TableData: React.FC<TableDataProps> = ({
           inputRefs.current[0][colIndex]?.focus();
         }
       } else {
-        if (
-          inputRefs.current[rowIndex + 1] &&
-          inputRefs.current[rowIndex + 1][colIndex]
-        ) {
+        if (inputRefs.current[rowIndex + 1]) {
           inputRefs.current[rowIndex + 1][colIndex]?.focus();
         } else if (headerRefs.current[colIndex + 1]) {
           headerRefs.current[colIndex + 1]?.focus();
@@ -74,6 +70,10 @@ const TableData: React.FC<TableDataProps> = ({
       ? TotalStyles.MainContentInputWide
       : TotalStyles.SidebarInput;
   };
+
+  if (!tableData || tableData.length === 0) {
+    return <div className="text-gray-500">데이터가 없습니다.</div>;
+  }
 
   return (
     <div className={TotalStyles.MainContentTableContainer}>
@@ -89,9 +89,7 @@ const TableData: React.FC<TableDataProps> = ({
                   onMouseLeave={() => setHoveredHeader(null)}
                 >
                   <input
-                    ref={(el) => {
-                      headerRefs.current[index] = el;
-                    }}
+                    ref={(el) => {(headerRefs.current[index] = el)}}
                     type="text"
                     value={editableHeaders[index]}
                     className={getInputClassName(index)}
