@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import TableDataReturn from './TableDataReturn';
+import TableDataReturn from './TableComponents/TableDataReturn';
 import TotalStyles from '@/app/ui/styles/TotalStyles';
 
 interface TableDataProps {
