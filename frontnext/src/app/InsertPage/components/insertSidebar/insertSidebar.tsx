@@ -1,5 +1,5 @@
 import React from 'react';
-import TableModal from '@/app/ui/Modal-Test/components/CreateTableModal';
+import TableModal from '@/app/InsertPage/components/insertModal/createTableModal/components/CreateTableModal';
 import TableList from './sidebarTableList';
 import AddRowButton from '@/app/InsertPage/components/elements/sidebarAddRowBtn';
 import AddColumnButton from '@/app/InsertPage/components/elements/sidebarAddColBtn';
