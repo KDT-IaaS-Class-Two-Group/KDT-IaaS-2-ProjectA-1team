@@ -1,5 +1,7 @@
 import React from 'react';
 import TotalStyles from '@/app/ui/styles/TotalStyles';
+import TableHeader from './TableHeader';
+import TableBody from './TableBody';
 
 interface TableDataReturnProps {
   tableData: any[];
@@ -51,80 +53,29 @@ const TableDataReturn: React.FC<TableDataReturnProps> = ({
     <div className={TotalStyles.MainContentTableContainer}>
       <div className={TotalStyles.MainContentTableWrapper}>
         <table className={TotalStyles.MainContentTable}>
-          <thead className={TotalStyles.MainContentThead}>
-            <tr>
-              {headers.map((header, index) => (
-                <th
-                  key={index}
-                  className={TotalStyles.MainContentTh}
-                  onMouseEnter={() => setHoveredHeader(index)}
-                  onMouseLeave={() => setHoveredHeader(null)}
-                >
-                  <input
-                    ref={(el) => (headerRefs.current[index] = el)}
-                    type="text"
-                    value={editableHeaders[index]}
-                    className={getInputClassName(index)}
-                    onChange={(e) => onHeaderChange(index, e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(e, 0, index, true)}
-                  />
-                  {hoveredHeader === index && (
-                    <button
-                      className={TotalStyles.MainContentDeleteColumnButton}
-                      onClick={() => onDeleteColumn(index)}
-                    >
-                      -
-                    </button>
-                  )}
-                  {headerErrors[index] && (
-                    <div className={TotalStyles.MainContentErrorText}>
-                      {headerErrors[index]}
-                    </div>
-                  )}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className={TotalStyles.MainContentTbody}>
-            {tableData.map((row, rowIndex) => (
-              <tr
-                key={rowIndex}
-                className={TotalStyles.MainContentTr}
-                onMouseEnter={() => setHoveredRow(rowIndex)}
-                onMouseLeave={() => setHoveredRow(null)}
-              >
-                {headers.map((header, colIndex) => (
-                  <td key={colIndex} className={TotalStyles.MainContentTd}>
-                    <input
-                      ref={(el) => {
-                        if (!inputRefs.current[rowIndex]) {
-                          inputRefs.current[rowIndex] = [];
-                        }
-                        inputRefs.current[rowIndex][colIndex] = el;
-                      }}
-                      type="text"
-                      value={row[header] || ''}
-                      className={getInputClassName(colIndex)}
-                      onChange={(e) =>
-                        handleInputChange(rowIndex, header, e.target.value)
-                      }
-                      onKeyDown={(e) =>
-                        handleKeyDown(e, rowIndex, colIndex, false)
-                      }
-                    />
-                    {hoveredRow === rowIndex && colIndex === 0 && (
-                      <button
-                        className={TotalStyles.MainContentDeleteRowButton}
-                        onClick={() => onDeleteRow(rowIndex)}
-                      >
-                        -
-                      </button>
-                    )}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
+          <TableHeader
+            headers={headers}
+            editableHeaders={editableHeaders}
+            headerErrors={headerErrors}
+            hoveredHeader={hoveredHeader}
+            headerRefs={headerRefs}
+            setHoveredHeader={setHoveredHeader}
+            handleKeyDown={handleKeyDown}
+            getInputClassName={getInputClassName}
+            onHeaderChange={onHeaderChange}
+            onDeleteColumn={onDeleteColumn}
+          />
+          <TableBody
+            tableData={tableData}
+            headers={headers}
+            hoveredRow={hoveredRow}
+            inputRefs={inputRefs}
+            setHoveredRow={setHoveredRow}
+            handleInputChange={handleInputChange}
+            handleKeyDown={handleKeyDown}
+            getInputClassName={getInputClassName}
+            onDeleteRow={onDeleteRow}
+          />
         </table>
       </div>
     </div>
