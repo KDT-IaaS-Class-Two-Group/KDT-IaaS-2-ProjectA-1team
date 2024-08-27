@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import DataTable from './ToggleComponents/DataTable';
-import Form from './ToggleComponents/Form';
-import ToggleButton from './ToggleButton';
+import DataTable from '../../viewRef/components/DataTable';
+import Form from '../../viewRef/components/Form';
+import ToggleButton from '../../viewRef/components/ToggleButton';
 import TotalStyles from '../styles/TotalStyles';
 
 interface UserDTO {
