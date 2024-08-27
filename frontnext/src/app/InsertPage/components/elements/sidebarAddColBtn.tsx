@@ -1,7 +1,7 @@
 import React from 'react';
 import { borderButton } from '@/app/ui/styles/ButtonStyles';
-import { useLanguage } from '../../../SettingMoules/LanguageContext';
-import { AddButtonProps } from './components/ButtonProps';
+import { useLanguage } from '@/app/ui/SettingMoules/LanguageContext';
+import { AddButtonProps } from '@/app/InsertPage/components/interface/sidebarBtnProps';
 
 const AddColumnButton: React.FC<AddButtonProps> = ({
   onClick

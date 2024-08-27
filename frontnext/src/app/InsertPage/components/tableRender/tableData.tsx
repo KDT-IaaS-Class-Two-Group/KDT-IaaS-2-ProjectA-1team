@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import TotalStyles from '../../styles/TotalStyles';
+import TotalStyles from '@/app/ui/styles/TotalStyles';
 
 interface TableDataProps {
   data: any[];
