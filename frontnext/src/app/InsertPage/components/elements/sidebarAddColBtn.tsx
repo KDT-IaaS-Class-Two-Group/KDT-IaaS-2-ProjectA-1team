@@ -3,9 +3,7 @@ import { borderButton } from '@/app/ui/styles/ButtonStyles';
 import { useLanguage } from '@/app/ui/SettingMoules/LanguageContext';
 import { AddButtonProps } from '@/app/InsertPage/components/interface/sidebarBtnProps';
 
-const AddColumnButton: React.FC<AddButtonProps> = ({
-  onClick
-}) => {
+const AddColumnButton: React.FC<AddButtonProps> = ({ onClick }) => {
   const { language } = useLanguage();
   const texts = {
     ko: '열 추가',

@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchTables } from '@/app/lib/fetchDataTest';
 import { useLanguage } from '@/app/ui/SettingMoules/LanguageContext';
 import common from '@/app/ui/styles/CommonStyles';
-
-interface TableListProps {
-  onTableClick: (tableName: string) => void;
-}
+import { TableListProps } from '../interface/sidebarBtnProps';
 
 const TableList: React.FC<TableListProps> = ({ onTableClick }) => {
   const [tables, setTables] = useState<string[]>([]);
@@ -22,8 +19,12 @@ const TableList: React.FC<TableListProps> = ({ onTableClick }) => {
 
   useEffect(() => {
     const getTables = async () => {
-      const tables = await fetchTables();
-      setTables(tables);
+      try {
+        const tables = await fetchTables();
+        setTables(tables);
+      } catch (error) {
+        console.error('Failed to fetch tables:', error);
+      }
     };
 
     getTables();
