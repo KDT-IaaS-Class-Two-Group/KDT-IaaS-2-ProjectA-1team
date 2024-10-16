@@ -9,7 +9,7 @@ table_router = APIRouter()
 @table_router.get("/tables", response_model=List[str])
 async def get_tables():
     try:
-        tables = get_table_names('./data/정호연.db')
+        tables = get_table_names('./app/data/정호연.db')
         return tables
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -31,7 +31,7 @@ create_table_router = APIRouter()
 @create_table_router.post("/createTable")
 async def create_table(request: CreateTableRequest):
     try:
-        conn = sqlite3.connect('./data/정호연.db')
+        conn = sqlite3.connect('./app/data/정호연.db')
         cursor = conn.cursor()
 
         # 테이블 생성 SQL 동적 생성
@@ -66,7 +66,7 @@ update_table_router = APIRouter()
 @update_table_router.post("/updateTable")
 async def update_table(request: UpdateTableRequest):
     try:
-        conn = sqlite3.connect('./data/정호연.db')
+        conn = sqlite3.connect('./app/data/정호연.db')
         cursor = conn.cursor()
 
         # 테이블에 존재하는 컬럼 가져오기

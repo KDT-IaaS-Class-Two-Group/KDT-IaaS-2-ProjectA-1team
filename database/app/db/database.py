@@ -2,7 +2,7 @@ import sqlite3
 from typing import List, Dict
 
 def connect_db():
-    conn = sqlite3.connect('./data/정호연.db')
+    conn = sqlite3.connect('./app/data/정호연.db')
     conn.row_factory = sqlite3.Row
     return conn
 

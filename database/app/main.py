@@ -6,6 +6,7 @@ from routers.routers import table_router, data_router, create_table_router, upda
 from routers.pwChange import router as pwCheange_router  # pwCheange 라우터를 임포트
 from typing import List
 from db.createToCopy import copy_table_structure
+import uvicorn
 
 app = FastAPI()
 
@@ -78,3 +79,6 @@ def delete_column(request: DeleteColumnRequest):
     except Exception as e:
         print(f'Error: {e}')
         raise HTTPException(status_code=500, detail=f"Column deletion failed: {str(e)}")
+
+if __name__ == "__main__" :
+    uvicorn.run(app="main:app", host="127.0.0.1", port=8080, reload=True)

@@ -1,6 +1,6 @@
 // components/ConfirmSaveModal.tsx
 import React from 'react';
-import { ConfirmModalProps } from '../interface/ModalProps';
+import { ConfirmModalProps } from '../../interface/ModalProps';
 import ConfirmModal from './comfirmModal';
 
 const ConfirmSaveModal: React.FC<ConfirmModalProps> = (
