@@ -25,7 +25,7 @@ class VerifyRequest(BaseModel):
 @app.post("/login")
 def verify_user(request: VerifyRequest):
     print('login')
-    DATABASE = './data/logIn.db'
+    DATABASE = './app/data/logIn.db'
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
     cursor.execute(
@@ -62,7 +62,7 @@ class DeleteColumnRequest(BaseModel):
 @app.post('/deleteColumn')
 def delete_column(request: DeleteColumnRequest):
     try:
-        conn = sqlite3.connect('./data/정호연.db')
+        conn = sqlite3.connect('./app/data/정호연.db')
         cursor = conn.cursor()
 
         # 여러 열을 삭제
